@@ -52,7 +52,7 @@
               <div class="popular-keywords text-start mt-20">
                 <p class="mb-10 color-white">Popular search:</p><a class="color-gray-600 mr-10 font-xs" href="#">Platform,</a><a class="color-gray-600 mr-10 font-xs" href="#"># Database,</a><a class="color-gray-600 mr-10 font-xs" href="#"># Price</a>
               </div>
-            </div><a class="btn btn-brand-4-medium hover-up" href="{{ route('login') }}">Login
+            </div><a class="btn btn-brand-4-medium hover-up" href="{{ route('login')}}">Login
               <svg width="22" height="22" viewbox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22 11.0003L18.4791 7.47949V10.3074H0V11.6933H18.4791V14.5213L22 11.0003Z" fill=""></path>
               </svg></a>

@@ -39,8 +39,17 @@ use App\Http\Controllers\Reviews\ReviewsController;
 use App\Http\Controllers\Teams\TeamController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
+use App\Http\Controllers\frontend\ManageAuthController;
 use App\Http\Controllers\frontend\PageController;
 use Illuminate\Support\Facades\Mail;
+
+// client controller 
+use App\Http\Controllers\client\auth\LoginController as ClientLoginController;
+use App\Http\Controllers\client\auth\RegisterController as ClientRegisterController;
+
+// marketer controller 
+use App\Http\Controllers\marketer\auth\LoginController as MarketerLoginController;
+use App\Http\Controllers\marketer\auth\RegisterController as MarketerRegisterController;
 
 
 
@@ -101,18 +110,18 @@ Route::get('/search', [PageController::class, 'search'])->name('search');
 // Auth (Autentifikatsiya) yo'nalishlari
 Route::prefix('auth')->namespace('App\Http\Controllers\Auth')->group(function () {
     // Ro'l tanlash va yo'naltirish
-    Route::get('/join', [RegisterController::class, 'showRoleSelectionForm'])->name('join');
-    Route::get('/join/role/{role}', [RegisterController::class, 'handleRoleSelection'])->name('join.role');
+    Route::get('/join', [ManageAuthController::class, 'showRoleSelectionForm'])->name('join');
+    Route::get('/join/role/{role}', [ManageAuthController::class, 'handleRoleSelection'])->name('join.role');
 
     // Login, logout va parolni qayta tiklash yo'nalishlari
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/login', [ManageAuthController::class, 'showLoginForm'])->name('login.form');
+    Route::post('/login', [ManageAuthController::class, 'login'])->name('login');
+    Route::post('/logout', [ManageAuthController::class, 'logout'])->name('logout');
 
-    Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-    Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-    Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-    Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+    // Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+    // Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+    // Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    // Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 });
 
 /*****************************************************************************
@@ -159,24 +168,24 @@ Route::prefix('provider')->group(function () {
 //  * Display Marketer routes
 //  * @author Doniyor Rajapov
 //  *****************************************************************************/
-// Route::prefix('marketer')->namespace('App\Http\Controllers')->group(function () {
-//     Route::get('/login', [AuthController::class, 'showMarketerLoginForm'])->name('login.marketer');
-//     Route::post('/login', [AuthController::class, 'marketerLogin'])->name('marketer.login');
+Route::prefix('marketer')->namespace('App\Http\Controllers')->group(function () {
+    Route::get('/login', [MarketerLoginController::class, 'showMarketerLoginForm'])->name('login.marketer');
+    Route::post('/login', [MarketerLoginController::class, 'marketerLogin'])->name('marketer.login');
 
-//     // Marketer uchun boshqa yo'nalishlar (agar mavjud bo'lsa, qo'shing)
-// });
+    // Marketer uchun boshqa yo'nalishlar (agar mavjud bo'lsa, qo'shing)
+});
 
 // /*****************************************************************************
 //  * Display Partner routes
 //  * @author Doniyor Rajapov
 //  *****************************************************************************/
-// Route::prefix('partner')->namespace('App\Http\Controllers')->group(function () {
-//     // Client login
-//     Route::get('/login', [AuthController::class, 'showClientLoginForm'])->name('login.client');
-//     Route::post('/login', [AuthController::class, 'clientLogin'])->name('client.login');
+Route::prefix('partner')->namespace('App\Http\Controllers')->group(function () {
+    // Client login
+    Route::get('/login', [ClientLoginController::class, 'showClientLoginForm'])->name('login.client');
+    Route::post('/login', [ClientLoginController::class, 'clientLogin'])->name('client.login');
 
-//     // Client uchun boshqa yo'nalishlar (agar mavjud bo'lsa, qo'shing)
-// });
+    // Client uchun boshqa yo'nalishlar (agar mavjud bo'lsa, qo'shing)
+});
 
 // /*****************************************************************************
 //  * Display Admin routes
