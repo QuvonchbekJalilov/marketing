@@ -23,22 +23,21 @@
             <div class="container">
                 <div class="heading-image-rd online">
                     <a href="#">
-                        <figure><img alt="jobhub" src="assets/imgs/logo-dora.webp"></figure>
+                        <figure><img alt="jobhub" src="{{asset('storage/'.$company->logo)}}"></figure>
                     </a>
                 </div>
                 <div class="heading-main-info">
-                    <h4>DORA</h4>
+                    <h4>{{$company->name}}</h4>
                     <div class="head-info-profile">
-                        <span class="text-small mr-20"><i class="fi-rr-marker text-mutted"></i> Tashkent,
-                            Uzbekistan</span>
+                        <span class="text-small mr-20"><i class="fi-rr-marker text-mutted"></i>{{$company->address}}</span>
                         <span class="text-small"><i class="fi-rr-clock text-mutted"></i> Since 2019</span>
                         <div class="rate-reviews-small">
 
-                            <span><img src="/assets/imgs/template/icons/star.svg" alt="jobhub" /></span>
-                            <span><img src="assets/imgs/template/icons/star.svg" alt="jobhub" /></span>
-                            <span><img src="assets/imgs/template/icons/star.svg" alt="jobhub" /></span>
-                            <span><img src="assets/imgs/template/icons/star.svg" alt="jobhub" /></span>
-                            <span><img src="assets/imgs/template/icons/star.svg" alt="jobhub" /></span>
+                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
+                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
+                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
+                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
+                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
                             <span class="ml-10 text-muted text-small">(5.0)</span>
                         </div>
                         <div class="row align-items-end">

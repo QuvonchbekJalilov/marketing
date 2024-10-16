@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\ServiceCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
+use NunoMaduro\Collision\Provider;
 
 class PageController extends Controller
 {
@@ -55,7 +57,8 @@ class PageController extends Controller
     // Page Provider
     public function pageProvider()
     {
-        $providers = User::where('role_id', 2)->paginate(6);
+        $providers = User::where('role_id', 2)->with('companies')->paginate(6);
+
 
         return view('frontend.page-provider', compact('providers'));
     }
@@ -79,9 +82,10 @@ class PageController extends Controller
         return view('pages.search-provider');
     }
 
-    public function singleProviders()
+    public function singleProviders($id)
     {
-        return view('frontend.single-provider');
+        $company = Company::find($id);
+        return view('frontend.single-provider', compact('company'));
     }
 
     public function singleReviews()
@@ -97,7 +101,7 @@ class PageController extends Controller
 
     public function singleMarketers()
     {
-        return view('pages.single-marketers');
+        return view('frontend.single-marketers');
     }
 
     public function searchMarketers()
@@ -113,7 +117,7 @@ class PageController extends Controller
 
     public function singlePartners()
     {
-        return view('pages.single-partners');
+        return view('frontend.single-partners');
     }
 
     public function searchPartners()
