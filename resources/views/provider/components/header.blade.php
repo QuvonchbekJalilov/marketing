@@ -1,11 +1,24 @@
-<?php 
+<?php
 use App\Models\Company;
 use App\Models\ProviderCompany;
 use Illuminate\Support\Facades\Auth;
 
 $provider = Auth::user(); // Get the authenticated user
 $providerCompany = ProviderCompany::where('provider_id', $provider->id)->first();
-$company = Company::where('id', $providerCompany->company_id)->first();
+if ($providerCompany) {
+    $company = Company::where('id', $providerCompany->company_id)->first();
+
+    if ($company) {
+        // $company mavjud, keyingi amallarni bajaring
+    } else {
+        // $company topilmadi
+        return back()->with('error', 'Company not found.');
+    }
+} else {
+    // $providerCompany null bo'lganda xatolik qaytarish
+    return back()->with('error', 'Provider company not found.');
+}
+
 ?>
 
 <header class="nxl-header">

@@ -21,6 +21,7 @@ class ManagerController extends Controller
 
         $providerCompany = ProviderCompany::where('provider_id', $provider->id)->first();
         $company = Company::where('id', $providerCompany->company_id)->first();
+
         // Get the provider's companies
         $providerCompanies = $provider->companies()->pluck('companies.id');
         // Fetch managers (users with role_id == 5) that belong to the same company as the provider

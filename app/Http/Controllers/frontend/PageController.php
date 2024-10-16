@@ -55,9 +55,9 @@ class PageController extends Controller
     // Page Provider
     public function pageProvider()
     {
-        $providers = Provider::paginate(6);
+        $providers = User::where('role_id', 2)->paginate(6);
 
-        return view('pages.page-provider', compact('providers'));
+        return view('frontend.page-provider', compact('providers'));
     }
     public function pageProviderService($service_id, $category_id)
     {
@@ -81,7 +81,7 @@ class PageController extends Controller
 
     public function singleProviders()
     {
-        return view('pages.single-provider');
+        return view('frontend.single-provider');
     }
 
     public function singleReviews()
@@ -92,7 +92,7 @@ class PageController extends Controller
     // Marketers
     public function pageMarketers()
     {
-        return view('pages.page-marketers');
+        return view('frontend.page-marketers');
     }
 
     public function singleMarketers()
@@ -108,7 +108,7 @@ class PageController extends Controller
     // Partners
     public function pagePartners()
     {
-        return view('pages.page-partners');
+        return view('frontend.page-partners');
     }
 
     public function singlePartners()
@@ -123,6 +123,6 @@ class PageController extends Controller
 
     public function contact()
     {
-        return view('pages.contact');
+        return view('frontend.contact');
     }
 }

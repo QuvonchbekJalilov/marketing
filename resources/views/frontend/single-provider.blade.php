@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('frontend.layouts.main')
 
 @section('title', 'Page Title')
 @section('description', 'Page description')
@@ -54,7 +54,7 @@
 
                     </div>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
@@ -110,7 +110,7 @@
 
 
 
-                    
+
                     <section id="services" class="services-section">
                         <div class="box-faqs-inner-4">
                             <h2 class="title" style="font-size: 30px; margin-bottom: 15px;">Services</h2>
@@ -529,7 +529,7 @@
                             </div>
                         </div>
 
-                       
+
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -766,7 +766,7 @@
                                 <span id="image-modal-close-footer" class="image-modal-close-footer">&times;</span>
                             </div>
                     </section>
-             
+
                     <section id="team" class="team-section">
                     <div class="row content-blog-2" style="padding: 15px;">
                                 <h2 class="title" style="font-size: 30px; margin-bottom: 15px; padding: 0;">Team
@@ -997,7 +997,7 @@
                                     </div>
                                 </div>
                                 <a href="{{route('singleReviews')}}"><button class="btn btn-brand-4-medium" type="submit">Write a review</button></a>
-                                
+
 
                             </div>
                         </section>
@@ -1044,16 +1044,16 @@
                             </div>
                         </section>
                 </div>
-               
+
             </div>
         </div>
     </section>
 
-<div id="doraModal" 
+<div id="doraModal"
     style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; z-index:999;">
-    
-        <div class="box-border-rounded p-3" 
-            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; width: 50%; max-height: 90%; overflow-y: auto; background-color: white; border-radius: 10px;"> 
+
+        <div class="box-border-rounded p-3"
+            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; width: 50%; max-height: 90%; overflow-y: auto; background-color: white; border-radius: 10px;">
             <div class="my-3 p-3">
                 <h4 class="mb-3">Send a message to DORA</h4>
                 <h6 class="mb-2" style="font-size:18px;">Who are you?</h6>
@@ -1095,7 +1095,7 @@
                         </label>
                     </div>
 
-                    
+
 
                 </div>
 
@@ -1126,9 +1126,9 @@
                         <button class="btn btn-brand-4-medium">Send</button>
                     </div>
 
-                </div> 
+                </div>
             </div>
-            
+
         </div>
 
 </div>

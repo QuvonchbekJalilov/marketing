@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('frontend.layouts.main')
 
 @section('title', 'Page Title')
 @section('description', 'Page description')
@@ -93,7 +93,7 @@
                 </div>
             </div>
         </div>
-        
+
           <div style="width: 70%;" class="right-side-search-provider">
             <div class="row">
               <button id="change-filter-btn" class="filter-button-responsive" onClick="toggleFilter()">
@@ -147,7 +147,7 @@
                                   </div>
                               </div>
                               <div class="card-conteiner">
-                                <div class="card-content" style="max-width: 100%;">  
+                                <div class="card-content" style="max-width: 100%;">
                                   <div class="rangeslider">
                                     <input class="min input-ranges" name="range_1" type="range" min="1" max="10000" value="735">
                                     <input class="max input-ranges" name="range_1" type="range" min="1" max="10000" value="6465">
@@ -330,12 +330,12 @@
                     </div>
                   </div>
                 </div>
-                
-                
+
+
                 <div class="text-center card-integration-big">
                   <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                      <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"> 
+                      <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 16 16" fill="none">
                               <path d="M10 3.33398L5.33333 8.00065L10 12.6673" stroke="#191919" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg></span></a></li>
@@ -345,7 +345,7 @@
                       <li class="page-item"><a class="page-link" href="#">4</a></li>
                       <li class="page-item"><a class="page-link" href="#">5</a></li>
                       <li class="page-item"><a class="page-link" href="#">6</a></li>
-                      <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true"> 
+                      <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 16 16" fill="none">
                               <path d="M6 3.33398L10.6667 8.00065L6 12.6673" stroke="#191919" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg></span></a></li>
@@ -356,17 +356,17 @@
           </div>
         </div>
       </section>
-    
-    </main>
 
-     
-    
     </main>
 
 
-     
-    
- 
+
+    </main>
+
+
+
+
+
 
 
 

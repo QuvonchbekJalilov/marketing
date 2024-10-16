@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('frontend.layouts.main')
 
 @section('title', 'Page Title')
 @section('description', 'Page description')
@@ -213,7 +213,7 @@
                     <div class="col-lg-6 col-md-6 card-integration-big">
                         <div class="card-integration">
                             <div class="card-image">
-                                <div class="card-image-left" ><img  style="border-radius: 50%;" src="{{ asset('storage/' . $provider->logo) }}" alt="Nivia"></div>
+                                <div class="card-image-left" ><img  style="border-radius: 50%;" src="{{ asset('storage/' . $provider->logo) }} " alt="Nivia"></div>
                                 <div class="card-image-info">
                                     <h5>{{ $provider->name }}</h5>
                                     <p class="text-md neutral-500">Company</p>
