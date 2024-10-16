@@ -18,7 +18,7 @@ class ManagerController extends Controller
     public function index()
     {
         $provider = Auth::user(); // Assuming the logged-in user is the provider
-    
+
         $providerCompany = ProviderCompany::where('provider_id', $provider->id)->first();
         $company = Company::where('id', $providerCompany->company_id)->first();
         // Get the provider's companies
@@ -29,7 +29,7 @@ class ManagerController extends Controller
                 $query->whereIn('companies.id', $providerCompanies);
             })
             ->get();
-    
+
         return view('provider.managers.index', compact('managers', 'company'));
     }
 
@@ -62,6 +62,7 @@ class ManagerController extends Controller
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
             'role_id' => 5, // Set the role to manager
+            'language_id' => 1
         ]);
 
         // Attach the manager to the provider's company
