@@ -28,7 +28,7 @@ class PageController extends Controller
                 ->get();
 
             // Providerlarni qidiruv so'rovi bo'yicha filtrlash
-            $providers = Provider::where('name', 'LIKE', "%$query%")
+            $providers = User::where('role_id', 2)->where('name', 'LIKE', "%$query%")
                 ->orWhere('description', 'LIKE', "%$query%")
                 ->orWhere('tagline', 'LIKE', "%$query%")
                 ->get();
