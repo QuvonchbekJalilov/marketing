@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\ServiceCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
+use NunoMaduro\Collision\Provider;
 
 class PageController extends Controller
 {
@@ -55,9 +57,10 @@ class PageController extends Controller
     // Page Provider
     public function pageProvider()
     {
-        $providers = User::where('role_id', 2)->paginate(6);
+        $providers = User::where('role_id', 2)->with('companies')->paginate(6);
 
-        return view('pages.page-provider', compact('providers'));
+
+        return view('frontend.page-provider', compact('providers'));
     }
     public function pageProviderService($service_id, $category_id)
     {
@@ -79,25 +82,29 @@ class PageController extends Controller
         return view('pages.search-provider');
     }
 
-    public function singleProviders()
+    public function singleProviders($id)
     {
-        return view('pages.single-provider');
+        $company = Company::find($id);
+        return view('frontend.single-provider', compact('company'));
     }
 
     public function singleReviews()
     {
-        return view('pages.single-reviews');
+        return view('frontend.single-reviews');
     }
 
     // Marketers
     public function pageMarketers()
     {
-        return view('pages.page-marketers');
+        $marketers = User::where('role_id', 4)->paginate(6);
+
+        return view('frontend.page-marketers',compact('marketers'));
     }
 
-    public function singleMarketers()
+    public function singleMarketers($id)
     {
-        return view('pages.single-marketers');
+        $marketer = User::where('role_id', 4)->find($id);
+        return view('frontend.single-marketers', compact('marketer'));
     }
 
     public function searchMarketers()
@@ -108,12 +115,12 @@ class PageController extends Controller
     // Partners
     public function pagePartners()
     {
-        return view('pages.page-partners');
+        return view('frontend.page-partners');
     }
 
     public function singlePartners()
     {
-        return view('pages.single-partners');
+        return view('frontend.single-partners');
     }
 
     public function searchPartners()
@@ -123,6 +130,6 @@ class PageController extends Controller
 
     public function contact()
     {
-        return view('pages.contact');
+        return view('frontend.contact');
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('frontend.layouts.main')
 
 @section('title', 'Page Title')
 @section('description', 'Page description')
@@ -34,7 +34,7 @@
         </section>
         <section class="section-box">
             <div class="container">
-            
+
                 <div class="row">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                         <div class="links-box"
@@ -164,8 +164,8 @@
                             </div>
                         </div>
 
-                       
-                   
+
+
                             <div class="col-lg-12 col-sm-12">
                                 <section id="office">
                                 <h4 class="mt-30 mb-30">Our Office</h4>
@@ -249,12 +249,12 @@
                             </div>
                         </section>
                             </div>
-                    
 
 
-                       
+
+
                     </div>
-                   
+
                 </div>
                 </div>
             </div>
@@ -278,11 +278,11 @@
             </div>
         </section>
     </main>
-    <div id="doraModal" 
+    <div id="doraModal"
     style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; z-index:999;">
-    
-        <div class="box-border-rounded p-3 modal-form" 
-            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; width: 50%; max-height: 90%; overflow-y: auto; background-color: white; border-radius: 10px;"> 
+
+        <div class="box-border-rounded p-3 modal-form"
+            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; width: 50%; max-height: 90%; overflow-y: auto; background-color: white; border-radius: 10px;">
             <div class="my-3 p-3">
                 <h4 class="mb-3">Send a message to DORA</h4>
                 <h6 class="mb-2" style="font-size:18px;">Who are you?</h6>
@@ -324,7 +324,7 @@
                         </label>
                     </div>
 
-                    
+
 
                 </div>
 
@@ -355,9 +355,9 @@
                         <button class="btn btn-brand-4-medium">Send</button>
                     </div>
 
-                </div> 
+                </div>
             </div>
-            
+
         </div>
 
 </div>

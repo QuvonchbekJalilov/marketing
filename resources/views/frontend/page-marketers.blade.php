@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('frontend.layouts.main')
 
 @section('title', 'Page Title')
 @section('description', 'Page description')
@@ -201,6 +201,7 @@
                         <div class="content-page">
 
                             <div class="row" >
+                                @foreach($marketers as $marketer)
                                 <div class="col-lg-4 col-md-6">
                                     <div class="card-grid-2 hover-up">
                                         <div class="card-grid-2-link">
@@ -208,13 +209,13 @@
                                             <a href="#"><i class="fi-rr-bookmark"></i></a>
                                         </div>
                                         <div class="text-center card-grid-2-image-rd online">
-                                            <a href="{{ route('singleMarketers') }}">
+                                            <a href="{{ route('singleMarketers', $marketer->id) }}">
                                                 <figure><img alt="jobhub" src="/assets/imgs/img-candidate.png" /></figure>
                                             </a>
                                         </div>
                                         <div class="card-block-info">
                                             <div class="card-profile">
-                                                 <a href="{{ route('singleMarketers') }}"><strong>Esther Howard</strong></a>
+                                                 <a href="{{ route('singleMarketers',$marketer->id) }}"><strong>{{$marketer->name}}</strong></a>
                                                 <span class="text-sm">UI/UX Designer</span>
                                                 <div class="rate-reviews-small">
                                                     <span><img src="/assets/imgs/icons/star.svg" alt="jobhub" /></span>
@@ -238,101 +239,14 @@
                                                     <a href="#" class="btn btn-tags-sm mb-10 mr-5">Digital</a>
                                                 </div>
                                                 <div class="text-center mt-25 mb-5">
-                                                    <a href="{{ route('singleMarketers') }}" class="btn btn-brand-4-medium hover-up" style="margin: 0 auto; display:inline">View profile</a>
+                                                    <a href="{{ route('singleMarketers',$marketer->id) }}" class="btn btn-brand-4-medium hover-up" style="margin: 0 auto; display:inline">View profile</a>
 
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="card-grid-2 hover-up">
-                                        <div class="card-grid-2-link">
-                                            <a href="#"><i class="fi-rr-shield-check"></i></a>
-                                            <a href="#"><i class="fi-rr-bookmark"></i></a>
-                                        </div>
-                                        <div class="text-center card-grid-2-image-rd online">
-                                            <a href="{{ route('singleMarketers') }}">
-                                                <figure><img alt="jobhub" src="/assets/imgs/img-candidate.png" /></figure>
-                                            </a>
-                                        </div>
-                                        <div class="card-block-info">
-                                            <div class="card-profile">
-                                                 <a href="{{ route('singleMarketers') }}"><strong>Esther Howard</strong></a>
-                                                <span class="text-sm">UI/UX Designer</span>
-                                                <div class="rate-reviews-small">
-                                                    <span><img src="/assets/imgs/icons/star.svg" alt="jobhub" /></span>
-                                                    <span><img src="/assets/imgs/icons/star.svg" alt="jobhub" /></span>
-                                                    <span><img src="/assets/imgs/icons/star.svg" alt="jobhub" /></span>
-                                                    <span><img src="/assets/imgs/icons/star.svg" alt="jobhub" /></span>
-                                                    <span><img src="/assets/imgs/icons/star.svg" alt="jobhub" /></span>
-                                                    <span class="ml-10 text-muted text-small">(5.0)</span>
-                                                </div>
-                                            </div>
-                                            <div class="employers-info d-flex align-items-center justify-content-center mt-15">
-                                                <span class="d-flex align-items-center"><i class="fi-rr-marker mr-5 ml-0"></i> Chicago, US</span>
-                                                <span class="d-flex align-items-center ml-25"><i class="fi-rr-briefcase mr-5"></i>Software</span>
-                                            </div>
-                                            <div class="card-2-bottom card-2-bottom-candidate mt-30">
-                                                <div class="text-center">
-                                                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">Figma</a>
-                                                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">Adobe XD</a>
-                                                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">PSD</a>
-                                                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">App</a>
-                                                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">Digital</a>
-                                                </div>
-                                                <div class="text-center mt-25 mb-5">
-                                                    <a href="{{ route('singleMarketers') }}" class="btn btn-brand-4-medium hover-up" style="margin: 0 auto; display:inline">View profile</a>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="card-grid-2 hover-up">
-                                        <div class="card-grid-2-link">
-                                            <a href="#"><i class="fi-rr-shield-check"></i></a>
-                                            <a href="#"><i class="fi-rr-bookmark"></i></a>
-                                        </div>
-                                        <div class="text-center card-grid-2-image-rd online">
-                                            <a href="{{ route('singleMarketers') }}">
-                                                <figure><img alt="jobhub" src="/assets/imgs/img-candidate.png" /></figure>
-                                            </a>
-                                        </div>
-                                        <div class="card-block-info">
-                                            <div class="card-profile">
-                                                 <a href="{{ route('singleMarketers') }}"><strong>Esther Howard</strong></a>
-                                                <span class="text-sm">UI/UX Designer</span>
-                                                <div class="rate-reviews-small">
-                                                    <span><img src="/assets/imgs/icons/star.svg" alt="jobhub" /></span>
-                                                    <span><img src="/assets/imgs/icons/star.svg" alt="jobhub" /></span>
-                                                    <span><img src="/assets/imgs/icons/star.svg" alt="jobhub" /></span>
-                                                    <span><img src="/assets/imgs/icons/star.svg" alt="jobhub" /></span>
-                                                    <span><img src="/assets/imgs/icons/star.svg" alt="jobhub" /></span>
-                                                    <span class="ml-10 text-muted text-small">(5.0)</span>
-                                                </div>
-                                            </div>
-                                            <div class="employers-info d-flex align-items-center justify-content-center mt-15">
-                                                <span class="d-flex align-items-center"><i class="fi-rr-marker mr-5 ml-0"></i> Chicago, US</span>
-                                                <span class="d-flex align-items-center ml-25"><i class="fi-rr-briefcase mr-5"></i>Software</span>
-                                            </div>
-                                            <div class="card-2-bottom card-2-bottom-candidate mt-30">
-                                                <div class="text-center">
-                                                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">Figma</a>
-                                                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">Adobe XD</a>
-                                                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">PSD</a>
-                                                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">App</a>
-                                                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">Digital</a>
-                                                </div>
-                                                <div class="text-center mt-25 mb-5">
-                                                    <a href="{{ route('singleMarketers') }}" class="btn btn-brand-4-medium hover-up" style="margin: 0 auto; display:inline">View profile</a>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
 
 
@@ -343,22 +257,68 @@
 
                 <div class="text-center card-integration-big">
                   <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                      <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 16 16" fill="none">
-                              <path d="M10 3.33398L5.33333 8.00065L10 12.6673" stroke="#191919" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg></span></a></li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link active" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item"><a class="page-link" href="#">4</a></li>
-                      <li class="page-item"><a class="page-link" href="#">5</a></li>
-                      <li class="page-item"><a class="page-link" href="#">6</a></li>
-                      <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 16 16" fill="none">
-                              <path d="M6 3.33398L10.6667 8.00065L6 12.6673" stroke="#191919" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg></span></a></li>
-                    </ul>
+                      <ul class="pagination">
+                          <!-- Previous sahifaga o'tish -->
+                          @if ($marketers->onFirstPage())
+                              <li class="page-item disabled">
+                    <span class="page-link" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 16 16" fill="none">
+                            <path d="M10 3.33398L5.33333 8.00065L10 12.6673" stroke="#191919" stroke-width="1.33333"
+                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </span>
+                              </li>
+                          @else
+                              <li class="page-item">
+                                  <a class="page-link" href="{{ $marketers->previousPageUrl() }}"
+                                     aria-label="Previous">
+                        <span aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 16 16"
+                                 fill="none">
+                                <path d="M10 3.33398L5.33333 8.00065L10 12.6673" stroke="#191919" stroke-width="1.33333"
+                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </span>
+                                  </a>
+                              </li>
+                          @endif
+
+                          <!-- Sahifalar -->
+                          @foreach ($marketers->links()->elements[0] as $page => $url)
+                              @if ($page == $marketers->currentPage())
+                                  <li class="page-item active"><a class="page-link" href="#">{{ $page }}</a>
+                                  </li>
+                              @else
+                                  <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                  </li>
+                              @endif
+                          @endforeach
+
+                          <!-- Next sahifaga o'tish -->
+                          @if ($marketers->hasMorePages())
+                              <li class="page-item">
+                                  <a class="page-link" href="{{ $marketers->nextPageUrl() }}"
+                                     aria-label="Next">
+                        <span aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 16 16"
+                                 fill="none">
+                                <path d="M6 3.33398L10.6667 8.00065L6 12.6673" stroke="#191919" stroke-width="1.33333"
+                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </span>
+                                  </a>
+                              </li>
+                          @else
+                              <li class="page-item disabled">
+                    <span class="page-link" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 16 16" fill="none">
+                            <path d="M6 3.33398L10.6667 8.00065L6 12.6673" stroke="#191919" stroke-width="1.33333"
+                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </span>
+                              </li>
+                          @endif
+                      </ul>
                   </nav>
                 </div>
               </div>
