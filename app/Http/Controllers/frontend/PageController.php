@@ -90,18 +90,21 @@ class PageController extends Controller
 
     public function singleReviews()
     {
-        return view('pages.single-reviews');
+        return view('frontend.single-reviews');
     }
 
     // Marketers
     public function pageMarketers()
     {
-        return view('frontend.page-marketers');
+        $marketers = User::where('role_id', 4)->paginate(6);
+
+        return view('frontend.page-marketers',compact('marketers'));
     }
 
-    public function singleMarketers()
+    public function singleMarketers($id)
     {
-        return view('frontend.single-marketers');
+        $marketer = User::where('role_id', 4)->find($id);
+        return view('frontend.single-marketers', compact('marketer'));
     }
 
     public function searchMarketers()

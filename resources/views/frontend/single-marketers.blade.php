@@ -17,7 +17,7 @@
                     </a>
                 </div>
                 <div class="heading-main-info">
-                    <h4>Danica Lewis</h4>
+                    <h4>{{$marketer->name}}</h4>
                     <div class="head-info-profile">
                         <span class="text-small mr-20"><i class="fi-rr-marker text-mutted"></i> Chicago, US</span>
                         <span class="text-small mr-20"><i class="fi-rr-briefcase text-mutted"></i> Ui/UX design</span>
