@@ -39,7 +39,16 @@ use App\Http\Controllers\Reviews\ReviewsController;
 use App\Http\Controllers\Teams\TeamController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
+
+//client controller 
+use App\Http\Controllers\client\auth\ClientLoginController;
+
+//frontend controller
+use App\Http\Controllers\frontend\auth\ManageController;
 use App\Http\Controllers\frontend\PageController;
+
+//marketer controller 
+use App\Http\Controllers\marketer\auth\LoginController as MarketerLoginController;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -105,9 +114,9 @@ Route::prefix('auth')->namespace('App\Http\Controllers\Auth')->group(function ()
     Route::get('/join/role/{role}', [RegisterController::class, 'handleRoleSelection'])->name('join.role');
 
     // Login, logout va parolni qayta tiklash yo'nalishlari
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/login', [ManageController::class, 'showLoginForm'])->name('login.form');
+    Route::post('/login', [ManageController::class, 'login'])->name('login');
+    Route::post('/logout', [ManageController::class, 'logout'])->name('logout');
 
     Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
@@ -159,24 +168,24 @@ Route::prefix('provider')->group(function () {
 //  * Display Marketer routes
 //  * @author Doniyor Rajapov
 //  *****************************************************************************/
-// Route::prefix('marketer')->namespace('App\Http\Controllers')->group(function () {
-//     Route::get('/login', [AuthController::class, 'showMarketerLoginForm'])->name('login.marketer');
-//     Route::post('/login', [AuthController::class, 'marketerLogin'])->name('marketer.login');
+Route::prefix('marketer')->namespace('App\Http\Controllers')->group(function () {
+    Route::get('/login', [MarketerLoginController::class, 'showMarketerLoginForm'])->name('login.marketer');
+    Route::post('/login', [MarketerLoginController::class, 'marketerLogin'])->name('marketer.login');
 
-//     // Marketer uchun boshqa yo'nalishlar (agar mavjud bo'lsa, qo'shing)
-// });
+    // Marketer uchun boshqa yo'nalishlar (agar mavjud bo'lsa, qo'shing)
+});
 
-// /*****************************************************************************
-//  * Display Partner routes
-//  * @author Doniyor Rajapov
-//  *****************************************************************************/
-// Route::prefix('partner')->namespace('App\Http\Controllers')->group(function () {
-//     // Client login
-//     Route::get('/login', [AuthController::class, 'showClientLoginForm'])->name('login.client');
-//     Route::post('/login', [AuthController::class, 'clientLogin'])->name('client.login');
+/*****************************************************************************
+ * Display Partner routes
+ * @author Doniyor Rajapov
+ *****************************************************************************/
+Route::prefix('partner')->namespace('App\Http\Controllers')->group(function () {
+    // Client login
+    Route::get('/login', [ClientLoginController::class, 'showClientLoginForm'])->name('login.client');
+    Route::post('/login', [ClientLoginController::class, 'clientLogin'])->name('client.login');
 
-//     // Client uchun boshqa yo'nalishlar (agar mavjud bo'lsa, qo'shing)
-// });
+    // Client uchun boshqa yo'nalishlar (agar mavjud bo'lsa, qo'shing)
+});
 
 // /*****************************************************************************
 //  * Display Admin routes
