@@ -23,33 +23,30 @@
             <div class="container">
                 <div class="heading-image-rd online">
                     <a href="#">
-                        <figure><img alt="jobhub" src="{{asset('storage/'.$company->logo)}}"></figure>
+                        <figure><img alt="jobhub" src="{{asset('storage/'.$provider->companies->first()->logo)}}"></figure>
                     </a>
                 </div>
                 <div class="heading-main-info">
-                    <h4>{{$company->name}}</h4>
+                    <h4>{{$provider->companies->first()->name}}</h4>
                     <div class="head-info-profile">
-                        <span class="text-small mr-20"><i class="fi-rr-marker text-mutted"></i>{{$company->address}}</span>
-                        <span class="text-small"><i class="fi-rr-clock text-mutted"></i> Since {{$company->founded}}</span>
-                        <div class="rate-reviews-small">
-
-                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
-                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
-                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
-                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
-                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
-                            <span class="ml-10 text-muted text-small">(5.0)</span>
+                        <span class="text-small mr-20"><i class="fi-rr-marker text-mutted"></i>{{$provider->companies->first()->address}}</span>
+                        <span class="text-small"><i class="fi-rr-clock text-mutted"></i> Since {{ \Carbon\Carbon::parse($provider->companies->first()->created_at)->format('Y') }}</span><div class="rate-reviews-small">
+                            @for ($i = 0; $i < 5; $i++)
+                                <span>
+                                    <img src="{{ asset('/assets/imgs/template/icons/star.svg') }}" alt="jobhub"
+                                         style="opacity: {{ $i < floor($average_review) ? '1' : '0.2' }};" />
+                                </span>
+                            @endfor
+                            <span class="ml-10 text-muted text-small">({{ number_format($average_review, 1) }})</span>
                         </div>
+
                         <div class="row align-items-end">
                         <div class="col-lg-6 mt-3">
-                            <a href="#" class="btn btn-tags-sm mb-10 mr-5">Social Media</a>
-                            <a href="#" class="btn btn-tags-sm mb-10 mr-5">Marketing</a>
-                            <a href="#" class="btn btn-tags-sm mb-10 mr-5">Email Marketing</a>
-                            <a href="#" class="btn btn-tags-sm mb-10 mr-5">Website Creation</a>
-                            <a href="#" class="btn btn-tags-sm mb-10 mr-5">Branding & Positioning</a>
-                            <a href="#" class="btn btn-tags-sm mb-10 mr-5">Web Application</a>
-                        </div>
+                            @foreach($services as $service)
+                                <a href="#" class="btn btn-tags-sm mb-10 mr-5">{{ $service->subCategory->name_uz ?? null }}</a>
+                            @endforeach
 
+                        </div>
 
                     </div>
                     </div>
@@ -115,12 +112,13 @@
                             <h2 class="title" style="font-size: 30px; margin-bottom: 15px;">Services</h2>
                             <div class="accordion accordion-flush accordion-style-2" id="accordionFAQS"
                                 style="border: 1px solid #D1D3D4; border-radius: 16px">
+                                @foreach($services as $service)
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="flush-headingOne">
                                         <button class="accordion-button collapsed" type="button"
                                             data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
                                             aria-expanded="false" aria-controls="flush-collapseOne" style="display:flex; justify-content: space-between;">
-                                            Social Media
+                                            {{$service->subCategory->name_uz ?? null}}
                                             <div style="display: flex; align-items: center;">
                                                 <p class="d-none d-md-block " style="padding: 0 19px; font-size: 14px;">7 works</p>
                                                  <div class="card-rates d-none d-md-block border-start border-end " style="border-left:1px solid #D1D3D4; border-right: 1px solid #D1D3D4; padding: 0 20px;">
@@ -274,206 +272,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
 
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingTwo">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
-                                            aria-expanded="false" aria-controls="flush-collapseTwo" style="display:flex; justify-content: space-between;">
-                                            Marketing
-                                            <div style="display: flex; align-items: center;">
-                                                <p class="d-none d-md-block " style="padding: 0 19px; font-size: 14px;">7 works</p>
-                                                   <div class="card-rates d-none d-md-block border-start border-end " style="border-left:1px solid #D1D3D4; border-right: 1px solid #D1D3D4; padding: 0 20px;">
-                                                            <img src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" />
-                                                        </div>
-                                                <p style="padding: 0 19px; font-size: 14px;">$5,000 / <span>project</span></p>
-                                            </div>
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFAQS">
-                                        <div class="accordion-body" >
-                                            Discover what sets this apart as the market's easiest and most
-                                            powerful video
-                                            interviewing platform, and why hiring managers consistently choose
-                                            us over the
-                                            competition. Discover what sets this apart as the market's easiest
-                                            and most
-                                            powerful video interviewing platform, and why hiring managers
-                                            consistently
-                                            choose us over the competition.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingThree">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
-                                            aria-expanded="false" aria-controls="flush-collapseThree"  style="display:flex; justify-content: space-between;">
-                                            Email Marketing
-                                            <div style="display: flex; align-items: center;">
-                                                <p class="d-none d-md-block " style="padding: 0 19px; font-size: 14px;">7 works</p>
-                                                   <div class="card-rates d-none d-md-block border-start border-end " style="border-left:1px solid #D1D3D4; border-right: 1px solid #D1D3D4; padding: 0 20px;">
-                                                            <img src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" />
-                                                        </div>
-                                                <p style="padding: 0 19px; font-size: 14px;">$5,000 / <span>project</span></p>
-                                            </div>
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseThree" class="accordion-collapse collapse" style="margin:-5px"
-                                        aria-labelledby="flush-headingThree" data-bs-parent="#accordionFAQS">
-                                        <div class="accordion-body">
-                                            Discover what sets this apart as the market's easiest and most
-                                            powerful video
-                                            interviewing platform, and why hiring managers consistently choose
-                                            us over the
-                                            competition. Discover what sets this apart as the market's easiest
-                                            and most
-                                            powerful video interviewing platform, and why hiring managers
-                                            consistently
-                                            choose us over the competition.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingFour">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseFour"
-                                            aria-expanded="false" aria-controls="flush-collapseFour"  style="display:flex; justify-content: space-between;">
-                                            Website Creation
-                                            <div style="display: flex; align-items: center;">
-                                                <p class="d-none d-md-block " style="padding: 0 19px; font-size: 14px;">7 works</p>
-                                                   <div class="card-rates d-none d-md-block border-start border-end " style="border-left:1px solid #D1D3D4; border-right: 1px solid #D1D3D4; padding: 0 20px;">
-                                                            <img src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" />
-                                                        </div>
-                                                <p style="padding: 0 19px; font-size: 14px;">$5,000 / <span>project</span></p>
-                                            </div>
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseFour" class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingFour" data-bs-parent="#accordionFAQS">
-                                        <div class="accordion-body">
-                                            Discover what sets this apart as the market's easiest and most
-                                            powerful video
-                                            interviewing platform, and why hiring managers consistently choose
-                                            us over the
-                                            competition. Discover what sets this apart as the market's easiest
-                                            and most
-                                            powerful video interviewing platform, and why hiring managers
-                                            consistently
-                                            choose us over the competition.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingFive">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseFive"
-                                            aria-expanded="false" aria-controls="flush-collapseFive" style="display: flex; justify-content: space-between;">
-                                            Branding & Positioning
-                                            <div style="display: flex; align-items: center;">
-                                                <p class="d-none d-md-block " style="padding: 0 19px; font-size: 14px;">7 works</p>
-                                                   <div class="card-rates d-none d-md-block border-start border-end " style="border-left:1px solid #D1D3D4; border-right: 1px solid #D1D3D4; padding: 0 20px;">
-                                                            <img src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" />
-                                                        </div>
-                                                <p style="padding: 0 19px; font-size: 14px;">$5,000 / <span>project</span></p>
-                                            </div>
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseFive" class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingFive" data-bs-parent="#accordionFAQS">
-                                        <div class="accordion-body">
-                                            Discover what sets this apart as the market's easiest and most
-                                            powerful video
-                                            interviewing platform, and why hiring managers consistently choose
-                                            us over the
-                                            competition. Discover what sets this apart as the market's easiest
-                                            and most
-                                            powerful video interviewing platform, and why hiring managers
-                                            consistently
-                                            choose us over the competition.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingSix">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseSix"
-                                            aria-expanded="false" aria-controls="flush-collapseSix" style="display: flex; justify-content: space-between;">
-                                            Web Application
-                                            <div style="display: flex; align-items: center;">
-                                                <p class="d-none d-md-block " style="padding: 0 19px; font-size: 14px;">7 works</p>
-                                                   <div class="card-rates d-none d-md-block border-start border-end " style="border-left:1px solid #D1D3D4; border-right: 1px solid #D1D3D4; padding: 0 20px;">
-                                                            <img src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" /><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia" />
-                                                        </div>
-                                                <p style="padding: 0 19px; font-size: 14px;">$5,000 / <span>project</span></p>
-                                            </div>
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseSix" class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingSix" data-bs-parent="#accordionFAQS">
-                                        <div class="accordion-body">
-                                            Discover what sets this apart as the market's easiest and most
-                                            powerful video
-                                            interviewing platform, and why hiring managers consistently choose
-                                            us over the
-                                            competition. Discover what sets this apart as the market's easiest
-                                            and most
-                                            powerful video interviewing platform, and why hiring managers
-                                            consistently
-                                            choose us over the competition.
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </section>
@@ -488,7 +288,7 @@
 
                                     <div class="sidebar-content">
                                         <div class="item-line">
-                                            <div class="text-date-post text-16-bold">{{$company->number_of_team}} people</div>
+                                            <div class="text-date-post text-16-bold">{{$provider->companies->first()->number_of_team}} people</div>
                                             <p class="text-date-post-value text-md neutral-500">in their team</p>
                                         </div>
                                         <div class="item-line">
@@ -502,7 +302,7 @@
                                         </div>
                                          <div class="item-line">
                                             <div class="text-location text-16-bold">Phone number:</div>
-                                            <p class="text-date-post-value text-md neutral-500">{{$company->phone_number}}
+                                            <p class="text-date-post-value text-md neutral-500">{{$provider->companies->first()->phone_number}}
                                             </p>
                                         </div>
                                         <div class="item-line">
@@ -514,7 +314,7 @@
                                             <div class="text-date-founded text-16-bold">Founded in 2019</div>
                                         </div>
                                         <div class="box-button-sidebar"> <a class="btn btn-black btn-rounded"
-                                                href="{{$company->website}}" target="_blank">Open website
+                                                href="{{$provider->companies->first()->website}}" target="_blank">Open website
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="8"
                                                     viewbox="0 0 22 8" fill="none">
                                                     <path
@@ -1024,16 +824,16 @@
                                     <div class="col-lg-6" style="display:flex; flex-direction:column; padding: 40px 15px;">
                                         <h5>Details</h5>
                                         <button class="btn btn-brand-4-medium col-lg-6" style="justify-content: center; margin:30px 0;" onclick="openModal()">Contact DORA</button>
-                                        <a target="_blank" href="{{$company->website}}" style="border-top: 1px solid #ECEEF2; border-bottom: 1px solid #ECEEF2; padding: 20px 10px; font-size: 18px; color: black; display:flex;align-items:center; justify-content:space-between;">
+                                        <a target="_blank" href="{{$provider->companies->first()->website}}" style="border-top: 1px solid #ECEEF2; border-bottom: 1px solid #ECEEF2; padding: 20px 10px; font-size: 18px; color: black; display:flex;align-items:center; justify-content:space-between;">
                                             <div>
                                                 <i class="fa-solid fa-earth-asia" style="margin-right:10px;"></i>
-                                                <span>{{$company->website}}</span>
+                                                <span>{{$provider->companies->first()->website}}</span>
                                             </div>
                                             <i class="fa-solid fa-arrow-right"></i>
                                         </a>
                                         <div style="border-top: 1px solid #ECEEF2; border-bottom: 1px solid #ECEEF2; padding: 20px 10px; font-size: 18px; color: black;">
                                             <i class="fa-solid fa-location-dot" style="margin-right:10px;"></i>
-                                            <span>{{$company->address}}</span>
+                                            <span>{{$provider->companies->first()->address}}</span>
                                         </div>
                                           <p class="text-lg title-follow neutral-0" style="color: black !important;     padding: 10px">Follow us
                         <div class="box-socials-footer"><a class="icon-socials icon-facebook" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/fb.svg"></a><a class="icon-socials icon-instagram" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/in.svg"></a><a class="icon-socials icon-twitter" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/tw.svg"></a><a class="icon-socials icon-be" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/be.svg"></a></div>

@@ -73,6 +73,12 @@ class User extends Authenticatable
         return $this->hasMany(Contact::class, 'provider_id');
     }
 
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'provider_id');
+
+    }
+
     /**
      * A user (provider) can have many companies associated.
      */

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Company;
+use App\Models\Review;
+use App\Models\Service;
 use App\Models\ServiceCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -84,8 +86,14 @@ class PageController extends Controller
 
     public function singleProviders($id)
     {
-        $company = Company::find($id);
-        return view('frontend.single-provider', compact('company'));
+        $provider = User::where('id', $id)->with('companies')->first();
+        $services = Service::where('provider_id', $id)->with('subCategory')->get();
+        $average_review = Review::where('provider_id', $id)->avg('scoro');
+        // Handle case where no reviews exist
+        if ($average_review === null) {
+            $average_review = 0; // Default value if no reviews exist
+        }
+        return view('frontend.single-provider', compact('provider','services', 'average_review'));
     }
 
     public function singleReviews()

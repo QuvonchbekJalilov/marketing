@@ -23,7 +23,7 @@ class Service extends Model
 
     public function subCategory()
     {
-        return $this->belongsTo(ServiceSubCategory::class);
+        return $this->belongsTo(ServiceSubCategory::class, 'service_sub_category_id');
     }
 
     public function skills()
