@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('frontend.layouts.main')
 
 @section('title', 'Page Title')
 @section('description', 'Page description')
@@ -23,22 +23,21 @@
             <div class="container">
                 <div class="heading-image-rd online">
                     <a href="#">
-                        <figure><img alt="jobhub" src="assets/imgs/logo-dora.webp"></figure>
+                        <figure><img alt="jobhub" src="{{asset('storage/'.$company->logo)}}"></figure>
                     </a>
                 </div>
                 <div class="heading-main-info">
-                    <h4>DORA</h4>
+                    <h4>{{$company->name}}</h4>
                     <div class="head-info-profile">
-                        <span class="text-small mr-20"><i class="fi-rr-marker text-mutted"></i> Tashkent,
-                            Uzbekistan</span>
-                        <span class="text-small"><i class="fi-rr-clock text-mutted"></i> Since 2019</span>
+                        <span class="text-small mr-20"><i class="fi-rr-marker text-mutted"></i>{{$company->address}}</span>
+                        <span class="text-small"><i class="fi-rr-clock text-mutted"></i> Since {{$company->founded}}</span>
                         <div class="rate-reviews-small">
 
-                            <span><img src="/assets/imgs/template/icons/star.svg" alt="jobhub" /></span>
-                            <span><img src="assets/imgs/template/icons/star.svg" alt="jobhub" /></span>
-                            <span><img src="assets/imgs/template/icons/star.svg" alt="jobhub" /></span>
-                            <span><img src="assets/imgs/template/icons/star.svg" alt="jobhub" /></span>
-                            <span><img src="assets/imgs/template/icons/star.svg" alt="jobhub" /></span>
+                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
+                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
+                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
+                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
+                            <span><img src="{{asset('/assets/imgs/template/icons/star.svg')}}" alt="jobhub" /></span>
                             <span class="ml-10 text-muted text-small">(5.0)</span>
                         </div>
                         <div class="row align-items-end">
@@ -54,7 +53,7 @@
 
                     </div>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
@@ -110,7 +109,7 @@
 
 
 
-                    
+
                     <section id="services" class="services-section">
                         <div class="box-faqs-inner-4">
                             <h2 class="title" style="font-size: 30px; margin-bottom: 15px;">Services</h2>
@@ -489,7 +488,7 @@
 
                                     <div class="sidebar-content">
                                         <div class="item-line">
-                                            <div class="text-date-post text-16-bold">51 people</div>
+                                            <div class="text-date-post text-16-bold">{{$company->number_of_team}} people</div>
                                             <p class="text-date-post-value text-md neutral-500">in their team</p>
                                         </div>
                                         <div class="item-line">
@@ -503,7 +502,7 @@
                                         </div>
                                          <div class="item-line">
                                             <div class="text-location text-16-bold">Phone number:</div>
-                                            <p class="text-date-post-value text-md neutral-500">+998 90 900 90 90
+                                            <p class="text-date-post-value text-md neutral-500">{{$company->phone_number}}
                                             </p>
                                         </div>
                                         <div class="item-line">
@@ -515,7 +514,7 @@
                                             <div class="text-date-founded text-16-bold">Founded in 2019</div>
                                         </div>
                                         <div class="box-button-sidebar"> <a class="btn btn-black btn-rounded"
-                                                href="https://dora.uz/" target="_blank">Open website
+                                                href="{{$company->website}}" target="_blank">Open website
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="8"
                                                     viewbox="0 0 22 8" fill="none">
                                                     <path
@@ -529,7 +528,7 @@
                             </div>
                         </div>
 
-                       
+
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -766,7 +765,7 @@
                                 <span id="image-modal-close-footer" class="image-modal-close-footer">&times;</span>
                             </div>
                     </section>
-             
+
                     <section id="team" class="team-section">
                     <div class="row content-blog-2" style="padding: 15px;">
                                 <h2 class="title" style="font-size: 30px; margin-bottom: 15px; padding: 0;">Team
@@ -997,7 +996,7 @@
                                     </div>
                                 </div>
                                 <a href="{{route('singleReviews')}}"><button class="btn btn-brand-4-medium" type="submit">Write a review</button></a>
-                                
+
 
                             </div>
                         </section>
@@ -1025,16 +1024,16 @@
                                     <div class="col-lg-6" style="display:flex; flex-direction:column; padding: 40px 15px;">
                                         <h5>Details</h5>
                                         <button class="btn btn-brand-4-medium col-lg-6" style="justify-content: center; margin:30px 0;" onclick="openModal()">Contact DORA</button>
-                                        <a target="_blank" href="https://dora.uz" style="border-top: 1px solid #ECEEF2; border-bottom: 1px solid #ECEEF2; padding: 20px 10px; font-size: 18px; color: black; display:flex;align-items:center; justify-content:space-between;">
+                                        <a target="_blank" href="{{$company->website}}" style="border-top: 1px solid #ECEEF2; border-bottom: 1px solid #ECEEF2; padding: 20px 10px; font-size: 18px; color: black; display:flex;align-items:center; justify-content:space-between;">
                                             <div>
                                                 <i class="fa-solid fa-earth-asia" style="margin-right:10px;"></i>
-                                                <span>https://dora.uz</span>
+                                                <span>{{$company->website}}</span>
                                             </div>
                                             <i class="fa-solid fa-arrow-right"></i>
                                         </a>
                                         <div style="border-top: 1px solid #ECEEF2; border-bottom: 1px solid #ECEEF2; padding: 20px 10px; font-size: 18px; color: black;">
                                             <i class="fa-solid fa-location-dot" style="margin-right:10px;"></i>
-                                            <span>Chilanzar Street 2/2, Tashkent, Uzbekistan</span>
+                                            <span>{{$company->address}}</span>
                                         </div>
                                           <p class="text-lg title-follow neutral-0" style="color: black !important;     padding: 10px">Follow us
                         <div class="box-socials-footer"><a class="icon-socials icon-facebook" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/fb.svg"></a><a class="icon-socials icon-instagram" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/in.svg"></a><a class="icon-socials icon-twitter" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/tw.svg"></a><a class="icon-socials icon-be" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/be.svg"></a></div>
@@ -1044,16 +1043,16 @@
                             </div>
                         </section>
                 </div>
-               
+
             </div>
         </div>
     </section>
 
-<div id="doraModal" 
+<div id="doraModal"
     style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; z-index:999;">
-    
-        <div class="box-border-rounded p-3" 
-            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; width: 50%; max-height: 90%; overflow-y: auto; background-color: white; border-radius: 10px;"> 
+
+        <div class="box-border-rounded p-3"
+            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; width: 50%; max-height: 90%; overflow-y: auto; background-color: white; border-radius: 10px;">
             <div class="my-3 p-3">
                 <h4 class="mb-3">Send a message to DORA</h4>
                 <h6 class="mb-2" style="font-size:18px;">Who are you?</h6>
@@ -1095,7 +1094,7 @@
                         </label>
                     </div>
 
-                    
+
 
                 </div>
 
@@ -1126,9 +1125,9 @@
                         <button class="btn btn-brand-4-medium">Send</button>
                     </div>
 
-                </div> 
+                </div>
             </div>
-            
+
         </div>
 
 </div>

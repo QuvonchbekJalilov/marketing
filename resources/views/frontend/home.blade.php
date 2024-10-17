@@ -40,9 +40,11 @@
                     <ul class="carouselTicker__list list-logos">
                         @if ($partners->isNotEmpty())
                             @foreach($partners as $partner)
+                            @foreach($partner->companies as $company)
                                 <li class="carouselTicker__item">
-                                    <div class="item-logo"><img src="{{ asset('storage/' . $partner->logo) }}" alt="{{ $partner->name }}"></div>
+                                    <div class="item-logo"><img src="{{ asset('storage/' . $company->logo) }}" alt="{{ $partner->name }}"></div>
                                 </li>
+                                @endforeach
                             @endforeach
                         @else
                             <p>No partners logos available</p>

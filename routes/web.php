@@ -8,7 +8,7 @@ use App\Http\Controllers\admin\ClientController as AdminClientController;
 use App\Http\Controllers\admin\LanguageController as AdminLanguageController;
 use App\Http\Controllers\admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\admin\ServiceController as AdminServiceController;
-use App\Http\Controllers\admin\SkillController as AdminSkillController; 
+use App\Http\Controllers\admin\SkillController as AdminSkillController;
 use App\Http\Controllers\admin\SectorController as AdminSectorController;
 
 // provider controller
@@ -48,7 +48,7 @@ Route::get('/', [PageController::class, 'home'])->name('home');
 
 /*****************************************************************************
  * Display Head routes
- * @author Jalilov Quvonchbek 
+ * @author Jalilov Quvonchbek
  * admin routes
  *****************************************************************************/
 //admin routes
@@ -89,8 +89,8 @@ Route::get('/search-providers', [PageController::class, 'searchProviders'])->nam
 Route::get('/search-marketers', [PageController::class, 'searchMarketers'])->name('searchMarketers');
 Route::get('/search-partners', [PageController::class, 'searchPartners'])->name('searchPartners');
 
-Route::get('/single-providers', [PageController::class, 'singleProviders'])->name('singleProviders');
-Route::get('/single-marketers', [PageController::class, 'singleMarketers'])->name('singleMarketers');
+Route::get('/single-providers/{id}', [PageController::class, 'singleProviders'])->name('singleProviders');
+Route::get('/single-marketers/{id}', [PageController::class, 'singleMarketers'])->name('singleMarketers');
 Route::get('/single-partners', [PageController::class, 'singlePartners'])->name('singlePartners');
 Route::get('/contacts', [PageController::class, 'contact'])->name('contacts');
 Route::get('/single-reviews', [PageController::class, 'singleReviews'])->name('singleReviews');
@@ -117,7 +117,7 @@ Route::prefix('auth')->namespace('App\Http\Controllers\Auth')->group(function ()
 
 /*****************************************************************************
  * Display Provider routes
- * @author Jalilov Quvonchbek 
+ * @author Jalilov Quvonchbek
  *****************************************************************************/
 
 Route::prefix('provider')->group(function () {
