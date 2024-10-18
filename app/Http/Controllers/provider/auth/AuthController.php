@@ -37,7 +37,7 @@ class AuthController extends Controller
                 
             // If successful, regenerate session to prevent session fixation attacks
             $request->session()->regenerate();
-                if (auth()->user()->role_id == 2){
+                if (auth()->user()->role_id == 2 || auth()->user()->role_id == 5){
                     return redirect()->route('providers.profile');
                 } else {
                     return redirect()->route('provider.home');

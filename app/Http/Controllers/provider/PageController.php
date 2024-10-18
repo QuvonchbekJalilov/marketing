@@ -130,7 +130,6 @@ class PageController extends Controller
             $validatedData['password'] = Hash::make($request->input('password'));
         }
     
-        $provider->update($validatedData); // Update provider profile
     
         return redirect()->route('providers.profile')->with('success', __('messages.profile_update'));
     }

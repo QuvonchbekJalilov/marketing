@@ -94,8 +94,6 @@
         <!-- [ Main Content ] end -->
     </div>
 
-
-
     @include('provider.components.portfolios.provider-portfolio-modal', ['services' => $services])
     @include('provider.components.portfolios.provider-portfolio-edit-modal', $portfolios)
     @include('provider.components.portfolios.provider-portfolio-view-modal')

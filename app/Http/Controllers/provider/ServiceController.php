@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\provider;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProviderCompany;
 use App\Models\Service;
 use App\Models\ServiceSubCategory;
 use App\Models\Skill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ServiceController extends Controller
@@ -16,7 +18,20 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::where('provider_id', auth()->user()->id)->get();
+        // Get the provider's company
+        $providerCompany = ProviderCompany::where('provider_id', Auth::user()->id)->first();
+
+        if ($providerCompany) {
+            // Get all providers for this company
+            $providerIds = ProviderCompany::where('company_id', $providerCompany->company_id)
+                ->pluck('provider_id');
+            
+            // Get the latest team info for all providers in the company
+            $services = Service::whereIn('provider_id', $providerIds)->get();
+        } else {
+            // If the provider is not associated with any company, return an empty collection
+            $services = collect();
+        }
         $skills = Skill::all();
         $serviceTypes = ServiceSubCategory::all();
         return view('provider.services.index', compact('services', 'skills', 'serviceTypes'));

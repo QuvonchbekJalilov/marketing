@@ -5,13 +5,28 @@ namespace App\Http\Controllers\provider;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Award;
+use App\Models\ProviderCompany;
+use Illuminate\Support\Facades\Auth;
 
 class AwardsController extends Controller
 {
    
     public function index()
     {
-        $awards = Award::all(); // Retrieve all awards
+        // Get the provider's company
+        $providerCompany = ProviderCompany::where('provider_id', Auth::user()->id)->first();
+
+        if ($providerCompany) {
+            // Get all providers for this company
+            $providerIds = ProviderCompany::where('company_id', $providerCompany->company_id)
+                ->pluck('provider_id');
+            
+            // Get the latest team info for all providers in the company
+            $awards = Award::whereIn('provider_id', $providerIds)->get();
+        } else {
+            // If the provider is not associated with any company, return an empty collection
+            $awards = collect();
+        }
         return view('provider.awards.index', compact('awards'));
     }
 

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\provider;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ReviewConfirmationMail;
+use App\Models\ProviderCompany;
 use App\Models\Review; // Make sure to include the Review model
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class ReviewController extends Controller
@@ -15,7 +17,20 @@ class ReviewController extends Controller
     public function index()
     {
         $clients = User::where('role_id', 3)->get();
-        $reviews = Review::all(); // Fetch all reviews
+        // Get the provider's company
+        $providerCompany = ProviderCompany::where('provider_id', Auth::user()->id)->first();
+
+        if ($providerCompany) {
+            // Get all providers for this company
+            $providerIds = ProviderCompany::where('company_id', $providerCompany->company_id)
+                ->pluck('provider_id');
+            
+            // Get the latest team info for all providers in the company
+            $reviews = Review::whereIn('provider_id', $providerIds)->get();
+        } else {
+            // If the provider is not associated with any company, return an empty collection
+            $reviews = collect();
+        }
         return view('provider.reviews.index', compact('reviews', 'clients')); // Return the view with reviews
     }
 

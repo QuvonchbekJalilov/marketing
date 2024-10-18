@@ -6,21 +6,36 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PortfolioRequest;
 use App\Models\Portfolio;
 use App\Models\PortfolioClient;
+use App\Models\ProviderCompany;
 use App\Models\Sector;
 use App\Models\ServiceSubCategory;
 use App\Models\User;
 use App\Models\Skill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PortfoliosController extends Controller
 {
     public function index()
     {
+        // Get the provider's company
+        $providerCompany = ProviderCompany::where('provider_id', Auth::user()->id)->first();
+
+        if ($providerCompany) {
+            // Get all providers for this company
+            $providerIds = ProviderCompany::where('company_id', $providerCompany->company_id)
+                ->pluck('provider_id');
+            
+            // Get the latest team info for all providers in the company
+            $portfolios = Portfolio::whereIn('provider_id', $providerIds)->orderBy('id', 'DESC')
+            ->paginate(20);;
+        } else {
+            // If the provider is not associated with any company, return an empty collection
+            $portfolios = collect();
+        }
         $services = ServiceSubCategory::all();
-        $portfolios = Portfolio::where('provider_id', auth()->user()->id)
-            ->orderBy('id', 'DESC')
-            ->paginate(20);
+
 
         
 

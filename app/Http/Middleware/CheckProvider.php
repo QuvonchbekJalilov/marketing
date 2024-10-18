@@ -15,7 +15,7 @@ class CheckProvider
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user() && auth()->user()->role_id == 2) { // Assuming '2' is the provider role ID
+        if (auth()->user() && auth()->user()->role_id == 2 || auth()->user()->role_id == 5) { // Assuming '2' is the provider role ID
             return $next($request);
         }
 

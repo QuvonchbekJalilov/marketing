@@ -36,6 +36,7 @@
         <div class="content-area" data-scrollbar-target="#psScrollbarInit">
             <div class="content-area-header bg-white sticky-top">
                 <div class="page-header-right ms-auto">
+                    @if (auth()->user()->role_id == 2)
                     <div class="d-flex align-items-center gap-3 page-header-right-items-wrapper">
                         <a href="javascript:void(0);" class="btn btn-primary"
                             data-bs-toggle="offcanvas" data-bs-target="#managerProviderOffcanvas">
@@ -43,6 +44,7 @@
                             <span>Add New</span>
                         </a>
                     </div>
+                    @endif
                 </div>
             </div>
             <div class="content-area-body">
@@ -57,23 +59,22 @@
         {{ session('error') }}
     </div>
 @endif
-
+            @if (auth()->user()->role_id == 2)
                 <div class="card mb-0">
                     <div class="card-body">
                         <form action="#" method="POST">
                             @csrf  <!-- CSRF token, xavfsizlik uchun -->
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input type="email" name="email" class="form-control" required>
+                                <input type="email" name="send_email" class="form-control" required>
                             </div>
                             <div class="flex mt-3">
                                 <button type="submit" class="btn btn-primary">Send an offer</button>
                             </div>
-
                         </form>
-
                     </div>
                 </div>
+            @endif
             </div>
             <div class="content-area-body">
                 <div class="card mb-0">
@@ -96,37 +97,22 @@
                                             <td>{{ $manager->name }}</td>
                                             <td>{{ $manager->email }}</td>
                                             <td>{{ $manager->role->name }}</td>
-                                            <td>
-                                                <div class="hstack gap-2 justify-content-end">
-                                                    <a href="javascript:void(0);" class="avatar-text avatar-md" data-bs-toggle="offcanvas" data-bs-target="#managerViewProviderOffcanvas">
-                                                        <i class="feather-eye"></i>
-                                                    </a>
-
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0)" class="avatar-text avatar-md" data-bs-toggle="dropdown" data-bs-offset="0,21">
-                                                            <i class="feather feather-more-horizontal"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu">
-                                                            <li>
-                                                                <a class="dropdown-item" href="javascript:void(0);"  data-bs-toggle="offcanvas" data-bs-target="#managerEditProviderOffcanvas{{ $manager->id }}" >
-                                                                    <i class="feather feather-edit-3 me-3"></i>
-                                                                    <span>Edit</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <form class="dropdown-item delete-button" onsubmit="confirmDelete(event)" action="{{ route('managers.destroy', $manager->id) }}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="btn text-dark p-0 border-0" style="background: none;">
-                                                                        <i class="feather feather-trash-2 me-3"></i>
-                                                                        Delete
-                                                                    </button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
+                                            @if(auth()->user()->role_id == 2)
+                                                <td>
+                                                    <div class="hstack gap-2 justify-content-end">
+                                                            <a class="avatar-text avatar-md" href="javascript:void(0);"  data-bs-toggle="offcanvas" data-bs-target="#managerEditProviderOffcanvas{{ $manager->id }}" >
+                                                                <i class="feather feather-edit-3 me-3"></i>
+                                                            </a>
+                                                            <form class="avatar-text avatar-md delete-button" onsubmit="confirmDelete(event)" action="{{ route('managers.destroy', $manager->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn text-dark p-0 border-0" style="background: none;">
+                                                                    <i class="feather feather-trash-2 me-3"></i>
+                                                                </button>
+                                                            </form>
                                                     </div>
-                                                </div>
-                                            </td>
+                                                </td>
+                                            @endif
                                         </tr>
                                         @endforeach
                                     </tbody>
