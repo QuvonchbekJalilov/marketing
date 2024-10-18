@@ -3,20 +3,35 @@
 namespace App\Http\Controllers\provider;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProviderCompany;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class TeamController extends Controller
 {
 
-    public function index()
-    {
-        $team = Team::where('provider_id', Auth()->user()->id)->latest()->first();
-        $teams = Team::all();
+public function index()
+{
+    // Get the provider's company
+    $providerCompany = ProviderCompany::where('provider_id', Auth::user()->id)->first();
 
-        return view('provider.team.index', compact('team', 'teams'));
+    if ($providerCompany) {
+        // Get all providers for this company
+        $providerIds = ProviderCompany::where('company_id', $providerCompany->company_id)
+            ->pluck('provider_id');
+        
+        // Get the latest team info for all providers in the company
+        $team = Team::whereIn('provider_id', $providerIds)->latest()->first();
+    } else {
+        // If the provider is not associated with any company, return an empty collection
+        $team = collect();
     }
+
+    return view('provider.team.index', compact('team'));
+}
+
 
 
     public function create()
