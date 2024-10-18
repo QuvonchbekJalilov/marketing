@@ -67,27 +67,24 @@ if ($providerCompany) {
                                 <i class="feather-plus"></i>
                             </a>
                             <div class="dropdown-menu nxl-h-dropdown">
-                                <a href="javascript:void(0);" class="dropdown-item">
+                                <a href="{{ route('portfolios.index')}}" class="dropdown-item">
                                     <i class="feather-plus"></i>
                                     <span>Portfolio qo'shish</span>
                                 </a>
-                                <a href="javascript:void(0);" class="dropdown-item">
+                                <a href="{{ route('awards.index')}}" class="dropdown-item">
                                     <i class="feather-plus"></i>
                                     <span>Mukofot qo'shish</span>
                                 </a>
-                                <a href="javascript:void(0);" class="dropdown-item">
-                                    <i class="feather-plus"></i>
-                                    <span>Mukofot qo'shish</span>
-                                </a>
-                                <a href="javascript:void(0);" class="dropdown-item">
+                                
+                                <a href="{{ route('reviews.index')}}" class="dropdown-item">
                                     <i class="feather-plus"></i>
                                     <span>Sharh qo'shish</span>
                                 </a>
-                                <a href="javascript:void(0);" class="dropdown-item">
+                                <a href="{{ route('service.index')}}" class="dropdown-item">
                                     <i class="feather-plus"></i>
                                     <span>Xizmat qo'shish</span>
                                 </a>
-                                <a href="javascript:void(0);" class="dropdown-item">
+                                <a href="{{ route('managers.index')}}" class="dropdown-item">
                                     <i class="feather-plus"></i>
                                     <span>Menenjer qo'shish</span>
                                 </a>

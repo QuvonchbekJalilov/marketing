@@ -22,19 +22,19 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label for="manager_name" class="form-label">Manager Name:</label>
-                            <input type="text" class="form-control" id="name" name="manager_name" value="{{ $manager->name }}" required>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ $manager->name }}" required>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-group">
                             <label for="manager_email" class="form-label">Manager Email:</label>
-                            <input type="email" class="form-control" id="email" name="manager_email" value="{{$manager->email}}" required>
+                            <input type="email" class="form-control" id="email" name="email" value="{{$manager->email}}" required>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-group">
                             <label for="manager_password" class="form-label">Manager Password (leave blank if unchanged):</label>
-                            <input type="password" class="form-control" id="manager_password" name="manager_password">
+                            <input type="password" class="form-control" id="password" name="password">
                         </div>
                     </div>
                     <div class="col-12">

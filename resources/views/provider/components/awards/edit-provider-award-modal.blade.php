@@ -1,7 +1,21 @@
 <?php 
 use App\Models\Portfolio;
+use App\Models\ProviderCompany;
+// Get the provider's company
+$providerCompany = ProviderCompany::where('provider_id', Auth::user()->id)->first();
 
-$portfolios = Portfolio::where('provider_id', auth()->user()->id)->get();
+if ($providerCompany) {
+    // Get all providers for this company
+    $providerIds = ProviderCompany::where('company_id', $providerCompany->company_id)
+        ->pluck('provider_id');
+    
+    // Get the latest team info for all providers in the company
+    $portfolios = Portfolio::whereIn('provider_id', $providerIds)->orderBy('id', 'DESC')
+    ->paginate(20);;
+} else {
+    // If the provider is not associated with any company, return an empty collection
+    $portfolios = collect();
+}
 ?>
 @foreach($awards as $award)
 

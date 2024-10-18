@@ -53,7 +53,7 @@ class ManagerController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
+            'password' => 'required',
             'company_id' => 'required|exists:companies,id', // Ensure the company exists
         ]);
 
@@ -101,13 +101,11 @@ class ManagerController extends Controller
     public function update(Request $request, string $id)
     {
         $manager = User::findOrFail($id);
-
         // Validate request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $manager->id, // Allow the current email
+            'email' => 'required|email', // Allow the current email
             'password' => 'nullable|min:6|confirmed',
-            'company_id' => 'required|exists:companies,id',
         ]);
 
         // Update manager details
@@ -117,7 +115,7 @@ class ManagerController extends Controller
             'password' => $request->filled('password') ? Hash::make($request->input('password')) : $manager->password,
         ]);
 
-        return redirect()->route('provider.managers.index')->with('success', 'Manager updated successfully.');
+        return redirect()->route('managers.index')->with('success', 'Manager updated successfully.');
     }
 
     /**
@@ -127,12 +125,10 @@ class ManagerController extends Controller
     {
         $manager = User::findOrFail($id);
 
-        // Detach the manager from provider companies
-        ProviderCompany::where('provider_id', Auth::id())->where('company_id', $manager->companies()->pluck('companies.id'))->delete();
 
         // Delete the manager
         $manager->delete();
 
-        return redirect()->route('provider.managers.index')->with('success', 'Manager deleted successfully.');
+        return redirect()->route('managers.index')->with('success', 'Manager deleted successfully.');
     }
 }
