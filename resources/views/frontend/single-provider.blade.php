@@ -285,24 +285,26 @@
                             <div class="box-list-news" style=" cursor: pointer;">
                                 <h2 class="title" style="font-size: 30px; padding: 5px;">Portfolio</h2>
                                 <div class="row portfolio-padding">
+                                    @foreach($portfolios as $portfolio)
                                     <div id="card" class="col-lg-4 col-md-6">
                                         <div class="card-news-style-2">
                                             <div class="card-image ">
-                                                <img src="/assets/imgs/page/blog/news.png" alt="Nivia"  >
+                                                @if(!empty($multi_image_video))
+                                                    <img src="{{ asset('storage/' . $multi_image_video[0]) }}" alt="Image">
+                                                @endif
                                             </div>
                                             <div class="card-info">
                                                 <div>
-                                                    <h6 style="margin-bottom: 10px;">Amona Safii</h6>
+                                                    <h6 style="margin-bottom: 10px;"></h6>
                                                 </div>
                                                 <div class="card-meta">
-                                                    <span class="btn btn-tag-sm">Branding & Positioning</span>
-                                                    <span class="date-post">Mar 2024</span>
+                                                    <span class="btn btn-tag-sm">{{ $portfolio->serviceSubCategory->name }}</span>
+                                                    <span class="date-post">{{ \Carbon\Carbon::parse($portfolio->created_at)->format('F d') }}
+</span>
                                                 </div>
                                                 <div class="card-title">
                                                     <p class="link-new">
-                                                        Project made for Amona Safii in the Clothing & Accessories
-                                                        industry for
-                                                        a B2C audience in 2024.
+                                                        {{$portfolio->work_title}}
                                                     </p>
                                                 </div>
                                                 <div class="card-more" style="margin-bottom: 50px;">
@@ -327,90 +329,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                        <div id="card" class="col-lg-4 col-md-6">
-                                        <div class="card-news-style-2">
-                                            <div class="card-image">
-                                                <img src="/assets/imgs/page/blog/news.png" alt="Nivia" >
-                                            </div>
-                                            <div class="card-info">
-                                                <div>
-                                                    <h6 style="margin-bottom: 10px;">Amona Safii</h6>
-                                                </div>
-                                                <div class="card-meta">
-                                                    <span class="btn btn-tag-sm">Branding & Positioning</span>
-                                                    <span class="date-post">Mar 2024</span>
-                                                </div>
-                                                <div class="card-title">
-                                                    <p class="link-new">
-                                                        Project made for Amona Safii in the Clothing & Accessories
-                                                        industry for
-                                                        a B2C audience in 2024.
-                                                    </p>
-                                                </div>
-                                                <div class="card-more" style="margin-bottom: 50px;">
-                                                    <p class="btn btn-learmore-2">
-                                                        Read More
-                                                        <svg width="13" height="13" viewbox="0 0 13 13" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <g clip-path="url(#clip0_599_4830)">
-                                                                <path
-                                                                    d="M10.6537 3.8149L1.71801 12.7506L0.25 11.2826L9.18469 2.3469H1.31V0.270508H12.7301V11.6906H10.6537V3.8149Z"
-                                                                    fill=""></path>
-                                                            </g>
-                                                            <defs>
-                                                                <clippath id="clip0_599_4830">
-                                                                    <rect width="13" height="13" fill="white">
-                                                                    </rect>
-                                                                </clippath>
-                                                            </defs>
-                                                        </svg>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="card" class="col-lg-4 col-md-6">
-                                        <div class="card-news-style-2" style="margin-bottom: 50px;"">
-                                            <div class="card-image">
-                                                <img src="/assets/imgs/page/blog/news.png" alt="Nivia">
-                                            </div>
-                                            <div class="card-info">
-                                                <div>
-                                                    <h6 style="margin-bottom: 10px;">Amona Safii</h6>
-                                                </div>
-                                                <div class="card-meta">
-                                                    <span class="btn btn-tag-sm">Branding & Positioning</span>
-                                                    <span class="date-post">Mar 2024</span>
-                                                </div>
-                                                <div class="card-title">
-                                                    <p class="link-new">
-                                                        Project made for Amona Safii in the Clothing & Accessories
-                                                        industry for
-                                                        a B2C audience in 2024.
-                                                    </p>
-                                                </div>
-                                                <div class="card-more" >
-                                                    <p class="btn btn-learmore-2">
-                                                        Read More
-                                                        <svg width="13" height="13" viewbox="0 0 13 13" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <g clip-path="url(#clip0_599_4830)">
-                                                                <path
-                                                                    d="M10.6537 3.8149L1.71801 12.7506L0.25 11.2826L9.18469 2.3469H1.31V0.270508H12.7301V11.6906H10.6537V3.8149Z"
-                                                                    fill=""></path>
-                                                            </g>
-                                                            <defs>
-                                                                <clippath id="clip0_599_4830">
-                                                                    <rect width="13" height="13" fill="white">
-                                                                    </rect>
-                                                                </clippath>
-                                                            </defs>
-                                                        </svg>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <div id="imageModal" class="image-modal-single">

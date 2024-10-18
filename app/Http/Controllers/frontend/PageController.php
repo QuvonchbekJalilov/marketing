@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Award;
 use App\Models\Company;
 use App\Models\Language;
+use App\Models\Portfolio;
 use App\Models\Review;
 use App\Models\Service;
 use App\Models\ServiceCategory;
@@ -94,11 +95,12 @@ class PageController extends Controller
         $average_review = Review::where('provider_id', $id)->avg('scoro');
         $awards = Award::where('provider_id', $id)->get();
         $teams = Team::where('provider_id', $id)->first();
+        $portfolios = Portfolio::where('provider_id', $id)->with('subCategory')->get();
         // Handle case where no reviews exist
         if ($average_review === null) {
             $average_review = 0; // Default value if no reviews exist
         }
-        return view('frontend.single-provider', compact('provider','services', 'average_review', 'awards','teams'));
+        return view('frontend.single-provider', compact('provider','services', 'average_review', 'awards','teams','portfolios'));
     }
 
     public function singleReviews()
