@@ -73,6 +73,12 @@ class User extends Authenticatable
         return $this->hasMany(Contact::class, 'provider_id');
     }
 
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'provider_id');
+
+    }
+
     /**
      * A user (provider) can have many companies associated.
      */
@@ -87,6 +93,11 @@ class User extends Authenticatable
     public function clientReviews()
     {
         return $this->hasMany(Review::class, 'client_id');
+    }
+
+    public function awards()
+    {
+        return $this->hasMany(Award::class);
     }
     /**
      * The attributes that should be cast.
