@@ -86,19 +86,7 @@
                         <div class="content-single" >
                             <h4 class="mb-20">About Company</h4>
                             <p style="margin-bottom: 40px;">
-                                Over the period of its existence, the DORA team, through its work and its
-                                achievements, has
-                                gained the trust of large companies in the field of plastic windows, furniture
-                                manufacturing, pharmaceuticals in Uzbekistan, China and CIS countries.
-
-
-                                During this period, cooperation with more than 200 companies has been established,
-                                and the
-                                number of partners is growing every day!
-
-
-                                Our mission is to increase the sales volume of our customers and contribute to their
-                                growth.
+                                {{$provider->companies->first()->description}}
                             </p>
                         </div>
 
@@ -120,7 +108,7 @@
                                             aria-expanded="false" aria-controls="flush-collapseOne" style="display:flex; justify-content: space-between;">
                                             {{$service->subCategory->name_uz ?? null}}
                                             <div style="display: flex; align-items: center;">
-                                                <p class="d-none d-md-block " style="padding: 0 19px; font-size: 14px;">7 works</p>
+                                                <p class="d-none d-md-block " style="padding: 0 19px; font-size: 14px;">0 works</p>
                                                  <div class="card-rates d-none d-md-block border-start border-end " style="border-left:1px solid #D1D3D4; border-right: 1px solid #D1D3D4; padding: 0 20px;">
                                                             <img src="/assets/imgs/template/icons/star.svg"
                                                                 alt="Nivia" /><img
@@ -133,7 +121,7 @@
                                                                 src="/assets/imgs/template/icons/star.svg"
                                                                 alt="Nivia" />
                                                         </div>
-                                                <p style="padding: 0 19px; font-size: 14px;">$5,000 / <span>project</span></p>
+                                                <p style="padding: 0 19px; font-size: 14px;">{{$service->price}} / <span>project</span></p>
                                             </div>
                                         </button>
                                     </h2>
@@ -142,44 +130,7 @@
                                         <div class="accordion-body">
                                             <h6 style="margin-bottom: 15px;">Description</h6>
                                             <div class="truncate-text" id="text-content-full-5" >
-                                                <p>At DORA, we specialize in providing comprehensive social
-                                                    media services
-                                                    that elevate your brand's online presence. Our team excels
-                                                    in creating
-                                                    targeted social media marketing campaigns that drive
-                                                    engagement and
-                                                    deliver measurable results. With expertise in social
-                                                    marketing and video
-                                                    production, we craft compelling content that resonates with
-                                                    your
-                                                    audience.</p>
-                                                <p>We are proficient in using Facebook Business Manager to
-                                                    optimize your
-                                                    advertising efforts and achieve your marketing goals. Our
-                                                    social media
-                                                    planning services ensure that your content is strategically
-                                                    scheduled
-                                                    and aligned with your overall business objectives.</p>
-                                                <p>In addition to creating captivating social media ads, we
-                                                    offer community
-                                                    management to build and maintain a loyal follower base. Our
-                                                    posts design
-                                                    guidelines guarantee consistency and visual appeal across
-                                                    all your
-                                                    social media platforms.</p>
-                                                <p>Through our social presence audits, we provide detailed
-                                                    insights into
-                                                    your current performance and actionable recommendations for
-                                                    improvement.
-                                                    Our content creation services cover a wide range of formats,
-                                                    ensuring
-                                                    that your social media channels are always fresh and
-                                                    engaging.</p>
-                                                <p>Choose DORA for a strategic, results-driven approach to
-                                                    social media
-                                                    marketing that amplifies your brand's voice and reaches your
-                                                    target
-                                                    audience effectively.</p>
+                                                <p>{{$service->description}}</p>
                                             </div>
                                             <button data-target="text-content-full-5" class="show-more-button"
                                                 style="border: none; background-color: transparent; padding: 0;">see
@@ -297,7 +248,7 @@
                                             </p>
                                         </div>
                                         <div class="item-line">
-                                            <div class="text-salary text-16-bold">1 award</div>
+                                            <div class="text-salary text-16-bold">{{$awards->count()}} award</div>
                                             <p class="text-date-post-value text-md neutral-500">conferred</p>
                                         </div>
                                          <div class="item-line">
@@ -306,12 +257,10 @@
                                             </p>
                                         </div>
                                         <div class="item-line">
-                                            <div class="text-date-lang text-16-bold">Arabic, Chinese, English,
-                                                Russian,
-                                                Uzbek</div>
+                                            <div class="text-date-lang text-16-bold">{{$provider->language->name_uz}}</div>
                                         </div>
                                         <div class="item-line">
-                                            <div class="text-date-founded text-16-bold">Founded in 2019</div>
+                                            <div class="text-date-founded text-16-bold">Founded in {{$provider->companies->first()->founded}}</div>
                                         </div>
                                         <div class="box-button-sidebar"> <a class="btn btn-black btn-rounded"
                                                 href="{{$provider->companies->first()->website}}" target="_blank">Open website
@@ -575,28 +524,11 @@
                                         <div class="row">
                                             <div class="col-md" style="padding: 0;">
                                                 <div class="card-news-style-2 card-news-style-3">
-                                                    <div class="card-image img-fluid" > <a href="blog-post.html"><img
-                                                                src="/assets/imgs/page/blog/blog.png" alt="Nivia"></a></div>
+                                                    <div class="card-image img-fluid" > <a href="#"><img
+                                                                src="{{asset('storage/'.$teams->image)}}" alt="Nivia"></a></div>
                                                     <div class="card-info">
                                                         <div class="card-desc">
-                                                            <p class="text-md neutral-500">Duis mollis, est non
-                                                                commodo luctus,
-                                                                nisi erat porttitor
-                                                                ligula, eget lacinia odio sem nec elit. Nullam quis
-                                                                risus eget
-                                                                urna mollis ornare vel. Nulla
-                                                                vitae elit libero, a pharetra augue. Praesent
-                                                                commodo cursus
-                                                                magna, vel scelerisque nisl
-                                                                consectetur et. Sed posuere consectetur est at
-                                                                lobortis. Cras
-                                                                mattis consectetur purus sit
-                                                                amet fermentum. Fusce dapibus, tellus ac cursus
-                                                                commodo, tortor
-                                                                mauris condimentum nibh.
-                                                                Cras mattis consectetur purus sit amet fermentum.
-                                                                Sed posuere
-                                                                consectetur.</p>
+                                                            <p class="text-md neutral-500">{{$teams->description}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -613,18 +545,20 @@
                             <div class="row">
                                 <h2 class="title " style="font-size: 30px; margin-bottom: 15px; padding: 0;">Awards
                                 </h2>
+                                @foreach($awards as $award)
                                 <div class="col-lg-3 col-sm-6" style="padding:0;">
                                     <div class="card-features-5">
                                         <div class="card-image"><i class="fa-solid fa-award"></i></div>
 
                                         <div class="card-info">
-                                            <h6 style="text-transform: uppercase;">Brend of the Year</h6>
-                                            <p class="text-sm neutral-500">2023-5-1</p>
+                                            <h6 style="text-transform: uppercase;">{{$award->name}}</h6>
+                                            <p class="text-sm neutral-500">{{$award->date}}</p>
                                             <div style="margin-top: 10px ;" class="card-meta"><a class="btn btn-tag-sm"
-                                                    href="blog-post.html">Marketing</a></div>
+                                                    href="#">{{$award->category}}</a></div>
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
                     </section>
 

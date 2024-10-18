@@ -94,6 +94,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class, 'client_id');
     }
+
+    public function awards()
+    {
+        return $this->hasMany(Award::class);
+    }
     /**
      * The attributes that should be cast.
      *

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Award;
 use App\Models\Company;
+use App\Models\Language;
 use App\Models\Review;
 use App\Models\Service;
 use App\Models\ServiceCategory;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use NunoMaduro\Collision\Provider;
@@ -89,11 +92,13 @@ class PageController extends Controller
         $provider = User::where('id', $id)->with('companies')->first();
         $services = Service::where('provider_id', $id)->with('subCategory')->get();
         $average_review = Review::where('provider_id', $id)->avg('scoro');
+        $awards = Award::where('provider_id', $id)->get();
+        $teams = Team::where('provider_id', $id)->first();
         // Handle case where no reviews exist
         if ($average_review === null) {
             $average_review = 0; // Default value if no reviews exist
         }
-        return view('frontend.single-provider', compact('provider','services', 'average_review'));
+        return view('frontend.single-provider', compact('provider','services', 'average_review', 'awards','teams'));
     }
 
     public function singleReviews()
