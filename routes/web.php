@@ -15,6 +15,7 @@ use App\Http\Controllers\admin\SectorController as AdminSectorController;
 use App\Http\Controllers\provider\auth\AuthController as ProviderAuthController;
 use App\Http\Controllers\provider\PageController as ProviderPageController;
 use App\Http\Controllers\provider\auth\RegistrationController as ProviderRegistrationController;
+use App\Http\Controllers\provider\ReviewController;
 use App\Http\Controllers\provider\TeamController as ProviderTeamController;
 use App\Http\Controllers\provider\PortfoliosController as ProviderPortfoliosController;
 use App\Http\Controllers\provider\ReviewController as ProviderReviewController;
@@ -40,14 +41,14 @@ use App\Http\Controllers\Teams\TeamController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 
-//client controller 
+//client controller
 use App\Http\Controllers\client\auth\ClientLoginController;
 
 //frontend controller
 use App\Http\Controllers\frontend\auth\ManageController;
 use App\Http\Controllers\frontend\PageController;
 
-//marketer controller 
+//marketer controller
 use App\Http\Controllers\marketer\auth\LoginController as MarketerLoginController;
 use Illuminate\Support\Facades\Mail;
 
@@ -102,7 +103,7 @@ Route::get('/single-providers/{id}', [PageController::class, 'singleProviders'])
 Route::get('/single-marketers/{id}', [PageController::class, 'singleMarketers'])->name('singleMarketers');
 Route::get('/single-partners', [PageController::class, 'singlePartners'])->name('singlePartners');
 Route::get('/contacts', [PageController::class, 'contact'])->name('contacts');
-Route::get('/single-reviews', [PageController::class, 'singleReviews'])->name('singleReviews');
+Route::get('/single-reviews/{id}', [PageController::class, 'singleReviews'])->name('singleReviews');
 Route::get('/search', [PageController::class, 'search'])->name('search');
 
 // Loyiha ohirida olib tashlanadi, single-kerak emas.
@@ -213,13 +214,6 @@ Route::prefix('partner')->namespace('App\Http\Controllers')->group(function () {
 //     return back();
 // })->where('lang', 'uz|ru');
 
-Route::get('/test-email', function () {
-    Mail::raw('This is a test email.', function ($message) {
-        $message->to('jalilovquvonchbek4@gmail.com') // Change this to a valid recipient email
-                ->subject('Test Email');
-    });
-
-    return 'Email sent!';
-});
 
 Route::get('/reviews/confirm/{id}', [ProviderReviewController::class, 'confirm'])->name('reviews.confirm');
+Route::post('/save-review', [ReviewController::class, 'saveReview'])->name('save.review');

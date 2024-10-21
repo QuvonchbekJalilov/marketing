@@ -309,7 +309,7 @@
         </div>
 
     </div>
-@endforeach
+
 <!--! ================================================================ !-->
 <!--! [End] Tasks Details Offcanvas !-->
 <!--! ================================================================ !-->
@@ -377,6 +377,7 @@
     // Trigger change event to load skills for the initially selected service
     document.getElementById('editServiceSelect').dispatchEvent(new Event('change'));
 </script>
+@endforeach
 <style>
     .sticky-column {
         position: -webkit-sticky;

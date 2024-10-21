@@ -56,7 +56,7 @@
                                                                 class="hstack gap-3">
                                                                 <div>
                                                                     <span
-                                                                        class="text-truncate-1-line">{{ $review->client->name }}
+                                                                        class="text-truncate-1-line">{{ $review->full_name }}
                                                                     </span>
                                                                 </div>
                                                             </a>

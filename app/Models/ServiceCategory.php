@@ -24,4 +24,9 @@ class ServiceCategory extends Model
     {
         return $this->hasMany(Skill::class);
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'service_category_id');
+    }
 }
