@@ -91,21 +91,31 @@ class PageController extends Controller
     public function singleProviders($id)
     {
         $provider = User::where('id', $id)->with('companies')->first();
+        $reviews = Review::where('provider_id', $id)->with('serviceCategory')->get();
         $services = Service::where('provider_id', $id)->with('subCategory')->get();
-        $average_review = Review::where('provider_id', $id)->avg('scoro');
+        $average_review = Review::where('provider_id', $id)
+            ->selectRaw('AVG(burget_score) as avg_burget_score, AVG(quality_score) as avg_quality_score, AVG(schedule_score) as avg_schedule_score, AVG(colloboration_score) as avg_colloboration_score')
+            ->first();
+
+        // Umumiy o'rtacha qiymatni hisoblash
+        $average_score = ($average_review->avg_burget_score + $average_review->avg_quality_score + $average_review->avg_schedule_score + $average_review->avg_colloboration_score) / 4;
+
         $awards = Award::where('provider_id', $id)->get();
         $teams = Team::where('provider_id', $id)->first();
         $portfolios = Portfolio::where('provider_id', $id)->with('subCategory')->get();
+
         // Handle case where no reviews exist
         if ($average_review === null) {
             $average_review = 0; // Default value if no reviews exist
         }
-        return view('frontend.single-provider', compact('provider','services', 'average_review', 'awards','teams','portfolios'));
+        return view('frontend.single-provider', compact('provider','services', 'average_score', 'awards','teams','portfolios','reviews'));
     }
 
-    public function singleReviews()
+    public function singleReviews($id)
     {
-        return view('frontend.single-reviews');
+        $provider = User::where('id', $id)->with('companies')->first();
+        $services = Service::all();
+        return view('frontend.single-reviews', compact('services','provider'));
     }
 
     // Marketers

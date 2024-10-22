@@ -1,6 +1,7 @@
 <!--! ================================================================ !-->
 <!--! [Start] Tasks Details Offcanvas !-->
 <!--! ================================================================ !-->
+@if (isset($portfolios))
 @foreach ($portfolios as $portfolio)
     <div class="offcanvas offcanvas-end w-50" tabindex="-1" id="portfolioProviderEditOffcanvas{{ $portfolio->id }}">
         <div class="offcanvas-header border-bottom" style="padding-top: 20px; padding-bottom: 20px">
@@ -309,6 +310,7 @@
 
     </div>
 @endforeach
+@endif
 <!--! ================================================================ !-->
 <!--! [End] Tasks Details Offcanvas !-->
 <!--! ================================================================ !-->
