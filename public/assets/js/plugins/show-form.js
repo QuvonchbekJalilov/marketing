@@ -14,7 +14,7 @@ function showForm(formIndex) {
     const forms = document.querySelectorAll('.box-of-review form');
     const nextButton = document.querySelector('.next-btn');
     const prevButton = document.querySelector('.prev-btn');
-    
+
     forms.forEach(form => form.style.display = 'none');
     buttons.forEach(btn => btn.classList.remove('active-button'));
 
@@ -39,12 +39,22 @@ function showForm(formIndex) {
 
 document.querySelector('.next-btn').addEventListener('click', () => {
     const forms = document.querySelectorAll('.box-of-review form');
+
+    // Joriy formani olish
+    const currentForm = forms[currentFormIndex];
+
+    // Agar oxirgi forma bo'lmasa
     if (currentFormIndex < forms.length - 1) {
-        currentFormIndex++;
-        showForm(currentFormIndex);
+        // Formani yuborishdan oldin tekshirish
+        currentForm.submit(); // Formani submit qiladi
+
+        currentFormIndex++;  // Keyingi formaga o'tish uchun indexni yangilash
+        showForm(currentFormIndex); // Keyingi formani ko'rsatish
     } else {
-        alert("Form submitted!");
-        // Add form submission logic here
+        // Agar oxirgi forma bo'lsa
+        alert("Oxirgi formaga o'tildi va yuborilmoqda!");
+        currentForm.submit(); // Oxirgi formani submit qiladi
+        // Bu yerda oxirgi bosqich bo'lgani uchun, submit bo'lgach qayta yo'naltirish amalga oshadi
     }
 });
 
@@ -54,6 +64,7 @@ document.querySelector('.prev-btn').addEventListener('click', () => {
         showForm(currentFormIndex);
     }
 });
+
 
 // Initially show the first form
 showForm(currentFormIndex);

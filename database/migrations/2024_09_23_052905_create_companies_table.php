@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('tagline')->nullable();
             $table->string('logo')->nullable();
             $table->string('cover')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

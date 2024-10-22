@@ -251,7 +251,7 @@
                                             <p class="text-md size-text">{{ $provider->description }}</p>
                                             @foreach($provider->companies as $company)
                                                 <a class="btn btn-learmore-2"
-                                                   href="{{ route('singleProviders',$company->id) }}"><span>
+                                                   href="{{ route('singleProviders',$provider->id) }}"><span>
                                         @endforeach
                           <svg width="13" height="13" viewbox="0 0 13 13" fill="none"
                                xmlns="http://www.w3.org/2000/svg">
