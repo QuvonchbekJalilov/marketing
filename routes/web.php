@@ -217,3 +217,4 @@ Route::prefix('partner')->namespace('App\Http\Controllers')->group(function () {
 
 Route::get('/reviews/confirm/{id}', [ProviderReviewController::class, 'confirm'])->name('reviews.confirm');
 Route::post('/save-review', [ReviewController::class, 'saveReview'])->name('save.review');
+Route::get('/filter-providers', [PageController::class, 'filter'])->name('filter.providers');

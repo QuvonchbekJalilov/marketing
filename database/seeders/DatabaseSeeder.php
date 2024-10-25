@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             LanguageSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            ServiceCategorySeeder::class,
+            ServiceSubCategorySeeder::class,
         ]);
     }
 }

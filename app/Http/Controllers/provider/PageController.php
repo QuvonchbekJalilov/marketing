@@ -72,12 +72,12 @@ class PageController extends Controller
             'companies' => 'nullable|array', // Companies array input for provider
             'languages' => 'nullable|array', // Languages array input
         ]);
-    
+
         // Retrieve the logged-in provider
         $provider = Auth::user(); // Assuming the logged-in user is the provider
         $providerCompany = ProviderCompany::where('provider_id', $provider->id)->first();
         $company = Company::where('id', $providerCompany->company_id)->first();
-    
+
         // Update company details
         if ($company) {
             $companyData = [
@@ -92,7 +92,7 @@ class PageController extends Controller
                 'website' => $request->input('website'),
                 'email' => $request->input('email'),
             ];
-    
+
             // Handle company logo file upload
             if ($request->hasFile('logo')) {
                 if ($company->logo) {
@@ -100,7 +100,7 @@ class PageController extends Controller
                 }
                 $companyData['logo'] = $request->file('logo')->store('logos', 'public'); // Save new logo
             }
-    
+
             // Handle company cover file upload
             if ($request->hasFile('cover')) {
                 if ($company->cover) {
@@ -108,11 +108,11 @@ class PageController extends Controller
                 }
                 $companyData['cover'] = $request->file('cover')->store('covers', 'public'); // Save new cover
             }
-    
+
             // Update the company with the new data
             $company->update($companyData);
         }
-    
+
         // Update provider details
         if ($request->has('languages')) {
             $languageCodes = $request->input('languages'); // Get language codes from request
@@ -120,20 +120,22 @@ class PageController extends Controller
             $provider->language_id = $languageIds[0]; // Assuming single language
             $provider->save();
         }
-    
+
         if ($request->has('companies')) {
             $companyIds = $request->input('companies');
             $provider->companies()->sync($companyIds); // Sync companies with provider
         }
-    
+
         if ($request->filled('password')) {
             $validatedData['password'] = Hash::make($request->input('password'));
         }
-    
-    
+
+
         return redirect()->route('providers.profile')->with('success', __('messages.profile_update'));
     }
-    
-    
-    
+
+
+
+
+
 }

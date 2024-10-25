@@ -136,43 +136,31 @@ class ReviewController extends Controller
 
     public function saveReview(Request $request)
     {
+        // Ma'lumotlarni tekshirish
+        $validatedData = $request->validate([
+            'provider_id' => 'required|integer',
+            'burget_score' => 'required|numeric|min:1|max:5',
+            'quality_score' => 'required|numeric|min:1|max:5',
+            'schedule_score' => 'required|numeric|min:1|max:5',
+            'colloboration_score' => 'required|numeric|min:1|max:5',
+            'behind_collaboration' => 'required|string',
+            'during_collaboration' => 'required|string',
+            'improvements' => 'required|string',
+            'service_category_id' => 'required|integer',
+            'recommend' => 'required|boolean',
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'job_title' => 'required|string|max:255',
+            'company_name' => 'required|string|max:255',
+            'company_industry' => 'required|string|max:255',
+            'company_size' => 'required|string|max:255',
+        ]);
 
-            $id = $request->provider_id;
-        // Avvalgi ma'lumotlarni sessiyaga saqlash
-        if ($request->has('burget_score')) {
-            // Describe your experience formasi
-            $request->session()->put('review.burget_score', $request->input('burget_score'));
-            $request->session()->put('review.quality_score', $request->input('quality_score'));
-            $request->session()->put('review.schedule_score', $request->input('schedule_score'));
-            $request->session()->put('review.colloboration_score', $request->input('colloboration_score'));
-        } elseif ($request->has('behind_collaboration')) {
-            // Personal Information formasi
-            $request->session()->put('review.behind_collaboration', $request->input('behind_collaboration'));
-            $request->session()->put('review.during_collaboration', $request->input('during_collaboration'));
-            $request->session()->put('review.improvements', $request->input('improvements'));
-            $request->session()->put('review.service_category_id', $request->input('service_category_id'));
-            $request->session()->put('review.recommend', $request->input('recommend'));
-        } else {
-            // Final forma
-            $request->session()->put('review.full_name', $request->input('full_name'));
-            $request->session()->put('review.email', $request->input('email'));
-            $request->session()->put('review.job_title', $request->input('job_title'));
-            $request->session()->put('review.company_name', $request->input('company_name'));
-            $request->session()->put('review.company_industry', $request->input('company_industry'));
-            $request->session()->put('review.company_size', $request->input('company_size'));
-            $request->session()->put('review.provider_id', $request->input('provider_id'));
+        // Yangi review yaratish
+        Review::create($validatedData);
 
-            // Bazaga saqlash
-            $reviewData = $request->session()->get('review');
-            Review::create($reviewData);
-
-            // Sessiyani tozalash
-            $request->session()->forget('review');
-            return redirect()->route('singleProviders',['id'=> $id])->with('success', 'Review muvaffaqiyatli saqlandi.');
-        }
-
-        // Keyingi forma ko'rinishini qaytarish
-        return redirect()->back()->with('success', 'Ma\'lumotlar muvaffaqiyatli saqlandi.');
+        // Muvaffaqiyatli javob
+        return response()->json(['message' => 'Ma\'lumotlar muvaffaqiyatli saqlandi!']);
     }
 
 

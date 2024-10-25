@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->foreignId('provider_id')->constrained('users', 'id')->cascadeOnDelete();
-            $table->foreign('service_category_id')->references('id')->on('service_categories')->onDelete('cascade');
+            $table->foreignId('service_category_id')->constrained('service_categories', 'id')->cascadeOnDelete();
             $table->integer('burget_score'); // integer baholash qiymatlari uchun
             $table->integer('quality_score');
             $table->integer('schedule_score');
