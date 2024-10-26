@@ -41,7 +41,7 @@
                         <a href="javascript:void(0);" class="btn btn-primary"
                             data-bs-toggle="offcanvas" data-bs-target="#managerProviderOffcanvas">
                             <i class="feather-plus me-2"></i>
-                            <span>Add New</span>
+                            <span>Добавить новый</span>
                         </a>
                     </div>
                     @endif
@@ -65,11 +65,11 @@
                         <form action="#" method="POST">
                             @csrf  <!-- CSRF token, xavfsizlik uchun -->
                             <div class="form-group">
-                                <label for="email">Email:</label>
+                                <label for="email">Электронная почта:</label>
                                 <input type="email" name="send_email" class="form-control" required>
                             </div>
                             <div class="flex mt-3">
-                                <button type="submit" class="btn btn-primary">Send an offer</button>
+                                <button type="submit" class="btn btn-primary">Отправить предложение</button>
                             </div>
                         </form>
                     </div>
@@ -85,9 +85,9 @@
                                 <table class="table table-hover" id="managersList">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
+                                            <th>Имя</th>
+                                            <th>Электронная почта</th>
+                                            <th>Роль</th>
                                             <th></th>
                                         </tr>
                                     </thead>

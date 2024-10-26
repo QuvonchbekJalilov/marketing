@@ -17,96 +17,96 @@
                 <!-- Rating / Scoro -->
                 <div class="col-sm-6">
                     <div class="form-group mb-4">
-                        <label class="form-label">Burget scoro:</label>
-                        <input type="number" name="burget_score" class="form-control" placeholder="Enter rating (1-5)" min="1" max="5"  required>
+                        <label class="form-label">Бюджетный балл:</label>
+                        <input type="number" name="burget_score" class="form-control" placeholder="Введите оценку (1-5)" min="1" max="5"  required>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group mb-4">
-                        <label class="form-label">Quality scoro:</label>
-                        <input type="number" name="quality_score" class="form-control" placeholder="Enter rating (1-5)" min="1" max="5"  required>
+                        <label class="form-label">Качественный балл:</label>
+                        <input type="number" name="quality_score" class="form-control" placeholder="Введите оценку (1-5)" min="1" max="5"  required>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group mb-4">
-                        <label class="form-label">Schedule scoro:</label>
-                        <input type="number" name="schedule_score" class="form-control" placeholder="Enter rating (1-5)" min="1" max="5"  required>
+                        <label class="form-label">График балл:</label>
+                        <input type="number" name="schedule_score" class="form-control" placeholder="Введите оценку (1-5)" min="1" max="5"  required>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group mb-4">
-                        <label class="form-label">Colloboration scoro:</label>
-                        <input type="number" name="colloboration_score" class="form-control" placeholder="Enter rating (1-5)" min="1" max="5"  required>
+                        <label class="form-label">Балл за сотрудничество:</label>
+                        <input type="number" name="colloboration_score" class="form-control" placeholder="Введите оценку (1-5)" min="1" max="5"  required>
                     </div>
                 </div>
 
                 <!-- Description -->
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">Behind Description:</label>
-                        <textarea name="behind_collaboration" class="form-control" rows="3" placeholder="Enter your review" required></textarea>
+                        <label class="form-label">За описанием:</label>
+                        <textarea name="behind_collaboration" class="form-control" rows="3" placeholder="Введите ваш отзыв" required></textarea>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">During Description:</label>
-                        <textarea name="during_collaboration" class="form-control" rows="3" placeholder="Enter your review" required></textarea>
+                        <label class="form-label">Во время описания:</label>
+                        <textarea name="during_collaboration" class="form-control" rows="3" placeholder="Введите ваш отзыв" required></textarea>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">Improvements Description:</label>
-                        <textarea name="improvements" class="form-control" rows="3" placeholder="Enter your review" required></textarea>
+                        <label class="form-label">Описание улучшений:</label>
+                        <textarea name="improvements" class="form-control" rows="3" placeholder="Введите ваш отзыв" required></textarea>
                     </div>
                 </div>
 
                 <!-- Review Source -->
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">Tavsiya qilasizmi?</label><br>
+                        <label class="form-label">Рекомендуете ли вы?</label><br>
 
                         <input type="radio" id="recommend_yes" name="recommend" value="yes" >
-                        <label for="recommend_yes">Ha</label><br>
+                        <label for="recommend_yes">Да</label><br>
 
                         <input type="radio" id="recommend_no" name="recommend" value="no" >
-                        <label for="recommend_no">Yo'q</label><br>
+                        <label for="recommend_no">Нет</label><br>
                     </div>
                 </div>
 
                 <!-- names -->
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">full_name:</label>
+                        <label class="form-label">Полное имя:</label>
                         <input type="text" name="full_name" class="form-control" placeholder=""   required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">email:</label>
+                        <label class="form-label">Электронная почта:</label>
                         <input type="text" name="email" class="form-control" placeholder=""   required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">job_title:</label>
+                        <label class="form-label">Должность:</label>
                         <input type="text" name="job_title" class="form-control" placeholder=""   required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">company_name:</label>
+                        <label class="form-label">название компании:</label>
                         <input type="text" name="company_name" class="form-control" placeholder=""  required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">company_industry:</label>
+                        <label class="form-label">отрасль компании:</label>
                         <input type="text" name="company_industry" class="form-control" placeholder=""   required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">company size:</label>
+                        <label class="form-label">размер компании:</label>
                         <input type="text" name="company_size" class="form-control" placeholder=""   required>
                     </div>
                 </div>
@@ -114,9 +114,9 @@
                 <!-- service category -->
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label for="service_category_id" class="form-label">Xizmat Kategoriyasi:</label>
+                        <label for="service_category_id" class="form-label">Категория услуги:</label>
                         <select name="service_category_id" id="service_category_id" class="form-control" required>
-                            <option value="">Tanlang</option>
+                            <option value="">Выберите</option>
                             @foreach($service_categories as $category)
                                 <option value="{{ $category->id }}" {{ isset($review) && $review->service_category_id == $category->id ? 'selected' : '' }}>
                                     {{ $category->name }}
@@ -132,7 +132,7 @@
                 <!-- Submit Button -->
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <button type="submit" class="btn btn-primary">Create Review</button>
+                        <button type="submit" class="btn btn-primary">Создать обзор</button>
                     </div>
                 </div>
             </div>

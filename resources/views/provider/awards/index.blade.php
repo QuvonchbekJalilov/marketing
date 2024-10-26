@@ -17,7 +17,7 @@
                             <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="offcanvas"
                                 data-bs-target="#awardProviderOffcanvas">
                                 <i class="feather-plus me-2"></i>
-                                <span>Add New</span>
+                                <span>Добавить новый</span>
                             </a>
                         </div>
                     </div>
@@ -38,15 +38,15 @@
                             <!--! BEGIN: [Users] !-->
                             <div class="card stretch stretch-full">
                                 <div class="card-header">
-                                    <h5 class="card-title">Awards</h5>
+                                    <h5 class="card-title">Награды</h5>
                                 </div>
                                 <div class="card-body custom-card-action">
                                     <table class="table table-hover" id="awardsList">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Category</th>
-                                                <th>Date</th>
+                                                <th>Имя</th>
+                                                <th>Категория</th>
+                                                <th>Дата</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -68,13 +68,13 @@
                                                             href="#">{{ \Carbon\Carbon::parse($award->date)->format('F Y') }}</a>
                                                     </td>
                                                     <td>
-                                                        
+
                                                         <div class="hstack gap-2 justify-content-end">
                                                             <!-- Edit Button -->
                                                             <a href="javascript:void(0);" class="avatar-text avatar-md" data-bs-toggle="offcanvas" data-bs-target="#awardEditProviderOffcanvas{{ $award->id }}">
                                                                 <i class="feather feather-edit-3"></i>
                                                             </a>
-            
+
                                                             <!-- Delete Button -->
                                                             <form class="avatar-text avatar-md" method="POST" onsubmit="confirmDelete(event)" action="{{ route('awards.destroy', $award->id) }}">
                                                                 @csrf
@@ -91,7 +91,7 @@
                                     </table>
                                 </div>
                                 <a href="javascript:void(0);" class="card-footer fs-11 fw-bold text-uppercase text-center"
-                                    data-bs-toggle="offcanvas" data-bs-target="#awardProviderOffcanvas">Add New</a>
+                                    data-bs-toggle="offcanvas" data-bs-target="#awardProviderOffcanvas">Добавить новый</a>
                             </div>
                             <!--! END: [Users] !-->
                         </div>

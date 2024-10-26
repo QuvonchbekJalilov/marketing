@@ -15,7 +15,7 @@
                             <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="offcanvas"
                                 data-bs-target="#reviewProviderOffcanvas">
                                 <i class="feather-plus me-2"></i>
-                                <span>Add New</span>
+                                <span>Добавить новый</span>
                             </a>
                         </div>
                     </div>
@@ -40,12 +40,12 @@
                                         <table class="table table-hover" id="reviewsList">
                                             <thead>
                                                 <tr>
-                                                    <th>{{ __('Client Name') }}</th>
-                                                    <th>{{ __('Rating') }}</th>
-                                                    <th>{{ __('Published At') }}</th>
-                                                    <th>{{ __('Link') }}</th>
-                                                    <th>{{__('Status')}}</th>
-                                                    <th class="text-end">{{ __('Settings') }}</th>
+                                                    <th>{{ __('Имя клиента') }}</th>
+                                                    <th>{{ __('Рейтинг') }}</th>
+                                                    <th>{{ __('Опубликовано в') }}</th>
+                                                    <th>{{ __('Связь') }}</th>
+                                                    <th>{{__('Статус')}}</th>
+                                                    <th class="text-end">{{ __('Настройки') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -107,7 +107,7 @@
                                                                                     style="background: none; border: none; padding: 0; color:black;">
                                                                                     <i
                                                                                         class="feather feather-trash-2 me-3"></i>
-                                                                                    Delete
+                                                                                    Удалить
                                                                                 </button>
                                                                             </form>
                                                                         </li>
