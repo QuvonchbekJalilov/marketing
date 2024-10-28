@@ -27,61 +27,81 @@ $languages = App\Models\Language::all();
         </div>
         <div class="offcanvas-body">
             <div class="row">
-                <!-- Rating / Scoro -->
+                @php
+                // Define the review types and their corresponding score names
+                $reviews = [
+                    'burget' => 'Бюджетный балл',
+                    'quality' => 'Качественный балл',
+                    'schedule' => 'График балл',
+                    'colloboration' => 'Балл за сотрудничество'
+                ];
+                @endphp
+                @foreach ($reviews as $key => $label)
                 <div class="col-sm-6">
                     <div class="form-group mb-4">
-                        <div class="star-review" id="budget-review">
-                            <label class="form-label">Бюджетный балл:</label>
+                        <div class="star-review" id="{{ $key }}-review">
+                            <label class="form-label">{{ $label }}:</label>
                             <div class="star-buttons">
-                                <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <button class="star-button" type="button" data-index="{{ $i }}">
+                                        <i class="fa-solid fa-star" style="color: {{ $i <= $review["{$key}_score"] ? '#FFBF00' : 'grey' }}"></i>
+                                    </button>
+                                @endfor
                             </div>
-                            <input type="hidden" name="burget_score" id="burget_score" value="{{ old('burget_score', $review->burget_score ?? '') }}" required>
+                            <input type="hidden" name="{{ $key }}_score" id="{{ $key }}_score" value="{{ old("{$key}_score", $review["{$key}_score"] ?? '') }}" required>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="star-review" id="quality-review">
-                        <label class="form-label">Качественный балл:</label>
-                        <div class="star-buttons">
-                            <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
-                            <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
-                            <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
-                            <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
-                            <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
-                        </div>
-                        <input type="hidden" name="quality_score" value="{{ $review->quality_score }}" id="quality_score" required>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="star-review" id="schedule-review">
-                        <label class="form-label">График балл:</label>
-                        <div class="star-buttons">
-                            <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
-                            <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
-                            <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
-                            <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
-                            <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
-                        </div>
-                        <input type="hidden" name="schedule_score" id="schedule_score" required>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="star-review" id="colloboration-review">
-                        <label class="form-label"> Балл за сотрудничество:</label>
-                        <div class="star-buttons">
-                            <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
-                            <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
-                            <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
-                            <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
-                            <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
-                        </div>
-                        <input type="hidden" name="colloboration_score" id="colloboration_score" required>
-                    </div>
-                </div>
+            @endforeach
+            
+                
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        // Initialize star ratings for each review category
+                        @foreach (array_keys($reviews) as $key)
+                            initializeStarReview('{{ $key }}-review', '{{ $key }}_score');
+                        @endforeach
+                    });
+                
+                    function initializeStarReview(reviewId, inputId) {
+                        const reviewElement = document.getElementById(reviewId);
+                        const buttons = reviewElement.querySelectorAll('.star-button');
+                        const input = document.getElementById(inputId);
+                        const score = parseInt(input.value) || 0; // Get the score
+                
+                        // Set initial active stars based on saved score
+                        buttons.forEach((button, index) => {
+                            if (index < score) {
+                                button.classList.add('active'); // Add active class if index is less than score
+                            }
+                
+                            // Attach click event to each button
+                            button.addEventListener('click', () => {
+                                buttons.forEach((btn) => btn.classList.remove('active')); // Remove active class from all buttons
+                                button.classList.add('active'); // Add active class to the clicked button
+                                input.value = index + 1; // Save the score to the hidden input
+                                for (let i = 0; i < index; i++) {
+                                    buttons[i].classList.add('active'); // Activate all previous stars
+                                }
+                            });
+                        });
+                    }
+                </script>
+                
+                <style>
+                    .star-button {
+                        background: transparent;
+                        border: none;
+                        cursor: pointer;
+                        color: grey; /* Default star color */
+                    }
+                    .star-button.active {
+                        color: yellow; /* Active star color */
+                    }
+                </style>
+                
+            
+
 
                 <!-- Description -->
                 <div class="col-12">
@@ -220,33 +240,7 @@ $languages = App\Models\Language::all();
 {{--            });--}}
 {{--        });--}}
 {{--    </script>--}}
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const score = parseInt(document.getElementById('burget_score').value, 5); // Get the score
 
-            // Function to handle star review
-            function setStarReview(starButtons, score) {
-                starButtons.forEach((button, index) => {
-                    if (index < score) {
-                        button.classList.add('active'); // Add active class to the button if its index is less than score
-                    }
-                    // Attach click event to the button
-                    button.addEventListener('click', () => {
-                        starButtons.forEach((btn) => btn.classList.remove('active')); // Remove active class from all buttons
-                        button.classList.add('active'); // Add active class to the clicked button
-                        document.getElementById('burget_score').value = index + 1; // Save the score to the hidden input
-                        for (let i = 0; i < index; i++) {
-                            starButtons[i].classList.add('active'); // Activate all previous stars
-                        }
-                    });
-                });
-            }
-
-            const starButtons = document.querySelectorAll('#budget-review .star-button');
-            setStarReview(starButtons, score); // Set the star review based on the saved score
-        });
-
-    </script>
     <!--! ================================================================ !-->
     <!--! [End] Edit Review Provider Offcanvas !-->
     <!--! ================================================================ !-->

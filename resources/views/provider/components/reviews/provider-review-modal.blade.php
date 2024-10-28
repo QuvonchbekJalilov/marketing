@@ -95,10 +95,10 @@
                     <div class="form-group mb-4">
                         <label class="form-label">Рекомендуете ли вы?</label><br>
 
-                        <input type="radio" id="recommend_yes" name="recommend" value="yes" {{ $review->recommend == 'yes' ? 'checked' : '' }}>
+                        <input type="radio" id="recommend_yes" name="recommend" value="yes" >
                         <label for="recommend_yes">Да</label><br>
 
-                        <input type="radio" id="recommend_no" name="recommend" value="no" {{ $review->recommend == 'no' ? 'checked' : '' }}>
+                        <input type="radio" id="recommend_no" name="recommend" value="no" >
                         <label for="recommend_no">Нет</label><br>
                     </div>
                 </div>
@@ -169,38 +169,38 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                // Har bir forma uchun yulduzli reyting funksiyasini o'rnating
-                handleStarReview('budget-review', 'burget_score');
-                handleStarReview('quality-review', 'quality_score');
-                handleStarReview('schedule-review', 'schedule_score');
-                handleStarReview('colloboration-review', 'colloboration_score');
+    // Initialize star reviews for each section
+    handleStarReview('budget-review', 'burget_score');
+    handleStarReview('quality-review', 'quality_score');
+    handleStarReview('schedule-review', 'schedule_score');
+    handleStarReview('colloboration-review', 'colloboration_score');
+});
+
+function handleStarReview(reviewId, inputId) {
+    const reviewElement = document.getElementById(reviewId);
+    const buttons = reviewElement.querySelectorAll('.star-button');
+    const input = document.getElementById(inputId);
+
+    buttons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            // Remove 'active' class from all buttons in this review
+            buttons.forEach((btn) => {
+                btn.classList.remove('active');
             });
 
-            function handleStarReview(reviewId, inputId) {
-                const reviewElement = document.getElementById(reviewId);
-                const buttons = reviewElement.querySelectorAll('.star-button');
-                const input = document.getElementById(inputId);
-
-                buttons.forEach((button, index) => {
-                    button.addEventListener('click', () => {
-                        buttons.forEach((btn, i) => {
-                            btn.classList.toggle('active', i <= index);
-                        });
-                        input.value = index + 1; // Yulduzlar ballini yashirin inputga saqlash
-                    });
-                });
-            }
-
-            $(document).ready(function () {
-                $('.star-button').on('click', function () {
-                    var index = $(this).data('index');
-                    $('.star-button').removeClass('active'); // Barcha tugmalarning aktiv holatini olib tashlash
-                    for (var i = 1; i <= index; i++) {
-                        $('.star-button[data-index="' + i + '"]').addClass('active'); // Bosilgan tugmalardan oldin barcha tugmalarni faollashtirish
-                    }
-                    $('#quality_score').val(index); // Yakuniy reytingni berish
-                });
+            // Add 'active' class to the clicked button and all before it
+            buttons.forEach((btn, i) => {
+                if (i <= index) {
+                    btn.classList.add('active');
+                }
             });
+
+            // Store the score in the hidden input field
+            input.value = index + 1; // Save the star rating to the hidden input
+        });
+    });
+}
+
         </script>
 
 

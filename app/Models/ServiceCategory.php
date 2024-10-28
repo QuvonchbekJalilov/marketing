@@ -47,3 +47,4 @@ class ServiceCategory extends Model
         return parent::__get($key);
     }
 }
+
