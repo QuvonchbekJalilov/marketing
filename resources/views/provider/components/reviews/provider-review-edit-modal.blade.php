@@ -7,6 +7,12 @@ $languages = App\Models\Language::all();
 <form action="{{ route('reviews.update', $review->id) }}" method="POST">
     @csrf
     @method('PUT')
+    <style>
+        .star-button.active i {
+            color: yellow; /* Color for active stars */
+        }
+
+    </style>
     <!--! ================================================================ !-->
     <!--! [Start] Edit Review Provider Offcanvas !-->
     <!--! ================================================================ !-->
@@ -24,26 +30,56 @@ $languages = App\Models\Language::all();
                 <!-- Rating / Scoro -->
                 <div class="col-sm-6">
                     <div class="form-group mb-4">
-                        <label class="form-label">Бюджетный балл:</label>
-                        <input type="number" name="burget_score" class="form-control" placeholder="Введите оценку (1-5)" min="1" max="5" value="{{ $review->burget_score }}" required>
+                        <div class="star-review" id="budget-review">
+                            <label class="form-label">Бюджетный балл:</label>
+                            <div class="star-buttons">
+                                <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                            </div>
+                            <input type="hidden" name="burget_score" id="burget_score" value="{{ old('burget_score', $review->burget_score ?? '') }}" required>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="form-group mb-4">
+                    <div class="star-review" id="quality-review">
                         <label class="form-label">Качественный балл:</label>
-                        <input type="number" name="quality_score" class="form-control" placeholder="Введите оценку (1-5)" min="1" max="5" value="{{ $review->quality_score }}" required>
+                        <div class="star-buttons">
+                            <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                        </div>
+                        <input type="hidden" name="quality_score" value="{{ $review->quality_score }}" id="quality_score" required>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="form-group mb-4">
+                    <div class="star-review" id="schedule-review">
                         <label class="form-label">График балл:</label>
-                        <input type="number" name="schedule_score" class="form-control" placeholder="Введите оценку (1-5)" min="1" max="5" value="{{ $review->schedule_score }}" required>
+                        <div class="star-buttons">
+                            <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                        </div>
+                        <input type="hidden" name="schedule_score" id="schedule_score" required>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="form-group mb-4">
+                    <div class="star-review" id="colloboration-review">
                         <label class="form-label"> Балл за сотрудничество:</label>
-                        <input type="number" name="colloboration_score" class="form-control" placeholder="Введите оценку (1-5)" min="1" max="5" value="{{ $review->colloboration_score }}" required>
+                        <div class="star-buttons">
+                            <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                        </div>
+                        <input type="hidden" name="colloboration_score" id="colloboration_score" required>
                     </div>
                 </div>
 
@@ -148,6 +184,69 @@ $languages = App\Models\Language::all();
             </div>
         </div>
     </div>
+
+{{--    <script>--}}
+{{--        document.addEventListener('DOMContentLoaded', () => {--}}
+{{--            // Har bir forma uchun yulduzli reyting funksiyasini o'rnating--}}
+{{--            handleStarReview('budget-review', 'burget_score');--}}
+{{--            handleStarReview('quality-review', 'quality_score');--}}
+{{--            handleStarReview('schedule-review', 'schedule_score');--}}
+{{--            handleStarReview('colloboration-review', 'colloboration_score');--}}
+{{--        });--}}
+
+{{--        function handleStarReview(reviewId, inputId) {--}}
+{{--            const reviewElement = document.getElementById(reviewId);--}}
+{{--            const buttons = reviewElement.querySelectorAll('.star-button');--}}
+{{--            const input = document.getElementById(inputId);--}}
+
+{{--            buttons.forEach((button, index) => {--}}
+{{--                button.addEventListener('click', () => {--}}
+{{--                    buttons.forEach((btn, i) => {--}}
+{{--                        btn.classList.toggle('active', i <= index);--}}
+{{--                    });--}}
+{{--                    input.value = index + 1; // Yulduzlar ballini yashirin inputga saqlash--}}
+{{--                });--}}
+{{--            });--}}
+{{--        }--}}
+
+{{--        $(document).ready(function () {--}}
+{{--            $('.star-button').on('click', function () {--}}
+{{--                var index = $(this).data('index');--}}
+{{--                $('.star-button').removeClass('active'); // Barcha tugmalarning aktiv holatini olib tashlash--}}
+{{--                for (var i = 1; i <= index; i++) {--}}
+{{--                    $('.star-button[data-index="' + i + '"]').addClass('active'); // Bosilgan tugmalardan oldin barcha tugmalarni faollashtirish--}}
+{{--                }--}}
+{{--                $('#quality_score').val(index); // Yakuniy reytingni berish--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const score = parseInt(document.getElementById('burget_score').value, 5); // Get the score
+
+            // Function to handle star review
+            function setStarReview(starButtons, score) {
+                starButtons.forEach((button, index) => {
+                    if (index < score) {
+                        button.classList.add('active'); // Add active class to the button if its index is less than score
+                    }
+                    // Attach click event to the button
+                    button.addEventListener('click', () => {
+                        starButtons.forEach((btn) => btn.classList.remove('active')); // Remove active class from all buttons
+                        button.classList.add('active'); // Add active class to the clicked button
+                        document.getElementById('burget_score').value = index + 1; // Save the score to the hidden input
+                        for (let i = 0; i < index; i++) {
+                            starButtons[i].classList.add('active'); // Activate all previous stars
+                        }
+                    });
+                });
+            }
+
+            const starButtons = document.querySelectorAll('#budget-review .star-button');
+            setStarReview(starButtons, score); // Set the star review based on the saved score
+        });
+
+    </script>
     <!--! ================================================================ !-->
     <!--! [End] Edit Review Provider Offcanvas !-->
     <!--! ================================================================ !-->

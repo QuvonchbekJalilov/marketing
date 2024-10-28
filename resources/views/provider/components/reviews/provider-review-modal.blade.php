@@ -14,33 +14,63 @@
         </div>
         <div class="offcanvas-body">
             <div class="row">
-                <!-- Rating / Scoro -->
+                <!-- Reyting / Ball -->
                 <div class="col-sm-6">
                     <div class="form-group mb-4">
-                        <label class="form-label">Бюджетный балл:</label>
-                        <input type="number" name="burget_score" class="form-control" placeholder="Введите оценку (1-5)" min="1" max="5"  required>
+                        <div class="star-review" id="budget-review">
+                            <label class="form-label">Бюджетный балл:</label>
+                            <div class="star-buttons">
+                                <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                            </div>
+                            <input type="hidden" name="burget_score" id="burget_score" required>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="form-group mb-4">
+                    <div class="star-review" id="quality-review">
                         <label class="form-label">Качественный балл:</label>
-                        <input type="number" name="quality_score" class="form-control" placeholder="Введите оценку (1-5)" min="1" max="5"  required>
+                        <div class="star-buttons">
+                            <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                        </div>
+                        <input type="hidden" name="quality_score" id="quality_score" required>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="form-group mb-4">
+                    <div class="star-review" id="schedule-review">
                         <label class="form-label">График балл:</label>
-                        <input type="number" name="schedule_score" class="form-control" placeholder="Введите оценку (1-5)" min="1" max="5"  required>
+                        <div class="star-buttons">
+                            <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                        </div>
+                        <input type="hidden" name="schedule_score" id="schedule_score" required>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="form-group mb-4">
-                        <label class="form-label">Балл за сотрудничество:</label>
-                        <input type="number" name="colloboration_score" class="form-control" placeholder="Введите оценку (1-5)" min="1" max="5"  required>
+                    <div class="star-review" id="colloboration-review">
+                        <label class="form-label"> Балл за сотрудничество:</label>
+                        <div class="star-buttons">
+                            <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                        </div>
+                        <input type="hidden" name="colloboration_score" id="colloboration_score" required>
                     </div>
                 </div>
 
-                <!-- Description -->
+                <!-- Tavsif -->
                 <div class="col-12">
                     <div class="form-group mb-4">
                         <label class="form-label">За описанием:</label>
@@ -60,58 +90,58 @@
                     </div>
                 </div>
 
-                <!-- Review Source -->
+                <!-- Sharh manbasi -->
                 <div class="col-12">
                     <div class="form-group mb-4">
                         <label class="form-label">Рекомендуете ли вы?</label><br>
 
-                        <input type="radio" id="recommend_yes" name="recommend" value="yes" >
+                        <input type="radio" id="recommend_yes" name="recommend" value="yes" {{ $review->recommend == 'yes' ? 'checked' : '' }}>
                         <label for="recommend_yes">Да</label><br>
 
-                        <input type="radio" id="recommend_no" name="recommend" value="no" >
+                        <input type="radio" id="recommend_no" name="recommend" value="no" {{ $review->recommend == 'no' ? 'checked' : '' }}>
                         <label for="recommend_no">Нет</label><br>
                     </div>
                 </div>
 
-                <!-- names -->
+                <!-- Ismlar -->
                 <div class="col-12">
                     <div class="form-group mb-4">
                         <label class="form-label">Полное имя:</label>
-                        <input type="text" name="full_name" class="form-control" placeholder=""   required>
+                        <input type="text" name="full_name" class="form-control" placeholder="" required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
                         <label class="form-label">Электронная почта:</label>
-                        <input type="text" name="email" class="form-control" placeholder=""   required>
+                        <input type="email" name="email" class="form-control" placeholder="" required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
                         <label class="form-label">Должность:</label>
-                        <input type="text" name="job_title" class="form-control" placeholder=""   required>
+                        <input type="text" name="job_title" class="form-control" placeholder="" required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
                         <label class="form-label">название компании:</label>
-                        <input type="text" name="company_name" class="form-control" placeholder=""  required>
+                        <input type="text" name="company_name" class="form-control" placeholder="" required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
                         <label class="form-label">отрасль компании:</label>
-                        <input type="text" name="company_industry" class="form-control" placeholder=""   required>
+                        <input type="text" name="company_industry" class="form-control" placeholder="" required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
                         <label class="form-label">размер компании:</label>
-                        <input type="text" name="company_size" class="form-control" placeholder=""   required>
+                        <input type="text" name="company_size" class="form-control" placeholder="" required>
                     </div>
                 </div>
 
-                <!-- service category -->
+                <!-- Xizmat kategoriyasi -->
                 <div class="col-12">
                     <div class="form-group mb-4">
                         <label for="service_category_id" class="form-label">Категория услуги:</label>
@@ -119,26 +149,65 @@
                             <option value="">Выберите</option>
                             @foreach($service_categories as $category)
                                 <option value="{{ $category->id }}" {{ isset($review) && $review->service_category_id == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }}
+                                    {{ $category->name_ru }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-                <!-- Hidden Provider ID -->
+                <!-- Yashirin Provayder ID -->
                 <input type="hidden" name="provider_id" value="{{ auth()->user()->id }}">
 
-
-                <!-- Submit Button -->
+                <!-- Yuborish tugmasi -->
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <button type="submit" class="btn btn-primary">Создать обзор</button>
+                        <button type="submit" class="btn btn-primary">Создать комментарий</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Har bir forma uchun yulduzli reyting funksiyasini o'rnating
+                handleStarReview('budget-review', 'burget_score');
+                handleStarReview('quality-review', 'quality_score');
+                handleStarReview('schedule-review', 'schedule_score');
+                handleStarReview('colloboration-review', 'colloboration_score');
+            });
+
+            function handleStarReview(reviewId, inputId) {
+                const reviewElement = document.getElementById(reviewId);
+                const buttons = reviewElement.querySelectorAll('.star-button');
+                const input = document.getElementById(inputId);
+
+                buttons.forEach((button, index) => {
+                    button.addEventListener('click', () => {
+                        buttons.forEach((btn, i) => {
+                            btn.classList.toggle('active', i <= index);
+                        });
+                        input.value = index + 1; // Yulduzlar ballini yashirin inputga saqlash
+                    });
+                });
+            }
+
+            $(document).ready(function () {
+                $('.star-button').on('click', function () {
+                    var index = $(this).data('index');
+                    $('.star-button').removeClass('active'); // Barcha tugmalarning aktiv holatini olib tashlash
+                    for (var i = 1; i <= index; i++) {
+                        $('.star-button[data-index="' + i + '"]').addClass('active'); // Bosilgan tugmalardan oldin barcha tugmalarni faollashtirish
+                    }
+                    $('#quality_score').val(index); // Yakuniy reytingni berish
+                });
+            });
+        </script>
+
+
     </div>
+
     <!--! ================================================================ !-->
     <!--! [End] Review Provider Offcanvas !-->
     <!--! ================================================================ !-->
+
 </form>

@@ -23,6 +23,7 @@ class Review extends Model
         'company_name',
         'company_industry',
         'company_size',
+        'status'
         ];
 
 

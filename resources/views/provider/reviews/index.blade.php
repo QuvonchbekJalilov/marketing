@@ -13,7 +13,7 @@
                     <div class="page-header-right ms-auto">
                         <div class="d-flex align-items-center gap-3 page-header-right-items-wrapper">
                             <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="offcanvas"
-                                data-bs-target="#reviewProviderOffcanvas">
+                               data-bs-target="#reviewProviderOffcanvas">
                                 <i class="feather-plus me-2"></i>
                                 <span>Добавить новый</span>
                             </a>
@@ -39,85 +39,88 @@
                                     <div class="table-responsive" style="min-height: 500px">
                                         <table class="table table-hover" id="reviewsList">
                                             <thead>
-                                                <tr>
-                                                    <th>{{ __('Имя клиента') }}</th>
-                                                    <th>{{ __('Рейтинг') }}</th>
-                                                    <th>{{ __('Опубликовано в') }}</th>
-                                                    <th>{{ __('Связь') }}</th>
-                                                    <th>{{__('Статус')}}</th>
-                                                    <th class="text-end">{{ __('Настройки') }}</th>
-                                                </tr>
+                                            <tr>
+                                                <th>{{ __('Имя клиента') }}</th>
+                                                <th>{{ __('Рейтинг') }}</th>
+                                                <th>{{ __('Опубликовано в') }}</th>
+                                                <th>{{ __('Связь') }}</th>
+                                                <th>{{__('Статус')}}</th>
+                                                <th class="text-end">{{ __('Настройки') }}</th>
+                                            </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($reviews as $review)
-                                                    <tr>
-                                                        <td>
-                                                            <a href="{{ route('reviews.show', $review->id) }}"
-                                                                class="hstack gap-3">
-                                                                <div>
-                                                                    <span
-                                                                        class="text-truncate-1-line">{{ $review->full_name }}
-                                                                    </span>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td><a href="#">{{ $review->scoro ?? null }}</a></td>
-                                                        </td>
-                                                        <td><a href="">{{ $review->created_at->format("Y-m-d") }}</a></td>
-                                                        <td><a href="{{ $review->review_source }}"
-                                                                target="_blank">{{ __('Link') }}</a></td>
-                                                                <td>
-                                                                    @if($review->status == 'not confirmed')
-                                                                        <span class="text-danger">{{ $review->status }}</span>
-                                                                    @else
-                                                                        <span class="text-success">{{ $review->status }}</span>
-                                                                    @endif
-                                                                </td>
-                                                            <td>
-                                                            <div class="hstack gap-2 justify-content-end">
-                                                                <a href="javascript:void(0)" class="avatar-text avatar-md"
-                                                                    data-bs-toggle="offcanvas"
-                                                                    data-bs-target="#editReviewProviderOffcanvas{{ $review->id }}">
-                                                                    <i class="feather feather-edit-3"></i>
-                                                                </a>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0)"
-                                                                        class="avatar-text avatar-md"
-                                                                        data-bs-toggle="dropdown" data-bs-offset="0,21">
-                                                                        <i class="feather feather-more-horizontal"></i>
-                                                                    </a>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="javascript:void(0)"
-                                                                                data-bs-toggle="offcanvas"
-                                                                                data-bs-target="#editReviewProviderOffcanvas{{ $review->id }}">
-                                                                                <i class="feather feather-edit-3 me-3"></i>
-                                                                                <span>Edit</span>
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <form class="dropdown-item"
-                                                                                action="{{ route('reviews.destroy', $review->id) }}"
-                                                                                method="POST"
-                                                                                onsubmit="confirmDelete(event)">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit" class="btn"
-                                                                                    style="background: none; border: none; padding: 0; color:black;">
-                                                                                    <i
-                                                                                        class="feather feather-trash-2 me-3"></i>
-                                                                                    Удалить
-                                                                                </button>
-                                                                            </form>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
+                                            @foreach ($reviews as $review)
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ route('reviews.show', $review->id) }}" class="hstack gap-3">
+                                                            <div>
+                                                                <span class="text-truncate-1-line">{{ $review->full_name }}</span>
                                                             </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <div class="rate-reviews-small">
+                                                            @for ($i = 0; $i < 5; $i++)
+                                                                <span>
+                            <img src="{{ asset('/assets/imgs/template/icons/star.svg') }}" alt="jobhub"
+                                 style="opacity: {{ $i < floor($review->average_score) ? '1' : '0.2' }};" />
+                        </span>
+                                                            @endfor
+                                                            <span class="ml-10 text-muted text-small">
+                        ({{ number_format($review->average_score, 1) }})
+                    </span>
+                                                        </div>
+                                                    </td>
+                                                    <td><a href="">{{ $review->created_at->format('Y-m-d') }}</a></td>
+                                                    <td><a href="{{ $review->review_source }}" target="_blank">{{ __('Link') }}</a></td>
+                                                    <td>
+                                                        @if ($review->status == 'not confirmed')
+                                                            <span class="text-danger">{{ $review->status }}</span>
+                                                        @else
+                                                            <span class="text-success">{{ $review->status }}</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <div class="hstack gap-2 justify-content-end">
+                                                            <a href="javascript:void(0)" class="avatar-text avatar-md" data-bs-toggle="offcanvas"
+                                                               data-bs-target="#editReviewProviderOffcanvas{{ $review->id }}">
+                                                                <i class="feather feather-edit-3"></i>
+                                                            </a>
+                                                            <div class="dropdown">
+                                                                <a href="javascript:void(0)" class="avatar-text avatar-md" data-bs-toggle="dropdown" data-bs-offset="0,21">
+                                                                    <i class="feather feather-more-horizontal"></i>
+                                                                </a>
+                                                                <ul class="dropdown-menu">
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="javascript:void(0)"
+                                                                           data-bs-toggle="offcanvas"
+                                                                           data-bs-target="#editReviewProviderOffcanvas{{ $review->id }}">
+                                                                            <i class="feather feather-edit-3 me-3"></i>
+                                                                            <span>Edit</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <form class="dropdown-item"
+                                                                              action="{{ route('reviews.destroy', $review->id) }}"
+                                                                              method="POST"
+                                                                              onsubmit="confirmDelete(event)">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit" class="btn"
+                                                                                    style="background: none; border: none; padding: 0; color:black;">
+                                                                                <i class="feather feather-trash-2 me-3"></i>
+                                                                                Удалить
+                                                                            </button>
+                                                                        </form>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                             </tbody>
+
                                         </table>
                                     </div>
                                 </div>
