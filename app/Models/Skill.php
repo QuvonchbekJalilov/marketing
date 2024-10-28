@@ -12,8 +12,9 @@ class Skill extends Model
     protected $fillable = ['name','service_id'];
 
     public function service(){
-        return $this->belongsTo(ServiceSubCategory::class, 'service_id');
+        return $this->belongsTo(ServiceSubCategory::class, 'service_id', 'id');
     }
+
     public function services()
     {
         return $this->belongsToMany(Service::class, 'service_skills');
@@ -24,3 +25,4 @@ class Skill extends Model
         return $this->belongsToMany(Portfolio::class, 'portfolio_skills');
     }
 }
+

@@ -30,3 +30,4 @@ class ServiceCategory extends Model
         return $this->hasMany(Review::class, 'service_category_id');
     }
 }
+

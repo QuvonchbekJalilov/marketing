@@ -54,11 +54,9 @@ class SkillController extends Controller
     /**
      * Store a newly created skill in storage.
      */
-    public function store(AdminSkillRequest $request)
+    public function store(Request $request)
     {
-        $validated = $request->validated();
-
-        Skill::create($validated);
+        Skill::create($request->all());
 
         return redirect()->route('skills.index')->with('success', 'Skill created successfully.');
     }
