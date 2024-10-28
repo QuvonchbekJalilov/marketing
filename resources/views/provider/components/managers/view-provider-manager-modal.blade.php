@@ -7,7 +7,7 @@
                 <div class="avatar-text avatar-md items-details-close-trigger" data-bs-dismiss="offcanvas" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Details Close"><i class="feather-arrow-left"></i></div>
                 <span class="vr text-muted mx-4"></span>
                 <a href="javascript:void(0);">
-                    <h2 class="fs-14 fw-bold text-truncate-1-line">View Manager</h2>
+                    <h2 class="fs-14 fw-bold text-truncate-1-line">Посмотреть менеджера</h2>
                     <span class="fs-12 fw-normal text-muted text-truncate-1-line">09:00am - 11:00am, Rangpur, Bangladesh.</span>
                 </a>
             </div>
@@ -114,21 +114,26 @@
                 </div>
             </div>
         </div>
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <form action="{{ route('managers.store')}}" method="POST">
             @csrf
             <div class="offcanvas-body">
                 <div class="row">
                     <div class="col-12">
                         <div id="taskDateRange">
-                            <label class="form-label">Manager Name:</label>
+                            <label class="form-label">Имя менеджера:</label>
                             <div class="input-group date input-daterange">
-                                <input type="text"  class="form-control" name="manager_name" placeholder="Write Provider Name" autocomplete="off">
+                                <input type="text"  class="form-control" name="manager_name" placeholder="Напишите имя поставщика" autocomplete="off">
                             </div>
                         </div>
                     </div>
                     <div class="col-12">
                         <div id="taskDateRange">
-                            <label class="form-label">Manager Email:</label>
+                            <label class="form-label">Электронная почта менеджера:</label>
                             <div class="input-group date input-daterange">
                                 <input type="text"  class="form-control" name="manager_email" placeholder="Write Provider Email" autocomplete="off">
                             </div>
@@ -136,9 +141,9 @@
                     </div>
                     <div class="col-12">
                         <div id="taskDateRange">
-                            <label class="form-label">Manager Password:</label>
+                            <label class="form-label">Пароль менеджера:</label>
                             <div class="input-group date input-daterange">
-                                <input type="password"  class="form-control" name="manager_password" placeholder="Write Provider Email" autocomplete="off">
+                                <input type="password"  class="form-control" name="manager_password" placeholder="Написать письмо поставщику" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -146,7 +151,7 @@
                 <input type="hidden" name="role" value="admin">
                 <div class="comments">
                     <div class="pt-4">
-                        <button href="javascript:void(0);" class="btn btn-primary d-inline-block mt-4">Add Manager</button>
+                        <button href="javascript:void(0);" class="btn btn-primary d-inline-block mt-4">Добавить менеджера</button>
                     </div>
                 </div>
                 <!--! END: Comments !-->

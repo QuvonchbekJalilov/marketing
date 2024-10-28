@@ -26,18 +26,16 @@ class PortfoliosController extends Controller
             // Get all providers for this company
             $providerIds = ProviderCompany::where('company_id', $providerCompany->company_id)
                 ->pluck('provider_id');
-            
+
             // Get the latest team info for all providers in the company
             $portfolios = Portfolio::whereIn('provider_id', $providerIds)->orderBy('id', 'DESC')
-            ->paginate(20);;
+                ->paginate(20);;
         } else {
             // If the provider is not associated with any company, return an empty collection
             $portfolios = collect();
         }
         $services = ServiceSubCategory::all();
 
-
-        
 
         $sectors = Sector::all();
 
@@ -58,7 +56,7 @@ class PortfoliosController extends Controller
     {
         // Validate input data
         $validatedData = $request->validated();
-    
+
         // Handle multi-image/video upload
         if ($request->hasFile('multi_image_video')) {
             $multiImageVideoPaths = [];
@@ -67,13 +65,13 @@ class PortfoliosController extends Controller
             }
             $validatedData['multi_image_video'] = $multiImageVideoPaths;
         }
-    
+
         // Create the portfolio
         $portfolio = Portfolio::create([
             'provider_id' => $validatedData['provider_id'],
             'service_sub_category_id' => $validatedData['service_sub_category_id'],
             'work_title' => $validatedData['work_title'],
-            'multi_image_video' => isset($validatedData['multi_image_video']) ? json_encode($validatedData['multi_image_video']) : null,
+            'multi_image_video' => json_encode($validatedData['multi_image_video'] ?? null),
             'budget' => $validatedData['budget'],
             'start_date' => $validatedData['start_date'],
             'end_date' => $validatedData['end_date'],
@@ -83,25 +81,30 @@ class PortfoliosController extends Controller
             'impact' => $validatedData['impact'],
             'source_link' => $validatedData['source_link'],
         ]);
-    
+
         // Attach skills to portfolio if any
         if ($request->has('skills')) {
             $portfolio->skills()->sync($validatedData['skills']);
         }
-    
+
         // Store client information
-        PortfolioClient::create([
-            'portfolio_id' => $portfolio->id,
-            'company_name' => $validatedData['company_name'],
-            'location' => $validatedData['company_location'],
-            'sector_id' => $validatedData['sector_id'], // Assuming sector is a string, modify this if it's a relation
-            'geographic_scope' => $validatedData['geographic_scope'],
-            'audience' => $validatedData['audience'],
-        ]);
-    
-        return redirect()->route('portfolios.index')->with('success', 'Portfolio created successfully');
+        try {
+            PortfolioClient::create([
+                'portfolio_id' => $portfolio->id,
+                'company_name' => $validatedData['company_name'],
+                'location' => $validatedData['company_location'],
+                'sector_id' => $validatedData['sector_id'], // Assuming sector is a string, modify this if it's a relation
+                'geographic_scope' => $validatedData['geographic_scope'],
+                'audience' => $validatedData['audience'],
+            ]);
+
+            return redirect()->route('portfolios.index')->with('success', 'Portfolio created successfully');
+        } catch (\Exception $e) {
+            // Xatolik yuz berganda, xabarni sessiyaga joylaymiz
+            return redirect()->back()->withErrors(['error' => 'Xatolik yuz berdi: ' . $e->getMessage()]);
+        }
     }
-    
+
 
     public function edit(Portfolio $portfolio)
     {
@@ -117,7 +120,7 @@ class PortfoliosController extends Controller
     {
         // Validate input data
         $validatedData = $request->validated();
-    
+
         // Handle multi-image/video upload
         if ($request->hasFile('multi_image_video')) {
             $multiImageVideoPaths = [];
@@ -126,7 +129,7 @@ class PortfoliosController extends Controller
             }
             $validatedData['multi_image_video'] = $multiImageVideoPaths;
         }
-    
+
         // Update the portfolio
         $portfolio->update([
             'provider_id' => $validatedData['provider_id'],
@@ -142,12 +145,12 @@ class PortfoliosController extends Controller
             'impact' => $validatedData['impact'],
             'source_link' => $validatedData['source_link'],
         ]);
-    
+
         // Sync skills if any
         if ($request->has('skills')) {
             $portfolio->skills()->sync($validatedData['skills']);
         }
-    
+
         // Update client information
         $portfolio->clients()->updateOrCreate(
             ['portfolio_id' => $portfolio->id],
@@ -159,30 +162,30 @@ class PortfoliosController extends Controller
                 'audience' => $validatedData['audience'],
             ]
         );
-    
+
         return redirect()->route('portfolios.index')->with('success', 'Portfolio updated successfully');
     }
-    
+
 
     public function destroy(Portfolio $portfolio)
     {
         if ($portfolio->multi_image_video) {
             $multiImageVideoPaths = json_decode($portfolio->multi_image_video, true);
-    
+
             if (is_array($multiImageVideoPaths)) {
                 foreach ($multiImageVideoPaths as $file) {
                     Storage::disk('public')->delete($file);
                 }
             }
         }
-    
+
         $portfolio->skills()->detach();
-    
+
         $portfolio->delete();
-    
+
         return redirect()->route('portfolios.index')->with('success', 'Portfolio successfully deleted.');
     }
-    
+
 
     public function show(Portfolio $portfolio)
     {

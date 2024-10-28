@@ -69,31 +69,31 @@ if ($providerCompany) {
                             <div class="dropdown-menu nxl-h-dropdown">
                                 <a href="{{ route('portfolios.index')}}" class="dropdown-item">
                                     <i class="feather-plus"></i>
-                                    <span>Portfolio qo'shish</span>
+                                    <span>Добавить портфолио</span>
                                 </a>
                                 <a href="{{ route('awards.index')}}" class="dropdown-item">
                                     <i class="feather-plus"></i>
-                                    <span>Mukofot qo'shish</span>
+                                    <span>Добавить награду</span>
                                 </a>
-                                
+
                                 <a href="{{ route('reviews.index')}}" class="dropdown-item">
                                     <i class="feather-plus"></i>
-                                    <span>Sharh qo'shish</span>
+                                    <span>Добавить комментарий</span>
                                 </a>
                                 <a href="{{ route('service.index')}}" class="dropdown-item">
                                     <i class="feather-plus"></i>
-                                    <span>Xizmat qo'shish</span>
+                                    <span>Добавить услугу</span>
                                 </a>
                                 <a href="{{ route('managers.index')}}" class="dropdown-item">
                                     <i class="feather-plus"></i>
-                                    <span>Menenjer qo'shish</span>
+                                    <span>Добавить менеджера</span>
                                 </a>
                             </div>
                         </div>
                         <!--! [End] nxl-lavel-menu !-->
                         <!--! [Start] nxl-h-item nxl-mega-menu !-->
                         <div class="dropdown nxl-h-item nxl-mega-menu">
-                            <a href="javascript:void(0);" class="btn btn-light-brand" data-bs-toggle="dropdown" data-bs-auto-close="outside"> Mega Menu </a>
+                            <a href="javascript:void(0);" class="btn btn-light-brand" data-bs-toggle="dropdown" data-bs-auto-close="outside"> Мега Меню </a>
                             <div class="dropdown-menu nxl-h-dropdown" id="mega-menu-dropdown">
                                 <div class="d-lg-flex align-items-start">
                                     <!--! [Start] nxl-mega-menu-tabs !-->

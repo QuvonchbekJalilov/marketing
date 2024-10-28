@@ -1,4 +1,4 @@
-<?php 
+<?php
 use App\Models\Portfolio;
 use App\Models\ProviderCompany;
 // Get the provider's company
@@ -8,7 +8,7 @@ if ($providerCompany) {
     // Get all providers for this company
     $providerIds = ProviderCompany::where('company_id', $providerCompany->company_id)
         ->pluck('provider_id');
-    
+
     // Get the latest team info for all providers in the company
     $portfolios = Portfolio::whereIn('provider_id', $providerIds)->orderBy('id', 'DESC')
     ->paginate(20);;
@@ -24,7 +24,7 @@ if ($providerCompany) {
             <div class="avatar-text avatar-md items-details-close-trigger" data-bs-dismiss="offcanvas" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Details Close"><i class="feather-arrow-left"></i></div>
             <span class="vr text-muted mx-4"></span>
             <a href="javascript:void(0);">
-                <h2 class="fs-14 fw-bold text-truncate-1-line">Awards</h2>
+                <h2 class="fs-14 fw-bold text-truncate-1-line">Награды</h2>
                 <span class="fs-12 fw-normal text-muted text-truncate-1-line">09:00am - 11:00am, Rangpur, Bangladesh.</span>
             </a>
         </div>
@@ -35,28 +35,28 @@ if ($providerCompany) {
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group mb-4">
-                        <label for="awardName" class="form-label">Award name</label>
-                        <input name="name" id="awardName" class="form-control" placeholder="Enter your award name here..." required>
+                        <label for="awardName" class="form-label">Название награды</label>
+                        <input name="name" id="awardName" class="form-control" placeholder="Введите название вашей награды здесь..." required>
                     </div>
                 </div>
 
                 <div class="col-sm-6">
                     <div class="form-group mb-4">
-                        <label for="awardName" class="form-label">Category (optional)</label>
+                        <label for="awardName" class="form-label">Категория (необязательно)</label>
                         <input name="category" id="awardName" class="form-control" placeholder="" required>
                     </div>
                 </div>
 
                 <div class="col-sm-6">
                     <div class="form-group mb-4">
-                        <label for="awardDate" class="form-label">Date</label>
+                        <label for="awardDate" class="form-label">Дата</label>
                         <input type="month" id="awardDate" name="date" class="form-control" >
                     </div>
                 </div>
 
                 <div class="col-sm-6">
                     <div class="form-group mb-4">
-                        <label class="form-label">Link to an existing work (Optional):</label>
+                        <label class="form-label">Ссылка на существующую работу (необязательно):</label>
                              <select id="link" name="portfolio_id" class="form-select form-control">
                                 @foreach ($portfolios as $portfolio)
                                 <option value="{{ $portfolio->id }}" style="color:black;" data-bg="bg-primary">{{ $portfolio->source_link }}</option>
@@ -66,7 +66,7 @@ if ($providerCompany) {
                 </div>
             </div>
             <input type="hidden" name="provider_id" value="{{ auth()->user()->id }}">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">Сохранять</button>
         </form>
     </div>
 </div>

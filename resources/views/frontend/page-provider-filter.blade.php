@@ -35,44 +35,43 @@
                          style="width: 27%; padding: 30px 20px; background-color: #E9ECEF; border-radius: 16px; margin-bottom: 30px !important; height: 100%;">
                         <div class="sidebar-filters">
                             <div class="filter-block mb-30">
-                                <h5 class="medium-heading mb-15" style="font-size: 20px;">{{__('lan.keywords')}}</h5>
+                                <h5 class="medium-heading mb-15" style="font-size: 20px;">Keywords</h5>
                                 <div class="form-group">
                                     <input type="text" name="skills" class="form-control"
-                                           placeholder="{{__('lan.type_keywords_skills')}}"/>
+                                           placeholder="Type keywords, skills..."/>
                                 </div>
                             </div>
                             <div class="filter-block mb-30">
-                                <h5 class="medium-heading mb-15" style="font-size: 20px;">{{__('lan.location')}}</h5>
+                                <h5 class="medium-heading mb-15" style="font-size: 20px;">Location</h5>
                                 <div class="form-group">
                                     <input type="text" name="company_address" class="form-control form-icons"
-                                           placeholder="{{__('lan.location')}}"/>
+                                           placeholder="Location"/>
                                     <i class="fi-rr-marker"></i>
                                 </div>
                             </div>
                             <div class="filter-block mb-30">
-                                <h5 class="medium-heading mb-15" style="font-size: 20px;">{{__('lan.industry_experience')}}</h5>
+                                <h5 class="medium-heading mb-15" style="font-size: 20px;">Industry experience</h5>
                                 <div class="form-group select-style select-style-icon">
                                     <select class="form-control form-icons select-active" name="sub_category_id">
-                                        <option value="">{{__('lan.select_service')}}</option>
-                                    @foreach($sub_categories as $sub_category)
-                                            <option value="{{$sub_category->id}}">{{$sub_category->name}}</option>
+                                        @foreach($sub_categories as $sub_category)
+                                            <option value="{{$sub_category->id}}">{{$sub_category->name_uz}}</option>
                                         @endforeach
                                     </select>
                                     <i class="fi-rr-briefcase"></i>
                                 </div>
                             </div>
                             <div class="filter-block mb-40">
-                                <h5 class="medium-heading mb-25" style="font-size: 20px;">{{__('lan.salary_range')}}</h5>
+                                <h5 class="medium-heading mb-25" style="font-size: 20px;">Salary Range</h5>
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <label class="lb-slider">{{__('lan.from')}}</label>
+                                        <label class="lb-slider">From</label>
                                         <div class="form-group minus-input">
                                             <input type="text" name="min-value-money" class="input-disabled form-control min-value-money" value=""/>
                                             <input type="hidden" name="price_range[min]" class="form-control min-value" value=""/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <label class="lb-slider">{{__('lan.to')}}</label>
+                                        <label class="lb-slider">To</label>
                                         <div class="form-group">
                                             <input type="text" name="max-value-money" class="input-disabled form-control max-value-money" value=""/>
                                             <input type="hidden" name="price_range[max]" class="form-control max-value" value=""/>
@@ -105,34 +104,35 @@
 
                             </div>
                             <div class="filter-block mb-30">
-                                <h5 class="medium-heading mb-15" style="font-size: 20px;">{{__('lan.languages')}}</h5>
+                                <h5 class="medium-heading mb-15" style="font-size: 20px;">Languages</h5>
                                 <div class="form-group select-style select-style-icon">
                                     <select class="form-control form-icons select-active" name="language_id">
                                         @foreach($languages as $language)
-                                        <option value="{{$language->id}}">{{$language->name_uz}}</option>
+                                            <option value="{{$language->id}}">{{$language->name_uz}}</option>
                                         @endforeach
                                     </select>
                                     <i class="fi-rr-briefcase"></i>
                                 </div>
                             </div>
                             <div class="filter-block mb-30">
-                                <h5 class="medium-heading mb-15" style="font-size: 20px;">{{__('lan.team_size')}}</h5>
+                                <h5 class="medium-heading mb-15" style="font-size: 20px;">Team size</h5>
                                 <div class="form-group select-style select-style-icon">
                                     <select class="form-control form-icons select-active" name="team_size">
-                                        <option value="">{{__('lan.select_team_size')}}</option>
-                                        <option value="1">{{__('lan.freelance')}} (1)</option>
-                                        <option value="2-10">{{__('lan.studio')}} (2-10)</option>
-                                        <option value="11-50">{{__('lan.agency')}} (11-50)</option>
-                                        <option value="50+">{{__('lan.group')}} (50+)</option>
+                                        <option value="">Select team size</option>
+                                        <option value="1">Freelance (1)</option>
+                                        <option value="2-10">Studio (2-10)</option>
+                                        <option value="11-50">Agency (11-50)</option>
+                                        <option value="50+">Group (50+)</option>
                                     </select>
                                     <i class="fi-rr-briefcase"></i>
                                 </div>
                             </div>
                             <div class="buttons-filter">
                                 <button class="btn btn-default" type="submit" style="background-color: #C5FF41; border-radius: 8px;">
-                                    {{__('lan.apply_filter')}}
+                                    Apply
+                                    filter
                                 </button>
-                                <a href="{{route('providers')}}"  class="btn">{{__('lan.reset_filter')}} </a>
+                                <a href="{{route('providers')}}"  class="btn">Reset filter </a>
                             </div>
                         </div>
                     </div>
@@ -143,113 +143,113 @@
                                 Show Filter
                             </button>
 
-{{--                            <div id="filter-box-2" class="sidebar-shadow none-shadow mb-30 filter-box-responsive"--}}
-{{--                                 style="border:none; border-radius:0 !important; box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); width: 100%; padding: 30px 20px; background-color: #E9ECEF; margin-bottom: 30px !important; height: 100%; position:fixed; top:0; z-index:999; overflow: auto;">--}}
-{{--                                <div class="sidebar-filters ">--}}
-{{--                                    <div class="filter-block mb-30">--}}
-{{--                                        <h5 class="medium-heading mb-15" style="font-size: 20px;">Keywords</h5>--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <input type="text" class="form-control"--}}
-{{--                                                   placeholder="Type keywords, skills..."/>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="filter-block mb-30">--}}
-{{--                                        <h5 class="medium-heading mb-15" style="font-size: 20px;">Location</h5>--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <input type="text" class="form-control form-icons" placeholder="Location"/>--}}
-{{--                                            <i class="fi-rr-marker"></i>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="filter-block mb-30">--}}
-{{--                                        <h5 class="medium-heading mb-15" style="font-size: 20px;">Industry--}}
-{{--                                            experience</h5>--}}
-{{--                                        <div class="form-group select-style select-style-icon">--}}
-{{--                                            <select class="form-control form-icons select-active">--}}
-{{--                                                <option>Accounting</option>--}}
-{{--                                                <option>Architecture & Planning</option>--}}
-{{--                                                <option>Art & Handcraft</option>--}}
-{{--                                                <option>Automotive</option>--}}
-{{--                                            </select>--}}
-{{--                                            <i class="fi-rr-briefcase"></i>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="filter-block mb-40">--}}
-{{--                                        <h5 class="medium-heading mb-25" style="font-size: 20px;">Salary Range</h5>--}}
-{{--                                        <div class="">--}}
-{{--                                            <div class="row" style="display: flex;">--}}
-{{--                                                <div class="col-lg-6 col-sm-6" style="width: 50%;">--}}
-{{--                                                    <label class="lb-slider">From</label>--}}
-{{--                                                    <div class="form-group minus-input">--}}
-{{--                                                        <input type="text" name="min-value-money"--}}
-{{--                                                               class="input-disabled form-control min-value-money"--}}
-{{--                                                               value=""/>--}}
-{{--                                                        <input type="hidden" name="min-value"--}}
-{{--                                                               class="form-control min-value"--}}
-{{--                                                               value=""/>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="col-lg-6 col-sm-6" style="width: 50%;">--}}
-{{--                                                    <label class="lb-slider">To</label>--}}
-{{--                                                    <div class="form-group">--}}
-{{--                                                        <input input type="text" name="max-value-money"--}}
-{{--                                                               class="input-disabled form-control max-value-money"--}}
-{{--                                                               value=""/>--}}
-{{--                                                        <input type="hidden" name="max-value"--}}
-{{--                                                               class="form-control max-value"--}}
-{{--                                                               value=""/>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="card-conteiner">--}}
-{{--                                                <div class="card-content" style="max-width: 100%;">--}}
-{{--                                                    <div class="rangeslider">--}}
-{{--                                                        <input class="min input-ranges" name="range_1" type="range"--}}
-{{--                                                               min="1"--}}
-{{--                                                               max="10000" value="735">--}}
-{{--                                                        <input class="max input-ranges" name="range_1" type="range"--}}
-{{--                                                               min="1"--}}
-{{--                                                               max="10000" value="6465">--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="filter-block mb-30">--}}
-{{--                                        <h5 class="medium-heading mb-15" style="font-size: 20px;">Languages</h5>--}}
-{{--                                        <div class="form-group select-style select-style-icon">--}}
-{{--                                            <select class="form-control form-icons select-active">--}}
-{{--                                                <option>Uzbek</option>--}}
-{{--                                                <option>English</option>--}}
-{{--                                                <option>Russian</option>--}}
-{{--                                            </select>--}}
-{{--                                            <i class="fi-rr-briefcase"></i>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="filter-block mb-30">--}}
-{{--                                        <h5 class="medium-heading mb-15" style="font-size: 20px;">Team size</h5>--}}
-{{--                                        <div class="form-group select-style select-style-icon">--}}
-{{--                                            <select class="form-control form-icons select-active">--}}
-{{--                                                <option>Freelance (1)</option>--}}
-{{--                                                <option>Studion (2-10)</option>--}}
-{{--                                                <option>Agency (11-50)</option>--}}
-{{--                                                <option>Group (50+)</option>--}}
-{{--                                            </select>--}}
-{{--                                            <i class="fi-rr-briefcase"></i>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="buttons-filter" style="display: flex; justify-content: center;" ;>--}}
-{{--                                        <button class="btn btn-default"--}}
-{{--                                                style="background-color: transparent; border: 2px solid #C5FF41; border-radius: 8px; font-size: 16px !important;"--}}
-{{--                                                id="change-filter-btn-2">Cancel--}}
-{{--                                        </button>--}}
-{{--                                        <button class="btn" style="font-size: 16px !important;">Reset filter</button>--}}
-{{--                                        <button class="btn btn-default"--}}
-{{--                                                style="background-color: #C5FF41; border-radius: 8px; font-size: 16px !important;">--}}
-{{--                                            Apply filter--}}
-{{--                                        </button>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
+                            {{--                            <div id="filter-box-2" class="sidebar-shadow none-shadow mb-30 filter-box-responsive"--}}
+                            {{--                                 style="border:none; border-radius:0 !important; box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); width: 100%; padding: 30px 20px; background-color: #E9ECEF; margin-bottom: 30px !important; height: 100%; position:fixed; top:0; z-index:999; overflow: auto;">--}}
+                            {{--                                <div class="sidebar-filters ">--}}
+                            {{--                                    <div class="filter-block mb-30">--}}
+                            {{--                                        <h5 class="medium-heading mb-15" style="font-size: 20px;">Keywords</h5>--}}
+                            {{--                                        <div class="form-group">--}}
+                            {{--                                            <input type="text" class="form-control"--}}
+                            {{--                                                   placeholder="Type keywords, skills..."/>--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
+                            {{--                                    <div class="filter-block mb-30">--}}
+                            {{--                                        <h5 class="medium-heading mb-15" style="font-size: 20px;">Location</h5>--}}
+                            {{--                                        <div class="form-group">--}}
+                            {{--                                            <input type="text" class="form-control form-icons" placeholder="Location"/>--}}
+                            {{--                                            <i class="fi-rr-marker"></i>--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
+                            {{--                                    <div class="filter-block mb-30">--}}
+                            {{--                                        <h5 class="medium-heading mb-15" style="font-size: 20px;">Industry--}}
+                            {{--                                            experience</h5>--}}
+                            {{--                                        <div class="form-group select-style select-style-icon">--}}
+                            {{--                                            <select class="form-control form-icons select-active">--}}
+                            {{--                                                <option>Accounting</option>--}}
+                            {{--                                                <option>Architecture & Planning</option>--}}
+                            {{--                                                <option>Art & Handcraft</option>--}}
+                            {{--                                                <option>Automotive</option>--}}
+                            {{--                                            </select>--}}
+                            {{--                                            <i class="fi-rr-briefcase"></i>--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
+                            {{--                                    <div class="filter-block mb-40">--}}
+                            {{--                                        <h5 class="medium-heading mb-25" style="font-size: 20px;">Salary Range</h5>--}}
+                            {{--                                        <div class="">--}}
+                            {{--                                            <div class="row" style="display: flex;">--}}
+                            {{--                                                <div class="col-lg-6 col-sm-6" style="width: 50%;">--}}
+                            {{--                                                    <label class="lb-slider">From</label>--}}
+                            {{--                                                    <div class="form-group minus-input">--}}
+                            {{--                                                        <input type="text" name="min-value-money"--}}
+                            {{--                                                               class="input-disabled form-control min-value-money"--}}
+                            {{--                                                               value=""/>--}}
+                            {{--                                                        <input type="hidden" name="min-value"--}}
+                            {{--                                                               class="form-control min-value"--}}
+                            {{--                                                               value=""/>--}}
+                            {{--                                                    </div>--}}
+                            {{--                                                </div>--}}
+                            {{--                                                <div class="col-lg-6 col-sm-6" style="width: 50%;">--}}
+                            {{--                                                    <label class="lb-slider">To</label>--}}
+                            {{--                                                    <div class="form-group">--}}
+                            {{--                                                        <input input type="text" name="max-value-money"--}}
+                            {{--                                                               class="input-disabled form-control max-value-money"--}}
+                            {{--                                                               value=""/>--}}
+                            {{--                                                        <input type="hidden" name="max-value"--}}
+                            {{--                                                               class="form-control max-value"--}}
+                            {{--                                                               value=""/>--}}
+                            {{--                                                    </div>--}}
+                            {{--                                                </div>--}}
+                            {{--                                            </div>--}}
+                            {{--                                            <div class="card-conteiner">--}}
+                            {{--                                                <div class="card-content" style="max-width: 100%;">--}}
+                            {{--                                                    <div class="rangeslider">--}}
+                            {{--                                                        <input class="min input-ranges" name="range_1" type="range"--}}
+                            {{--                                                               min="1"--}}
+                            {{--                                                               max="10000" value="735">--}}
+                            {{--                                                        <input class="max input-ranges" name="range_1" type="range"--}}
+                            {{--                                                               min="1"--}}
+                            {{--                                                               max="10000" value="6465">--}}
+                            {{--                                                    </div>--}}
+                            {{--                                                </div>--}}
+                            {{--                                            </div>--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
+                            {{--                                    <div class="filter-block mb-30">--}}
+                            {{--                                        <h5 class="medium-heading mb-15" style="font-size: 20px;">Languages</h5>--}}
+                            {{--                                        <div class="form-group select-style select-style-icon">--}}
+                            {{--                                            <select class="form-control form-icons select-active">--}}
+                            {{--                                                <option>Uzbek</option>--}}
+                            {{--                                                <option>English</option>--}}
+                            {{--                                                <option>Russian</option>--}}
+                            {{--                                            </select>--}}
+                            {{--                                            <i class="fi-rr-briefcase"></i>--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
+                            {{--                                    <div class="filter-block mb-30">--}}
+                            {{--                                        <h5 class="medium-heading mb-15" style="font-size: 20px;">Team size</h5>--}}
+                            {{--                                        <div class="form-group select-style select-style-icon">--}}
+                            {{--                                            <select class="form-control form-icons select-active">--}}
+                            {{--                                                <option>Freelance (1)</option>--}}
+                            {{--                                                <option>Studion (2-10)</option>--}}
+                            {{--                                                <option>Agency (11-50)</option>--}}
+                            {{--                                                <option>Group (50+)</option>--}}
+                            {{--                                            </select>--}}
+                            {{--                                            <i class="fi-rr-briefcase"></i>--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
+                            {{--                                    <div class="buttons-filter" style="display: flex; justify-content: center;" ;>--}}
+                            {{--                                        <button class="btn btn-default"--}}
+                            {{--                                                style="background-color: transparent; border: 2px solid #C5FF41; border-radius: 8px; font-size: 16px !important;"--}}
+                            {{--                                                id="change-filter-btn-2">Cancel--}}
+                            {{--                                        </button>--}}
+                            {{--                                        <button class="btn" style="font-size: 16px !important;">Reset filter</button>--}}
+                            {{--                                        <button class="btn btn-default"--}}
+                            {{--                                                style="background-color: #C5FF41; border-radius: 8px; font-size: 16px !important;">--}}
+                            {{--                                            Apply filter--}}
+                            {{--                                        </button>--}}
+                            {{--                                    </div>--}}
+                            {{--                                </div>--}}
+                            {{--                            </div>--}}
                             @if ($providers->isNotEmpty())
                                 @foreach($providers as $provider)
                                     <div class="col-lg-6 col-md-6 card-integration-big">
@@ -261,7 +261,7 @@
                                                                                       alt="Nivia"></div>
                                                     <div class="card-image-info">
                                                         <h5>{{ $provider->name }}</h5>
-                                                        <p class="text-md neutral-500">{{__('lan.company')}}</p>
+                                                        <p class="text-md neutral-500">Company</p>
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -283,7 +283,7 @@
                                 <rect width="13" height="13" fill="white"></rect>
                               </clippath>
                             </defs>
-                          </svg></span>{{__('lan.view_integration')}}</a>
+                          </svg></span>View Integration</a>
                                             </div>
                                         </div>
                                     </div>
@@ -296,67 +296,7 @@
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination">
                                         <!-- Previous sahifaga o'tish -->
-                                        @if ($providers->onFirstPage())
-                                            <li class="page-item disabled">
-                    <span class="page-link" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 16 16" fill="none">
-                            <path d="M10 3.33398L5.33333 8.00065L10 12.6673" stroke="#191919" stroke-width="1.33333"
-                                  stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>
-                    </span>
-                                            </li>
-                                        @else
-                                            <li class="page-item">
-                                                <a class="page-link" href="{{ $providers->previousPageUrl() }}"
-                                                   aria-label="Previous">
-                        <span aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 16 16"
-                                 fill="none">
-                                <path d="M10 3.33398L5.33333 8.00065L10 12.6673" stroke="#191919" stroke-width="1.33333"
-                                      stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </span>
-                                                </a>
-                                            </li>
-                                        @endif
 
-                                        <!-- Sahifalar -->
-                                        @foreach ($providers->links()->elements[0] as $page => $url)
-                                            @if ($page == $providers->currentPage())
-                                                <li class="page-item active"><a class="page-link"
-                                                                                href="#">{{ $page }}</a>
-                                                </li>
-                                            @else
-                                                <li class="page-item"><a class="page-link"
-                                                                         href="{{ $url }}">{{ $page }}</a>
-                                                </li>
-                                            @endif
-                                        @endforeach
-
-                                        <!-- Next sahifaga o'tish -->
-                                        @if ($providers->hasMorePages())
-                                            <li class="page-item">
-                                                <a class="page-link" href="{{ $providers->nextPageUrl() }}"
-                                                   aria-label="Next">
-                        <span aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 16 16"
-                                 fill="none">
-                                <path d="M6 3.33398L10.6667 8.00065L6 12.6673" stroke="#191919" stroke-width="1.33333"
-                                      stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </span>
-                                                </a>
-                                            </li>
-                                        @else
-                                            <li class="page-item disabled">
-                    <span class="page-link" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 16 16" fill="none">
-                            <path d="M6 3.33398L10.6667 8.00065L6 12.6673" stroke="#191919" stroke-width="1.33333"
-                                  stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>
-                    </span>
-                                            </li>
-                                        @endif
                                     </ul>
                                 </nav>
                             </div>
@@ -386,15 +326,16 @@
             </form>
         </section>
         <section class="section-box wow animate__animated animate__fadeIn box-how-it-work">
-            <div class="container"><a class="btn btn-brand-4-sm" href="#">{{__('lan.how_it_works')}}</a>
-                <h2 class="mt-15 mb-20">{{__('lan.just_simple_and_quick')}}<br class="d-none d-lg-block">{{__('lan.perfect_automatic_money_making_system')}}</h2>
+            <div class="container"><a class="btn btn-brand-4-sm" href="#">How It Works</a>
+                <h2 class="mt-15 mb-20">Just 3 simple and quick steps to have a<br class="d-none d-lg-block">perfect
+                    automatic money making system</h2>
                 {{--      <p class="text-lg neutral-500 mb-55">Bole nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo conididunt ut labore et dolore<br class="d-none d-lg-block">magna aliqua ut enim ad minim veniam</p>--}}
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="box-border-rounded">
                             <div class="card-casestudy">
                                 <div class="card-title">
-                                    <h6><span class="number">1</span>{{__('lan.signup_for_service')}}</h6>
+                                    <h6><span class="number">1</span>Signup for Service</h6>
                                 </div>
                                 <div class="card-desc">
                                     <p>This process is straightforward and swift, prioritizing your convenience and

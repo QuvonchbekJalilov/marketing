@@ -8,6 +8,9 @@
     <meta name="keyword" content="">
     <meta name="author" content="theme_ocean">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 
 
     <style>
@@ -40,6 +43,33 @@
         .select2-container--default .select2-results__option {
             color: black !important; /* Text color */
         }
+        .star-buttons {
+            display: flex; /* Tugmalarni yonma-yon joylashtirish */
+            gap: 5px; /* Tugmalar orasida masofa */
+        }
+
+        .star-button {
+            background: none; /* Orqa fonni o'chirish */
+            border: none; /* Chegara yo'q */
+            cursor: pointer; /* Kursor ko'rsatgich */
+            padding: 0; /* Padding yo'q */
+            outline: none; /* Chiqish chizig'ini o'chirish */
+        }
+
+        .star-button i {
+            font-size: 24px; /* Ikonaning o'lchami */
+            color: #ccc; /* Yulduz rangini boshlang'ichda xira qilib belgilash */
+            transition: color 0.3s; /* Rang o'zgarishi uchun animatsiya */
+        }
+
+        .star-button:hover i {
+            color: #ffd700; /* Ustiga kelganda yulduz rangini o'zgartirish */
+        }
+
+        .star-button.active i {
+            color: #ffd700; /* Faol tugma yulduzi rangini belgilash */
+        }
+
     </style>
 
     <!--! The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags !-->
@@ -138,7 +168,7 @@
             var num1 = Math.floor(Math.random() * 10) + 1;
             var num2 = Math.floor(Math.random() * 10) + 1;
             var answer = prompt(`Please solve the following to confirm deletion: ${num1} + ${num2} = ?`);
-    
+
             if (answer == (num1 + num2)) {
                 event.target.submit();
             } else {
@@ -146,45 +176,45 @@
             }
         }
     </script>
-    
+
     <style>
         .card {
             transition: transform 0.2s, box-shadow 0.2s;
             border: none;
         }
-    
+
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-    
+
         .card-title {
             font-size: 1.3rem;
             color: #007bff;
         }
-    
+
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
         }
-    
+
         .btn-primary:hover {
             background-color: #0056b3;
             border-color: #0056b3;
         }
-    
+
         .pagination .page-link {
             background-color: #0f172a;
             color: #fff;
             border-color: #000;
         }
-    
+
         .pagination .page-link:hover {
             background-color: #555;
             color: #fff;
             border-color: #000;
         }
-    
+
         .pagination .page-item.active .page-link {
             background-color: #000;
             border-color: #000;
@@ -193,7 +223,7 @@
     <!--! Footer Script !-->
     <!--! ================================================================ !-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   
+
 
     <!--! BEGIN: Vendors JS !-->
     <script src="{{ asset('admin/assets/vendors/js/vendors.min.js') }}"></script>

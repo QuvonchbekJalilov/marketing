@@ -16,6 +16,25 @@ class ServiceSubCategory extends Model
         'name_en',
     ];
 
+    public function __get($key)
+    {
+        // Foydalanuvchi tanlagan tilni olish
+        $locale = app()->getLocale();
+
+
+        // Tilga mos maydon nomini yaratish (masalan: 'name_uz', 'description_en')
+        $localizedField = $key . '_' . $locale;
+
+        // Agar bu tilga mos maydon mavjud bo'lsa, shu qiymatni qaytarish
+        if (array_key_exists($localizedField, $this->attributes)) {
+
+            return $this->attributes[$localizedField];
+        }
+
+        // Aks holda, asosiy qiymatini qaytarish
+        return parent::__get($key);
+    }
+
     public function category()
     {
         return $this->belongsTo(ServiceCategory::class, 'id');
@@ -29,4 +48,6 @@ class ServiceSubCategory extends Model
     {
         return $this->hasMany(Service::class);
     }
+
+
 }

@@ -9,12 +9,12 @@
         <div class="page-header">
             <div class="page-header-left d-flex align-items-center">
                 <div class="page-header-title">
-                    <h5 class="m-b-10">Edit Team</h5>
+                    <h5 class="m-b-10">Редактировать команду</h5>
                 </div>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('teams.index') }}">Teams</a></li>
-                    <li class="breadcrumb-item">Edit Team</li>
+                    <li class="breadcrumb-item">Редактировать команду</li>
                 </ul>
             </div>
         </div>
@@ -41,7 +41,7 @@
 
                                 <div class="row mb-4 align-items-center">
                                     <div class="col-lg-4">
-                                        <label for="imageInput" class="fw-semibold">Image:</label>
+                                        <label for="imageInput" class="fw-semibold">Изображение:</label>
                                     </div>
                                     <div class="col-lg-8">
                                         @if ($team->image)
@@ -53,7 +53,7 @@
 
                                 <div class="row mb-4 align-items-center">
                                     <div class="col-lg-4">
-                                        <label for="descriptionInput" class="fw-semibold">Description:</label>
+                                        <label for="descriptionInput" class="fw-semibold">Описание:</label>
                                     </div>
                                     <div class="col-lg-8">
                                         <textarea class="form-control" id="descriptionInput" name="description" rows="4" required>{{ old('description', $team->description) }}</textarea>
@@ -67,11 +67,11 @@
                                         <div class="d-flex justify-content-start gap-2">
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="feather feather-check me-2"></i>
-                                                Update Team
+                                                Команда обновления
                                             </button>
                                             <a href="{{ route('teams.index') }}" class="btn btn-secondary">
                                                 <i class="feather feather-x me-2"></i>
-                                                Cancel
+                                                Отмена
                                             </a>
                                         </div>
                                     </div>

@@ -20,7 +20,7 @@
                         <a href="javascript:void(0);" class="btn btn-primary"
                         data-bs-toggle="offcanvas" data-bs-target="#serviceProviderOffcanvas">
                             <i class="feather-plus me-2"></i>
-                            <span>Add New</span>
+                            <span>Добавить новый</span>
                         </a>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                         <!--! BEGIN: [Users] !-->
                         <div class="card stretch stretch-full mb-0">
                           <div class="card-header">
-                                <h5 class="card-title">Service</h5>
+                                <h5 class="card-title">Услуга</h5>
                             </div>
                                 @foreach ($services as $service)
                                     @php
@@ -81,7 +81,7 @@
                                 @endforeach
 
                                 <a href="javascript:void(0);" class="card-footer fs-11 fw-bold text-uppercase text-center"
-                                            data-bs-toggle="offcanvas" data-bs-target="#serviceProviderOffcanvas">Add New
+                                            data-bs-toggle="offcanvas" data-bs-target="#serviceProviderOffcanvas">Добавить новый
                                 </a>
 
                         </div>

@@ -12,16 +12,16 @@
                 <div class="banner-inner-top">
                     <div class="container">
                         <div class="box-banner-left">
-                            <a class="btn btn-brand-5-new" href="javascript:void(0);"><span>New</span> Version 2.0
+                            <a class="btn btn-brand-5-new" href="javascript:void(0);"><span>New</span> {{__('lan.version')}} 2.0
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewbox="0 0 22 22" fill="none">
                                     <path d="M22 11.0003L18.4791 7.47949V10.3074H0V11.6933H18.4791V14.5213L22 11.0003Z" fill=""></path>
                                 </svg>
                             </a>
                         </div>
                         <div class="box-banner-left">
-                            <h1 class="display-2 mb-30 mt-25 neutral-0">Find the perfect service provider</h1>
+                            <h1 class="display-2 mb-30 mt-25 neutral-0">{{__('lan.Find_the_perfect_service_provider')}}</h1>
                             <p class="text-lg neutral-500 mb-55">
-                                Welcome to the largest business community in Central Asia! We unite those who are developing business in Uzbekistan with the help of marketing.
+                                {{__('lan.welcome_to_the_largest')}}
                             </p>
                         </div>
                     </div>
@@ -55,8 +55,8 @@
         </section>
         <section class="section-box wow animate__animated animate__fadeIn box-how-it-work">
             <div class="container">
-                <h2 class="mt-35 mb-15 text-center">Direct access to verified service<br class="d-none d-lg-block">providers in 1000+ services.</h2>
-                <p class="text-lg neutral-500 mb-45 text-center">Discover the most relevant providers for your project based on your own specific requirements.</p>
+                <h2 class="mt-35 mb-15 text-center">{{__('lan.direct_access_to_verified_service')}}<br class="d-none d-lg-block">{{__('lan.providers_in')}}</h2>
+                <p class="text-lg neutral-500 mb-45 text-center">{{__('lan.discover_the_most')}}</p>
                 <div class="row">
                     @if ($categories->isNotEmpty())
                         @foreach($categories as $category)
@@ -66,7 +66,7 @@
                                         <div class="card-title mb-30">
                                             <h6 style="font-size: 22px !important;">
                                                 <span class="number">{{ $loop->iteration }}</span>
-                                                {{ $category->name_uz }}
+                                                {{ $category->name }}
                                             </h6>
                                         </div>
                                         <div class="card-desc">
@@ -74,11 +74,11 @@
                                                 @foreach ($category->subCategories as $service)
                                                     <a href="#">
                                                         {{-- {{ route('services-providers', [$service->id, $category->id]) }} --}}
-                                                        <span>{{ $service->name_en }} </span><i class="fa-solid fa-arrow-right"></i>
+                                                        <span>{{ $service->name }} </span><i class="fa-solid fa-arrow-right"></i>
                                                     </a>
                                                 @endforeach
                                             @else
-                                                <p>No services available</p>
+                                                <p>{{__('lan.no_services_available')}}</p>
                                             @endif
                                         </div>
                                     </div>
@@ -86,7 +86,7 @@
                             </div>
                         @endforeach
                     @else
-                        <p>No categories available</p>
+                        <p>{{__('lan.no_categories_available')}}</p>
                     @endif
 
                 </div>
@@ -100,8 +100,8 @@
         <section class="section-box wow animate__animated animate__fadeIn box-preparing-3">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="neutral-0 mb-20">Why our customers enjoy Sortlist.</h2>
-                    <p class="text-lg neutral-700">We help them make the right decision with confidence.</p>
+                    <h2 class="neutral-0 mb-20">{{__('lan.why_our_customers_enjoy_sortlist')}}</h2>
+                    <p class="text-lg neutral-700">{{__('lan.we_help_them_make_the_right_decision_with_confidence')}}</p>
                 </div>
                 <div class="row mt-90">
                     <div class="col-lg-6 col-md-6">
@@ -114,8 +114,8 @@
                                     <path d="m12.2081 11.7124-.707-.7071 2.1212-2.1214.7071.7072z"></path>
                                 </svg></a>
                             <div class="card-info"><a href="#">
-                                    <h5 class="text-22-bold">The best of data & AI</h5></a>
-                                <p class="text-md neutral-700">Our accurate market data helps them make the most informed decision possible. That means they find the provider that suits them best.</p>
+                                    <h5 class="text-22-bold">{{__('lan.the_best_of_data_AI')}}</h5></a>
+                                <p class="text-md neutral-700">{{__('lan.our_accurate_market_data')}}</p>
                             </div>
                         </div>
                     </div>
@@ -123,9 +123,9 @@
                         <div class="card-preparing-2"><a class="card-image" href="#">
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium text-client-500 bg-client-200 p-8 rounded-lg css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="HandshakeTwoToneIcon" style="font-size:2.5rem"><path d="M12.22 19.85c-.18.18-.5.21-.71 0-.18-.18-.21-.5 0-.71l3.39-3.39-1.41-1.41-3.39 3.39c-.19.2-.51.19-.71 0-.21-.21-.18-.53 0-.71l3.39-3.39-1.41-1.41-3.39 3.39c-.18.18-.5.21-.71 0-.19-.19-.19-.51 0-.71l3.39-3.39-1.42-1.41-3.39 3.39c-.18.18-.5.21-.71 0-.19-.2-.19-.51 0-.71L9.52 8.4l1.87 1.86c.95.95 2.59.94 3.54 0 .98-.98.98-2.56 0-3.54l-1.86-1.86.28-.28c.78-.78 2.05-.78 2.83 0l4.24 4.24c.78.78.78 2.05 0 2.83l-8.2 8.2z" opacity=".3"></path><path d="M12.22 19.85c-.18.18-.5.21-.71 0-.18-.18-.21-.5 0-.71l3.39-3.39-1.41-1.41-3.39 3.39c-.19.2-.51.19-.71 0-.21-.21-.18-.53 0-.71l3.39-3.39-1.41-1.41-3.39 3.39c-.18.18-.5.21-.71 0-.19-.19-.19-.51 0-.71l3.39-3.39-1.42-1.41-3.39 3.39c-.18.18-.5.21-.71 0-.19-.2-.19-.51 0-.71L9.52 8.4l1.87 1.86c.95.95 2.59.94 3.54 0 .98-.98.98-2.56 0-3.54l-1.86-1.86.28-.28c.78-.78 2.05-.78 2.83 0l4.24 4.24c.78.78.78 2.05 0 2.83l-8.2 8.2zm9.61-6.78c1.56-1.56 1.56-4.09 0-5.66l-4.24-4.24c-1.56-1.56-4.09-1.56-5.66 0l-.28.28-.28-.28c-1.56-1.56-4.09-1.56-5.66 0L2.17 6.71C.75 8.13.62 10.34 1.77 11.9l1.45-1.45c-.39-.75-.26-1.7.37-2.33l3.54-3.54c.78-.78 2.05-.78 2.83 0l3.56 3.56c.18.18.21.5 0 .71-.21.21-.53.18-.71 0L9.52 5.57l-5.8 5.79c-.98.97-.98 2.56 0 3.54.39.39.89.63 1.42.7.07.52.3 1.02.7 1.42.4.4.9.63 1.42.7.07.52.3 1.02.7 1.42.4.4.9.63 1.42.7.07.54.31 1.03.7 1.42.47.47 1.1.73 1.77.73.67 0 1.3-.26 1.77-.73l8.21-8.19z"></path></svg></a>
                             <div class="card-info"><a href="#">
-                                    <h5 class="text-22-bold">Proven to be efficient</h5></a>
+                                    <h5 class="text-22-bold">{{__('lan.proven_to_be_efficient')}}</h5></a>
                                 <p class="text-md neutral-700">
-                                    Every day, thousands of businesses all around the world are writing new business stories with our providers. A powerful and seamless process.
+                                    {{__('lan.every_day_thousands')}}
                                 </p>
                             </div>
                         </div>
@@ -135,10 +135,10 @@
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium text-client-500 bg-client-200 p-8 rounded-lg css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BoltTwoToneIcon" style="font-size:2.5rem"><path d="M11 21h-1l1-7H7.5c-.88 0-.33-.75-.31-.78C8.48 10.94 10.42 7.54 13.01 3h1l-1 7h3.51c.4 0 .62.19.4.66C12.97 17.55 11 21 11 21z"></path></svg></a>
                             <div class="card-info">
                                 <a href="#">
-                                    <h5 class="text-22-bold">Simple, quick & agile process</h5>
+                                    <h5 class="text-22-bold">{{__('lan.simple_quick')}}</h5>
                                 </a>
                                 <p class="text-md neutral-700">
-                                    In minutes, you can access a tailor-made selection of providers that fit your needs and criteria.
+                                    {{__('lan.in_minutes_you_can_access')}}
                                 </p>
                             </div>
                         </div>
@@ -148,8 +148,8 @@
                                 <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium text-client-500 bg-client-200 p-8 rounded-lg css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="EmojiPeopleTwoToneIcon" style="font-size:40px"><circle cx="12" cy="4" r="2"></circle><path d="M15.89 8.11C15.5 7.72 14.83 7 13.53 7h-2.54C8.24 6.99 6 4.75 6 2H4c0 3.16 2.11 5.84 5 6.71V22h2v-6h2v6h2V10.05L18.95 14l1.41-1.41-4.47-4.48z"></path></svg>
                             </a>
                             <div class="card-info"><a href="#">
-                                    <h5 class="text-22-bold">A human touch</h5></a>
-                                <p class="text-md neutral-700">Customers can count on our team of experts throughout the process, available whenever they need. That combines the performance of data, and the irreplaceable human touch: efficiency with a human face.
+                                    <h5 class="text-22-bold">{{__('lan.a_human_touch')}}</h5></a>
+                                <p class="text-md neutral-700">{{__('lan.customers_can_count_on_our')}}
 
                                 </p>
                             </div>
@@ -162,13 +162,13 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-12 mt-60 mb-45">
-                        <h2 class="text-center p-16">Join the greatest community of service providers</h2>
+                        <h2 class="text-center p-16">{{__('lan.join_the_greatest_community_of_service_providers')}}</h2>
 {{--                        2-comment--}}
                     </div>
                     <div class="row align-items-center texts">
                         <div class="col-lg-6 mb-30">
-                            <h2 class="mt-80">Drive revenue like never before.</h2>
-                            <p class="text-lg neutral-500">Every month, more than 300k people search, compare, and hire service providers like yours on Sortlist.</p>
+                            <h2 class="mt-80">{{__('lan.drive_revenue_like_never_before')}}</h2>
+                            <p class="text-lg neutral-500">{{__('lan.every_month_more_than')}}</p>
                             <div class="box-buttons-feature-4">
 {{--                                3-comment--}}
                                 <a class="btn btn-learmore-2" href="/providers">
@@ -184,7 +184,7 @@
                                         </clippath>
                                       </defs>
                                     </svg>
-                              </span>Learn More
+                              </span>{{__('lan.learn_more')}}
                                 </a>
                             </div>
                             <div class="box-reviews-home5">

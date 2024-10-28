@@ -8,7 +8,7 @@
                     <i class="feather-arrow-left"></i>
                 </div>
                 <span class="vr text-muted mx-4"></span>
-                <h2 class="fs-14 fw-bold text-truncate-1-line">Edit Service</h2>
+                <h2 class="fs-14 fw-bold text-truncate-1-line">Редактировать услугу</h2>
             </div>
         </div>
         <div class="offcanvas-body">
@@ -20,7 +20,7 @@
                     <!-- Service Type Selection -->
                     <div class="col-sm-12 col-lg-12">
                         <div class="form-group mb-4">
-                            <label class="form-label">Service Type:</label>
+                            <label class="form-label">Тип услуги:</label>
                             <select name="service_sub_category_id" id="edit-service-type-{{ $service->id }}"
                                 class="form-control select2">
                                 @foreach ($serviceTypes as $serviceType)
@@ -36,7 +36,7 @@
                     <!-- Skills -->
                     <div class="col-sm-12 col-lg-12">
                         <div class="form-group mb-4">
-                            <label class="form-label">Skills:</label>
+                            <label class="form-label">Навыки:</label>
 
                             <select name="skills[]" id="edit-skills-list-{{ $service->id }}"
                                 class="form-select form-control max-select" data-select2-selector="tag" multiple>
@@ -53,7 +53,7 @@
                     <!-- Starting Price -->
                     <div class="col-sm-12 col-lg-12">
                         <div class="form-group mb-4">
-                            <label class="form-label">Starting Price:</label>
+                            <label class="form-label">Начальная цена:</label>
                             <div class="row mt-2">
                                 @foreach ([1000, 2000, 5000, 10000] as $price)
                                     <div class="col d-flex align-items-center">
@@ -87,7 +87,7 @@
                     <!-- Description -->
                     <div class="col-12">
                         <div class="form-group mb-4">
-                            <label class="form-label">Description (optional):</label>
+                            <label class="form-label">Описание (необязательно):</label>
                             <textarea class="form-control" name="description" style="height: 18em;">{{ $service->description }}</textarea>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-submit">Update</button>
+                        <button type="submit" class="btn btn-primary btn-submit">Обновлять</button>
                     </div>
                 </div>
             </form>

@@ -10,6 +10,7 @@ use App\Models\Portfolio;
 use App\Models\Review;
 use App\Models\Service;
 use App\Models\ServiceCategory;
+use App\Models\ServiceSubCategory;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class PageController extends Controller
         if ($query) {
             // Kategoriyalarni qidiruv so'rovi bo'yicha filtrlash
             $results = Category::where('name', 'LIKE', "%$query%")
-                ->orWhereHas('services', function($q) use ($query) {
+                ->orWhereHas('services', function ($q) use ($query) {
                     $q->where('name_en', 'LIKE', "%$query%");
                 })
                 ->get();
@@ -52,6 +53,7 @@ class PageController extends Controller
             'providers' => $providers
         ]);
     }
+
     // home
     public function home()
     {
@@ -64,10 +66,13 @@ class PageController extends Controller
     public function pageProvider()
     {
         $providers = User::where('role_id', 2)->with('companies')->paginate(6);
+        $sub_categories = ServiceSubCategory::all();
+        $languages = Language::all();
 
 
-        return view('frontend.page-provider', compact('providers'));
+        return view('frontend.page-provider', compact('providers', 'sub_categories', 'languages'));
     }
+
     public function pageProviderService($service_id, $category_id)
     {
         // Xizmat va kategoriya ma'lumotlarini olish
@@ -108,14 +113,14 @@ class PageController extends Controller
         if ($average_review === null) {
             $average_review = 0; // Default value if no reviews exist
         }
-        return view('frontend.single-provider', compact('provider','services', 'average_score', 'awards','teams','portfolios','reviews'));
+        return view('frontend.single-provider', compact('provider', 'services', 'average_score', 'awards', 'teams', 'portfolios', 'reviews'));
     }
 
     public function singleReviews($id)
     {
         $provider = User::where('id', $id)->with('companies')->first();
         $services = Service::all();
-        return view('frontend.single-reviews', compact('services','provider'));
+        return view('frontend.single-reviews', compact('services', 'provider'));
     }
 
     // Marketers
@@ -123,7 +128,7 @@ class PageController extends Controller
     {
         $marketers = User::where('role_id', 4)->paginate(6);
 
-        return view('frontend.page-marketers',compact('marketers'));
+        return view('frontend.page-marketers', compact('marketers'));
     }
 
     public function singleMarketers($id)
@@ -157,4 +162,84 @@ class PageController extends Controller
     {
         return view('frontend.contact');
     }
+
+    public function filter(Request $request)
+    {
+        $sub_categories = ServiceSubCategory::all();
+        $languages = Language::all();
+
+        // Filtr shartlarini so'rovdan olish
+        $skills = $request->input('skills'); // array of skill ids
+        $companyAddress = $request->input('company_address'); // address to filter
+        $subCategoryId = $request->input('sub_category_id'); // selected sub category id
+        $priceRange = $request->input('price_range'); // array with min and max price
+        $languageId = $request->input('language_id'); // selected language id
+        $teamSize = $request->input('team_size'); // team size qiymatini olish
+
+        $query = User::query()
+            ->with(['services.subCategory.skills', 'language', 'companies']);
+
+// Skills bo‘yicha filtr
+        if (is_array($skills) && count($skills) > 0) {
+            $query->whereHas('services', function ($query) use ($skills) {
+                $query->whereHas('skills', function ($query) use ($skills) {
+                    $query->whereIn('skills.id', $skills);
+                });
+            });
+        }
+
+// Address bo‘yicha filtr
+        if ($companyAddress) {
+            $query->whereHas('companies', function ($query) use ($companyAddress) {
+                $query->where('address', 'like', '%' . $companyAddress . '%');
+            });
+        }
+
+// Boshqa filtrlash shartlari: sub_category_id, price_range, language_id, team_size
+
+
+// Sub category bo'yicha filtr
+        if ($subCategoryId) {
+            $query->whereHas('services', function ($query) use ($subCategoryId) {
+                $query->where('service_sub_category_id', $subCategoryId);
+            });
+        }
+
+// Price bo'yicha filtr
+        if ($priceRange) {
+            $query->whereHas('services', function ($query) use ($priceRange) {
+                $query->whereBetween('price', [$priceRange['min'], $priceRange['max']]);
+            });
+        }
+
+// Language bo'yicha filtr
+        if ($languageId) {
+            $query->where('language_id', $languageId);
+        }
+
+// Team size bo'yicha filtr
+        // Team size bo‘yicha filtr
+        if ($teamSize) {
+            $query->whereHas('companies', function ($query) use ($teamSize) {
+                if ($teamSize === '1') {
+                    $query->where('number_of_team', 1);
+                } elseif ($teamSize === '2-10') {
+                    $query->whereBetween('number_of_team', [2, 10]);
+                } elseif ($teamSize === '11-50') {
+                    $query->whereBetween('number_of_team', [11, 50]);
+                } elseif ($teamSize === '50+') {
+                    $query->where('number_of_team', '>', 50);
+                }
+            });
+        }
+
+
+// Natijalarni olish
+        $providers = $query->get();
+
+// Blade faylga qaytarish
+        return view('frontend.page-provider-filter', compact('providers', 'sub_categories', 'languages'));
+
+    }
+
 }

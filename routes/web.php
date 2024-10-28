@@ -12,6 +12,7 @@ use App\Http\Controllers\admin\SkillController as AdminSkillController;
 use App\Http\Controllers\admin\SectorController as AdminSectorController;
 
 // provider controller
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\provider\auth\AuthController as ProviderAuthController;
 use App\Http\Controllers\provider\PageController as ProviderPageController;
 use App\Http\Controllers\provider\auth\RegistrationController as ProviderRegistrationController;
@@ -51,7 +52,7 @@ use App\Http\Controllers\frontend\PageController;
 //marketer controller
 use App\Http\Controllers\marketer\auth\LoginController as MarketerLoginController;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Support\Facades\Session;
 
 
 Route::get('/', [PageController::class, 'home'])->name('home');
@@ -217,3 +218,6 @@ Route::prefix('partner')->namespace('App\Http\Controllers')->group(function () {
 
 Route::get('/reviews/confirm/{id}', [ProviderReviewController::class, 'confirm'])->name('reviews.confirm');
 Route::post('/save-review', [ReviewController::class, 'saveReview'])->name('save.review');
+Route::get('/filter-providers', [PageController::class, 'filter'])->name('filter.providers');
+
+Route::get('locale/{lang}', [LanguageController::class, 'changeLanguage']);

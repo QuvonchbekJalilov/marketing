@@ -16,7 +16,7 @@
                             <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="offcanvas"
                                 data-bs-target="#">
                                 <i class="feather-plus me-2"></i>
-                                <span>Add New</span>
+                                <span>Добавить новый</span>
                             </a>
                         </div>
                     </div>
@@ -73,37 +73,37 @@
                                                     <div
                                                         class="flex-fill py-3 px-4 rounded-1 d-none d-sm-block border border-dashed border-gray-5">
                                                         <h6 class="fs-15 fw-bolder">28.65K</h6>
-                                                        <p class="fs-12 text-muted mb-0">Subscribers</p>
+                                                        <p class="fs-12 text-muted mb-0">Подписчики</p>
                                                     </div>
                                                     <div
                                                         class="flex-fill py-3 px-4 rounded-1 d-none d-sm-block border border-dashed border-gray-5">
                                                         <h6 class="fs-15 fw-bolder">38.85K</h6>
-                                                        <p class="fs-12 text-muted mb-0">Follow up</p>
+                                                        <p class="fs-12 text-muted mb-0">Следовать за</p>
                                                     </div>
                                                     <div
                                                         class="flex-fill py-3 px-4 rounded-1 d-none d-sm-block border border-dashed border-gray-5">
                                                         <h6 class="fs-15 fw-bolder">43.67K</h6>
-                                                        <p class="fs-12 text-muted mb-0">Comment</p>
+                                                        <p class="fs-12 text-muted mb-0">Комментарий</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <ul class="list-unstyled mb-4">
                                                 <li class="hstack justify-content-between mb-4">
                                                     <span class="text-muted fw-medium hstack gap-3"><i
-                                                            class="feather-phone"></i>Phone</span>
+                                                            class="feather-phone"></i>Телефон</span>
                                                     <a href="javascript:void(0);"
                                                         class="float-end">{{ old('tagline', $company->phone_number) }}</a>
                                                 </li>
 
                                                 <li class="hstack justify-content-between mb-4">
                                                     <span class="text-muted fw-medium hstack gap-3"><i
-                                                            class="feather-mail"></i>Email</span>
+                                                            class="feather-mail"></i>Электронная почта</span>
                                                     <a href="javascript:void(0);"
                                                         class="float-end">{{ old('email', $company->email) }}</a>
                                                 </li>
                                                 <li class="hstack justify-content-between mb-4">
                                                     <span class="text-muted fw-medium hstack gap-3"><i
-                                                            class="feather-map-pin"></i>Location</span>
+                                                            class="feather-map-pin"></i>Расположение</span>
                                                             <a href="javascript:void(0);" title="{{old('tagline', $provider->address)}}" class="float-end long-text text-center mx-1" onclick="toggleAddress(this)">
                                                                 {{ Str::limit(old('tagline', $company->address), 100) }} <!-- Laravel yordamida matnni cheklash -->
                                                             </a>
@@ -156,7 +156,7 @@
                                                 <div class="about-section mb-5">
                                                     <div class="mb-4 d-flex align-items-center justify-content-between">
                                                         <h5 class="fw-bold mb-0">
-                                                            About: {{ old('name', $provider->name) ?: 'Kompaniya' }}
+                                                            О нас: {{ old('name', $provider->name) ?: 'Kompaniya' }}
                                                             </h5>
                                                     </div>
                                                     <div class="col-12">
@@ -165,64 +165,64 @@
                                                 </div>
                                                 <div class="profile-details mb-5">
                                                     <div class="mb-4 d-flex align-items-center justify-content-between">
-                                                        <h5 class="fw-bold mb-0">Profile:</h5>
+                                                        <h5 class="fw-bold mb-0">Профиль:</h5>
                                                     </div>
 
                                                     <div class="row g-0 mb-4">
-                                                        <div class="col-sm-6 text-muted">Company name:</div>
+                                                        <div class="col-sm-6 text-muted">Название компании:</div>
                                                         <div class="col-sm-6 fw-semibold">
                                                             <input type="text" class="form-control" id="nameInput"
-                                                                placeholder="Name" name="name"
+                                                                placeholder="Имя" name="name"
                                                                 value="{{ old('name', $company->name) }}">
                                                         </div>
                                                     </div>
 
                                                     <div class="row g-0 mb-4">
-                                                        <div class="col-sm-6 text-muted">Motto:</div>
+                                                        <div class="col-sm-6 text-muted">Девиз:</div>
                                                         <div class="col-sm-6 fw-semibold">
                                                             <input type="text" class="form-control" id="taglineInput"
-                                                                placeholder="Tagline" name="tagline"
+                                                                placeholder="Слоган" name="tagline"
                                                                 value="{{ old('tagline', $company->tagline) }}">
                                                         </div>
                                                     </div>
                                                     <div class="row g-0 mb-4">
-                                                        <div class="col-sm-6 text-muted">Website:</div>
+                                                        <div class="col-sm-6 text-muted">Веб-сайт:</div>
                                                         <div class="col-sm-6 fw-semibold">
                                                             <input type="text" class="form-control" id="taglineInput"
-                                                                placeholder="website" name="website"
+                                                                placeholder="Веб-сайт" name="website"
                                                                 value="{{ old('website', $company->website) }}">
                                                         </div>
                                                     </div>
 
                                                     <div class="row g-0 mb-4">
-                                                        <div class="col-sm-6 text-muted">Address:</div>
+                                                        <div class="col-sm-6 text-muted">Адрес:</div>
                                                         <div class="col-sm-6 fw-semibold">
                                                             <input type="text" class="form-control" id="addressInput"
-                                                                placeholder="Address" name="address"
+                                                                placeholder="Адрес" name="address"
                                                                 value="{{ old('tagline', $company->address) }}">
                                                         </div>
                                                     </div>
 
                                                     <div class="row g-0 mb-4">
-                                                        <div class="col-sm-6 text-muted">Phone number:</div>
+                                                        <div class="col-sm-6 text-muted">Номер телефона:</div>
                                                         <div class="col-sm-6 fw-semibold">
                                                             <input type="tel" class="form-control" id="phone_number"
-                                                                placeholder="Phone number" name="phone_number"
+                                                                placeholder="Номер телефона" name="phone_number"
                                                                 value="{{ old('phone', $company->phone_number) }}">
                                                         </div>
                                                     </div>
 
                                                     <div class="row g-0 mb-4">
-                                                        <div class="col-sm-6 text-muted">Email:</div>
+                                                        <div class="col-sm-6 text-muted">Электронная почта:</div>
                                                         <div class="col-sm-6 fw-semibold">
                                                             <input type="email" class="form-control" id="emailInput"
-                                                                placeholder="Email" name="email"
+                                                                placeholder="Электронная почта" name="email"
                                                                 value="{{ old('email', $company->email) }}">
                                                         </div>
                                                     </div>
 
                                                     <div class="row g-0 mb-4">
-                                                        <div class="col-sm-6 text-muted">Languages:</div>
+                                                        <div class="col-sm-6 text-muted">Языки:</div>
                                                         <div class="col-sm-6 fw-semibold">
                                                             <select class="form-select form-control max-select"
                                                                     name="languages[]" data-select2-selector="tag" multiple>
@@ -238,25 +238,25 @@
                                                         </div>
                                                     </div>
                                                     <div class="row g-0 mb-4">
-                                                        <div class="col-sm-6 text-muted">Founded Date:</div>
+                                                        <div class="col-sm-6 text-muted">Дата основания:</div>
                                                         <div class="col-sm-6 fw-semibold">
                                                             <input type="date" class="form-control"
                                                                 id="foundedAtInput" name="founded"
                                                                 value="{{ old('foundedAt', isset($company->founded) ? date('Y-m-d', strtotime($company->founded)) : '') }}">
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="row g-0 mb-4">
-                                                        <div class="col-sm-6 text-muted">Service price:</div>
+                                                        <div class="col-sm-6 text-muted">Стоимость услуги:</div>
                                                         <div class="col-sm-6 fw-semibold">
                                                             <input type="text" class="form-control" id="turnoverInput"
-                                                                placeholder="Turnover" name="turnover"
+                                                                placeholder="Оборот" name="turnover"
                                                                 value="{{ old('turnover', $company->turnover) }}">
                                                         </div>
                                                     </div>
 
                                                     <div class="row g-0 mb-4">
-                                                        <div class="col-sm-6 text-muted">Team size:</div>
+                                                        <div class="col-sm-6 text-muted">Размер команды:</div>
                                                         <div class="col-sm-6 fw-semibold">
                                                             <input type="number" class="form-control" id="teamSizeInput"
                                                                 name="teamSize"
@@ -269,7 +269,7 @@
 
                                                     <div class="row g-0 mb-4 providerSubmit" id="providerSubmit"
                                                         style="display: none;">
-                                                        <button type="submit" class="btn btn-primary">Saqlash</button>
+                                                        <button type="submit" class="btn btn-primary">Сохранять</button>
                                                     </div>
 
                                                 </div>
@@ -279,11 +279,11 @@
                                                         <i class="feather feather-alert-triangle fs-1"></i>
                                                     </div>
                                                     <div>
-                                                        <p class="fw-bold mb-1 text-truncate-1-line">You must maintain your account regularly</p>
+                                                        <p class="fw-bold mb-1 text-truncate-1-line">Вы должны регулярно поддерживать свою учетную запись</p>
                                                         <p class="fs-10 fw-medium text-uppercase text-truncate-1-line">
-                                                            Last update: <strong>31 Avg, 2024</strong></p>
+                                                            Последнее обновление: <strong>31 Avg, 2024</strong></p>
                                                         <a href="javascript:void(0);"
-                                                            class="btn btn-sm bg-soft-warning text-warning d-inline-block">Read more</a>
+                                                            class="btn btn-sm bg-soft-warning text-warning d-inline-block">Читать далее</a>
                                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
                                                             aria-label="Close"></button>
                                                     </div>
@@ -393,6 +393,6 @@
     });
 </script>
 
-      
+
 
 @endsection

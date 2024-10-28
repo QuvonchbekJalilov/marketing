@@ -29,12 +29,12 @@
         <!-- Breadcrumb -->
         <div class="page-header-left d-flex align-items-center">
             <div class="page-header-title">
-                <h5 class="m-b-10">Edit Award</h5>
+                <h5 class="m-b-10">Редактировать награду</h5>
             </div>
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
-                <li class="breadcrumb-item"><a href="/admin/awards">Awards</a></li>
-                <li class="breadcrumb-item active">Edit Award</li>
+                <li class="breadcrumb-item"><a href="/admin/dashboard">Дом</a></li>
+                <li class="breadcrumb-item"><a href="/admin/awards">Награды</a></li>
+                <li class="breadcrumb-item active">Редактировать награду</li>
             </ul>
         </div>
         <!-- Page Header Right -->
@@ -43,7 +43,7 @@
                 <div class="d-flex d-md-none">
                     <a href="javascript:void(0)" class="page-header-right-close-toggle">
                         <i class="feather-arrow-left me-2"></i>
-                        <span>{{ __('awards.back') }}</span>
+                        <span>награды назад</span>
                     </a>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                         <!-- Nav Tabs -->
                         <ul class="nav nav-tabs flex-wrap w-100 text-center customers-nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item flex-fill border-top" role="presentation">
-                                <a href="#" class="nav-link text-start">Edit Award:</a>
+                                <a href="#" class="nav-link text-start">Редактировать награду:</a>
                             </li>
                         </ul>
                     </div>
@@ -86,7 +86,7 @@
                                     <!-- Category -->
                                     <div class="row mb-4 align-items-center">
                                         <div class="col-lg-4">
-                                            <label for="categorySelect" class="fw-semibold">Category :</label>
+                                            <label for="categorySelect" class="fw-semibold">Категория :</label>
                                         </div>
                                         <div class="col-lg-8">
                                             <select class="form-control max-select" id="categorySelects" name="category_id">
@@ -102,11 +102,11 @@
                                     <!-- Award Name -->
                                     <div class="row mb-4 align-items-center">
                                         <div class="col-lg-4">
-                                            <label for="nameInput" class="fw-semibold">Award Name :</label>
+                                            <label for="nameInput" class="fw-semibold">Название награды :</label>
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="nameInput" placeholder="Enter your award name here..." name="name" value="{{ old('name', $award->name) }}">
+                                                <input type="text" class="form-control" id="nameInput" placeholder="Введите название вашей награды здесь..." name="name" value="{{ old('name', $award->name) }}">
                                             </div>
                                         </div>
                                     </div>
@@ -114,17 +114,17 @@
                                     <!-- Date -->
                                     <div class="row mb-4 align-items-center">
                                         <div class="col-lg-4">
-                                            <label for="dateInput" class="fw-semibold text-primary">Date :</label>
+                                            <label for="dateInput" class="fw-semibold text-primary">Дата :</label>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" class="form-control" id="dateInput" placeholder="Select a date" name="date" value="{{ old('date', $award->date) }}">
+                                            <input type="text" class="form-control" id="dateInput" placeholder="Выберите дату" name="date" value="{{ old('date', $award->date) }}">
                                         </div>
                                     </div>
 
                                     <!-- Link -->
                                     <div class="row mb-4 align-items-center">
                                         <div class="col-lg-4">
-                                            <label for="linkInput" class="fw-semibold">Link (Optional):</label>
+                                            <label for="linkInput" class="fw-semibold">Ссылка (необязательно):</label>
                                         </div>
                                         <div class="col-lg-8">
                                             <select class="form-control max-select" id="categorySelect" name="link">
@@ -138,7 +138,7 @@
                                     </div>
 
                                     <input type="hidden" name="provider_id" value="{{ Auth()->user()->provider_id }}">
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-primary">Обновлять</button>
                                 </form>
                             </div>
                         </div>
