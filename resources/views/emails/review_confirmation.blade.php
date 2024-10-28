@@ -94,44 +94,117 @@
                 font-size: 14px;
                 padding: 8px 16px;
             }
+
+            .star-button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #ccc; /* Yulduzlar uchun boshlang'ich rang */
+                font-size: 24px; /* Yulduzlar o'lchami */
+            }
+
+            .star-button.selected,
+            .star-button:hover,
+            .star-button:hover ~ .star-button {
+                color: #ffcc00; /* Tanlangan yoki ustiga kelingan yulduzlar rang */
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Header Section -->
-        <div class="header">
-            <h1>Thank You for Your Review!</h1>
-        </div>
-
-        <!-- Content Section -->
-        <div class="content">
-            <h2>Hello, {{ $review->full_name }}!</h2>
-            <p>
-                We appreciate your feedback. Please confirm your review by clicking the button below:
-            </p>
-
-            <div class="review">
-                <p><strong>Review:</strong> {{ $review->recommend }}</p>
-                <p><strong>Score:</strong> {{ $review->burget_score }} / 5</p>
-                <p><strong>Score:</strong> {{ $review->quality_score }} / 5</p>
-                <p><strong>Score:</strong> {{ $review->schedule_score }} / 5</p>
-                <p><strong>Score:</strong> {{ $review->colloboration_score }} / 5</p>
-
-            </div>
-
-            <p>
-                <a href="{{ route('reviews.confirm', $review->id) }}" class="btn">Confirm Your Review</a>
-            </p>
-        </div>
-
-        <!-- Footer Section -->
-        <div class="footer">
-            <p>If you didn't leave this review, please ignore this email.</p>
-            <p>&copy; {{ date('Y') }} Your Company. All rights reserved.</p>
-        </div>
+<div class="container">
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Спасибо за ваш отзыв!</h1>
     </div>
+
+    <!-- Content Section -->
+    <div class="content">
+        <h2>Привет, {{ $review->full_name }}!</h2>
+        <p>
+            Мы ценим ваш отзыв. Пожалуйста, подтвердите свой отзыв, нажав кнопку ниже:
+        </p>
+
+        <div class="review">
+            <p><strong>Обзор:</strong> {{ $review->recommend }}</p>
+            <p>
+                <strong>Качественный балл:</strong>
+                <span class="star-review" data-rating="{{ $review->burget_score }}">
+        <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+    </span>
+                {{ $review->burget_score }} / 5
+            </p>
+
+            <p>
+                <strong>График балл:</strong>
+                <span class="star-review" data-rating="{{ $review->quality_score }}">
+        <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+    </span>
+                {{ $review->quality_score }} / 5
+            </p>
+
+            <p>
+                <strong>Балл за сотрудничество:</strong>
+                <span class="star-review" data-rating="{{ $review->schedule_score }}">
+        <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+    </span>
+                {{ $review->schedule_score }} / 5
+            </p>
+
+            <p>
+                <strong>За описанием:</strong>
+                <span class="star-review" data-rating="{{ $review->colloboration_score }}">
+        <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+        <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+    </span>
+                {{ $review->colloboration_score }} / 5
+            </p>
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $('.star-review').each(function () {
+                        var rating = $(this).data('rating');
+
+                        $(this).find('.star-button').each(function () {
+                            var index = $(this).data('index');
+                            if (index <= rating) {
+                                $(this).addClass('selected');
+                            }
+                        });
+                    });
+                });
+            </script>
+
+        </div>
+
+        <p>
+            <a href="{{ route('reviews.confirm', $review->id) }}" class="btn">Confirm Your Review</a>
+        </p>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <p>Если вы не оставляли этот отзыв, пожалуйста, проигнорируйте это письмо.</p>
+        <p>&copy; {{ date('Y') }} Ваша компания. Все права защищены.</p>
+    </div>
+</div>
 
 </body>
 </html>
