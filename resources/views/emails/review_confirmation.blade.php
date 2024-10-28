@@ -107,14 +107,18 @@
 
         <!-- Content Section -->
         <div class="content">
-            <h2>Hello, {{ $review->client->name }}!</h2>
+            <h2>Hello, {{ $review->full_name }}!</h2>
             <p>
                 We appreciate your feedback. Please confirm your review by clicking the button below:
             </p>
 
             <div class="review">
-                <p><strong>Review:</strong> {{ $review->description }}</p>
-                <p><strong>Score:</strong> {{ $review->score }} / 5</p>
+                <p><strong>Review:</strong> {{ $review->recommend }}</p>
+                <p><strong>Score:</strong> {{ $review->burget_score }} / 5</p>
+                <p><strong>Score:</strong> {{ $review->quality_score }} / 5</p>
+                <p><strong>Score:</strong> {{ $review->schedule_score }} / 5</p>
+                <p><strong>Score:</strong> {{ $review->colloboration_score }} / 5</p>
+
             </div>
 
             <p>

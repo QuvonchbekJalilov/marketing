@@ -24,7 +24,7 @@
                             <!--! BEGIN: [Users] !-->
                             <div class="card stretch stretch-full">
                                 <div class="card-header">
-                                    <h5 class="card-title">Team</h5>
+                                    <h5 class="card-title">Команда</h5>
                                 </div>
                                 <form action="{{ isset($team) ? route('teams.update', $team->id) : route('teams.store') }}"
                                     method="POST" enctype="multipart/form-data">
@@ -57,7 +57,7 @@
                                             </div>
 
                                             <div class="col-12 my-4">
-                                                <h4>Story:</h4>
+                                                <h4>История:</h4>
                                                 <textarea class="form-control" id="descriptionInput" name="description" style="height: 18em;">{{ old('description', isset($team) ? $team->description : '') }}</textarea>
                                             </div>
 
@@ -71,7 +71,7 @@
                                                 <button type="submit"
                                                     class="btn btn-primary card-footer fs-11 fw-bold text-uppercase text-center">
                                                     <i class="feather-layers me-2"></i>
-                                                    {{ isset($team) ? 'Update' : 'Save' }}
+                                                    {{ isset($team) ? 'Обновлять' : 'Сохранять' }}
                                                 </button>
                                             </div>
                                         </div>

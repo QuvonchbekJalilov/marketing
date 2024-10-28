@@ -1,5 +1,8 @@
 const buttons = document.querySelectorAll('.menu-button');
 
+// Har bir forma uchun kiritilgan ma'lumotlarni saqlash uchun obyekt
+let formData = {};
+
 buttons.forEach((button, index) => {
     button.addEventListener('click', function () {
         buttons.forEach(btn => btn.classList.remove('active-button'));
@@ -22,41 +25,81 @@ function showForm(formIndex) {
     forms[currentFormIndex].style.display = 'block';
     buttons[currentFormIndex].classList.add('active-button');
 
-    // Show/hide Previous button
-    if (currentFormIndex > 0) {
-        prevButton.style.display = 'inline-block';
-    } else {
-        prevButton.style.display = 'none';
-    }
+    // Previous button visibility
+    prevButton.style.display = currentFormIndex > 0 ? 'inline-block' : 'none';
 
     // Update Next button text
-    if (currentFormIndex === forms.length - 1) {
-        nextButton.textContent = 'Submit';
-    } else {
-        nextButton.innerHTML = 'Next <i class="fa-solid fa-arrow-right"></i>';
-    }
+    nextButton.textContent = currentFormIndex === forms.length - 1 ? 'Submit' : 'Next <i class="fa-solid fa-arrow-right"></i>';
+
+    // Load saved data into the form fields
+    loadFormData();
+}
+
+function loadFormData() {
+    const currentForm = document.querySelectorAll('.box-of-review form')[currentFormIndex];
+    const inputs = currentForm.querySelectorAll('input, textarea');
+
+    inputs.forEach(input => {
+        const name = input.name;
+        if (formData[name]) {
+            input.value = formData[name]; // Save data from formData to inputs
+        }
+
+        // Save data on input change
+        input.addEventListener('input', () => {
+            formData[name] = input.value; // Save input value to formData
+        });
+    });
 }
 
 document.querySelector('.next-btn').addEventListener('click', () => {
     const forms = document.querySelectorAll('.box-of-review form');
-
-    // Joriy formani olish
     const currentForm = forms[currentFormIndex];
 
-    // Agar oxirgi forma bo'lmasa
-    if (currentFormIndex < forms.length - 1) {
-        // Formani yuborishdan oldin tekshirish
-        currentForm.submit(); // Formani submit qiladi
+    // Validate the form
+    if (currentForm.checkValidity()) {
+        if (currentFormIndex < forms.length - 1) {
+            currentFormIndex++;
+            showForm(currentFormIndex);
+        } else {
+            alert("Oxirgi formaga o'tildi va yuborilmoqda!");
+            submitFormData(formData); // Formani yuborish
 
-        currentFormIndex++;  // Keyingi formaga o'tish uchun indexni yangilash
-        showForm(currentFormIndex); // Keyingi formani ko'rsatish
+        }
     } else {
-        // Agar oxirgi forma bo'lsa
-        alert("Oxirgi formaga o'tildi va yuborilmoqda!");
-        currentForm.submit(); // Oxirgi formani submit qiladi
-        // Bu yerda oxirgi bosqich bo'lgani uchun, submit bo'lgach qayta yo'naltirish amalga oshadi
+        alert("Iltimos, barcha maydonlarni to'ldiring.");
     }
 });
+
+console.log('Sending CSRF Token:', csrfToken);
+function submitFormData(data) {
+    fetch('/save-review', { // Controller manzilini to'g'rilash
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'), // CSRF tokenni qo'shish
+            body: JSON.stringify({
+
+            })
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json(); // Javobni JSON formatida olish
+            } else {
+                throw new Error('Network response was not ok.');
+            }
+        })
+        .then(data => {
+            alert("Ma'lumotlar muvaffaqiyatli saqlandi!");
+            console.log(data); // Serverdan olingan javobni konsolga chiqarish
+            // Ehtimol, foydalanuvchini boshqa sahifaga yo'naltirish mumkin
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
 
 document.querySelector('.prev-btn').addEventListener('click', () => {
     if (currentFormIndex > 0) {
@@ -65,10 +108,10 @@ document.querySelector('.prev-btn').addEventListener('click', () => {
     }
 });
 
-
 // Initially show the first form
 showForm(currentFormIndex);
 
+// Star button functionality
 document.addEventListener('DOMContentLoaded', () => {
     const reviews = document.querySelectorAll('.star-buttons');
 
@@ -79,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
             button.addEventListener('click', () => {
                 const currentIndex = Array.from(buttons).indexOf(button);
 
-                // Oldingi barcha tugmalardan active klassini olib tashlash
                 buttons.forEach((btn, i) => {
                     if (i > currentIndex) {
                         btn.classList.remove('active');
@@ -92,14 +134,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
-// textarea value bo'sh qilish
+// Clear textareas on load
 document.addEventListener('DOMContentLoaded', () => {
-    // Select all textarea elements
     const textareas = document.querySelectorAll('textarea');
 
-    // Clear the content of each textarea
     textareas.forEach(textarea => {
-        textarea.value = '';
+        textarea.value = ''; // Clear each textarea
     });
 });

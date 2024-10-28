@@ -10,7 +10,7 @@
             @include('provider.components.single-sidebar')
             <!-- [ Content Sidebar  ] end -->
             <!-- [ Main Area  ] start -->
-            
+
             <div class="content-area" data-scrollbar-target="#psScrollbarInit">
                 <div class="content-area-header bg-white sticky-top">
                     <div class="page-header-right ms-auto">
@@ -18,7 +18,7 @@
                             <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="offcanvas"
                                 data-bs-target="#portfolioProviderOffcanvas">
                                 <i class="feather-plus me-2"></i>
-                                <span>Add New</span>
+                                <span>Добавить новый</span>
                             </a>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                             <!--! BEGIN: [Users] !-->
                             <div class="card stretch stretch-full">
                                 <div class="card-header">
-                                    <h5 class="card-title">Portfolio</h5>
+                                    <h5 class="card-title">Портфель</h5>
                                 </div>
                                 @foreach ($portfolios as $portfolio)
 
@@ -81,7 +81,7 @@
                                     </div>
                                 @endforeach
                                 <a href="javascript:void(0);" class="card-footer fs-11 fw-bold text-uppercase text-center"
-                                    data-bs-toggle="offcanvas" data-bs-target="#portfolioProviderOffcanvas">Add New</a>
+                                    data-bs-toggle="offcanvas" data-bs-target="#portfolioProviderOffcanvas">Добавить новый</a>
                             </div>
                             <!--! END: [Users] !-->
                         </div>

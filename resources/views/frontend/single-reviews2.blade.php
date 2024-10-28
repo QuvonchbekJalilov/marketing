@@ -24,30 +24,34 @@
         </section>
         <section>
             <div class="box-of-review">
-                <!-- Tugmalar faqat LG ekranlarida ko'rinadi -->
                 <div class="menu-with-js d-none d-sm-none d-lg-block">
-                    <button class="menu-button active-button" id="rate-your-experience"
-                            onclick="showForm('rate-your-experience')">
-                        <i class="fa-solid fa-star-half-stroke"></i> Rate your experience
-                    </button>
-                    <button class="menu-button" id="describe-your-experience"
-                            onclick="showForm('describe-your-experience')">
-                        <i class="fa-regular fa-newspaper"></i> Describe your experience
-                    </button>
-                    <button class="menu-button" id="personal-information" onclick="showForm('personal-information')">
-                        <i class="fa-regular fa-user"></i> Personal Information
-                    </button>
+                    <a href="{{route('singleReviews',$provider->id)}}">
+                        <button class="menu-button active-button" id="rate-your-experience"
+                                onclick="showForm('rate-your-experience')"><i
+                                class="fa-solid fa-star-half-stroke"></i> Rate your experience
+                        </button>
+                    </a>
+                    <a href="{{route('singleReviews2',$provider->id)}}">
+                        <button class="menu-button" id="describe-your-experience"
+                                onclick="showForm('describe-your-experience')"><i
+                                class="fa-regular fa-newspaper"></i> Describe your experience
+                        </button>
+                    </a>
+                    <a href="{{route('singleReviews3',$provider->id)}}">
+                        <button class="menu-button" id="personal-information" onclick="showForm('personal-information')"><i
+                                class="fa-regular fa-user"></i> Personal Information
+                        </button>
+                    </a>
                 </div>
 
-                <!-- 1-Forma: Rate your experience -->
-                <form class="rate-your-experience active-form">
+                <!-- Dastlab birinchi form ko'rinadi -->
+                <form class="rate-your-experience" action="{{route('save.review')}}" method="POST" >
                     @csrf
                     <div class="texts-top">
                         <h3>Voice your opinion about DORA on Marketing.uz</h3>
                         <p>Review and help others to choose the right agency.</p>
                     </div>
                     <div class="star-reviews-box">
-                        <!-- Yulduzlar -->
                         <div class="star-review" id="budget-review">
                             <label>Budget *</label>
                             <span>How satisfied are you with DORA's understanding, flexibility, and respect of your budget?</span>
@@ -65,6 +69,8 @@
                             </div>
                             <input type="hidden" name="burget_score" id="burget_score" required>
                         </div>
+
+
                         <div class="star-review" id="quality-review">
                             <label>Quality *</label>
                             <span>How satisfied are you with the quality of service?</span>
@@ -81,6 +87,9 @@
                                         class="fa-solid fa-star"></i></button>
                             </div>
                             <input type="hidden" name="quality_score" id="quality_score" required>
+                            <div >
+                                <input type="hidden" name="provider_id" id="burget_score" value="{{$provider->id}}" required>
+                            </div>
                         </div>
 
                         <div class="star-review" id="schedule-review">
@@ -120,24 +129,23 @@
                         </div>
 
                     </div>
+
                 </form>
 
-                <!-- 2-Forma: Describe your experience -->
-                <form class="describe-your-experience"
-                      style="display: none;">
+                <!-- Qolgan formalar dastlab yashiriladi -->
+                <form  class="describe-your-experience" action="{{route('save.review')}}" method="POST"
+                       style="display: none;">
                     @csrf
                     <div class="texts-top">
                         <h3>Tell us about the work delivered.</h3>
                         <p>Review and help others to choose the right agency.</p>
                     </div>
                     <div class="star-reviews-box">
-                        <!-- Textarea va select elementlari -->
                         <div class="star-review">
                             <label style="margin-bottom: 16px;">What was the objective behind your collaboration?
                                 *</label>
                             <textarea class="js-textareaThe" style="height: 100px;"
-                                      placeholder="The agency helped to deliver a top-class website that suits our need for a new digital strategy."
-                                      id="behind_collaboration" name="behind_collaboration">
+                                      placeholder="The agency helped to deliver a top-class website that suits our need for a new digital strategy." id="behind_collaboration" name="behind_collaboration">
 
                             </textarea>
                         </div>
@@ -158,8 +166,7 @@
                         </div>
                         <div class="row">
                             <div class="star-review col-sm-12 col-lg-6">
-                                <label style="margin-bottom: 16px;">Which service did the agency provide you with?
-                                    (optional)</label>
+                                <label style="margin-bottom: 16px;">Which service did the agency provide you with? (optional)</label>
                                 <select class="js-select" name="service_category_id" required>
                                     <option value="">Select a service</option>
                                     @foreach($services as $service)
@@ -181,97 +188,104 @@
                     </div>
                 </form>
 
-                <!-- 3-Forma: Personal Information -->
-                <form class="personal-information" style="display: none;">
+                <form class="personal-information" action=""
+                      style="display: none;">
                     @csrf
                     <div class="texts-top">
                         <h3>Tell us more about you.</h3>
                         <p>We only use this information to confirm your review's authenticity.</p>
                     </div>
                     <div class="row star-reviews-box">
-                        <div class="form-group col-lg-6 col-sm-12">
-                            <label for="fullname">
-                                Full Name *</label>
-                            <input class="form-control" id="full_name" name="full_name" type="text" placeholder="Name"
-                                   style="background-color: #F6F6F5;">
-                        </div>
-                        <div class="form-group col-lg-6 col-sm-12">
-                            <label for="fullname">
-                                Email *</label>
-                            <input class="form-control" id="email" name="email" type="text"
-                                   placeholder="email@website.com"
-                                   style="background-color: #F6F6F5;">
-                        </div>
+                        <form>
+                            <div class="form-group col-lg-6 col-sm-12">
+                                <label for="fullname">
+                                    Full Name *</label>
+                                <input class="form-control" id="full_name" name="full_name" type="text" placeholder="Name"
+                                       style="background-color: #F6F6F5;">
+                            </div>
+                            <div class="form-group col-lg-6 col-sm-12">
+                                <label for="fullname">
+                                    Email *</label>
+                                <input class="form-control" id="email" name="email" type="text" placeholder="email@website.com"
+                                       style="background-color: #F6F6F5;">
+                            </div>
 
-                        <div class="form-group col-lg-6 col-sm-12">
-                            <label for="fullname">
-                                Job Title *</label>
-                            <input class="form-control" id="job_title" name="job_title" type="text"
-                                   placeholder="email@website.com"
-                                   style="background-color: #F6F6F5;">
-                        </div>
+                            <div class="form-group col-lg-6 col-sm-12">
+                                <label for="fullname">
+                                    Job Title *</label>
+                                <input class="form-control" id="job_title" name="job_title" type="text" placeholder="email@website.com"
+                                       style="background-color: #F6F6F5;">
+                            </div>
 
-                        <div class="form-group col-lg-6 col-sm-12">
-                            <label for="fullname">
-                                Company Name *</label>
-                            <input class="form-control" id="company_name" name="company_name" type="text"
-                                   placeholder="email@website.com"
-                                   style="background-color: #F6F6F5;">
-                        </div>
-                        <div class="form-group col-lg-6 col-sm-12">
-                            <label for="company_industry">
-                                Company industry (optional)
-                            </label>
-                            <select class="form-control" id="company_industry" name="company_industry"
-                                    style="width:50%;">
-                                <option value="" disabled selected>Select your industry</option>
-                                <option value="Technology">Technology</option>
-                                <option value="Financial Services">Financial Services</option>
-                                <option value="Healthcare">Healthcare</option>
-                                <option value="Education">Education</option>
-                                <option value="Construction">Construction</option>
-                                <option value="Food">Food</option>
-                            </select>
-                        </div>
+                            <div class="form-group col-lg-6 col-sm-12">
+                                <label for="fullname">
+                                    Company Name *</label>
+                                <input class="form-control" id="company_name" name="company_name" type="text" placeholder="email@website.com"
+                                       style="background-color: #F6F6F5;">
+                            </div>
+                            <div class="form-group col-lg-6 col-sm-12">
+                                <label for="company_industry">
+                                    Company industry (optional)
+                                </label>
+                                <select class="form-control" id="company_industry" name="company_industry" style="width:50%;">
+                                    <option value="" disabled selected>Select your industry</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Financial Services">Financial Services</option>
+                                    <option value="Healthcare">Healthcare</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Construction">Construction</option>
+                                    <option value="Food">Food</option>
+                                </select>
+                            </div>
 
-                        <div class="form-group col-lg-6 col-sm-12">
-                            <label for="company_size">
-                                Company size (optional)
-                            </label>
-                            <select class="form-control" id="company_size" name="company_size" style="width: 50%;">
-                                <option value="" disabled selected>Select company size</option>
-                                <option value="1-10">1-10</option>
-                                <option value="11-50">11-50</option>
-                                <option value="51-200">51-200</option>
-                            </select>
-                        </div>
-                        <div>
-                            <input type="hidden" name="provider_id" id="provider_id" value="{{$provider->id}}"
-                                   required>
-                        </div>
-                </form>
-                <div style="display: flex; align-items: center; gap: 5px;"><input type="checkbox"
-                                                                                  style="width: 20px; height: 20px;">
-                    <span>I agree to the <a href="#">terms of service</a> and <a href="#">privacy
+                            <div class="form-group col-lg-6 col-sm-12">
+                                <label for="company_size">
+                                    Company size (optional)
+                                </label>
+                                <select class="form-control" id="company_size" name="company_size" style="width: 50%;">
+                                    <option value="" disabled selected>Select company size</option>
+                                    <option value="1-10">1-10</option>
+                                    <option value="11-50">11-50</option>
+                                    <option value="51-200">51-200</option>
+                                </select>
+                            </div>
+                            <div >
+                                <input type="hidden" name="provider_id" id="burget_score" value="{{$provider->id}}" required>
+                            </div>
+
+                        </form>
+                        <div style="display: flex; align-items: center; gap: 5px;"><input type="checkbox"
+                                                                                          style="width: 20px; height: 20px;">
+                            <span>I agree to the <a href="#">terms of service</a> and <a href="#">privacy
                                     policy</a>.</span>
+                        </div>
+                    </div>
+
+                </form>
+
+                <div class="bottom-of-box">
+                    <button class="prev-btn btn btn-black btn-rounded" style="display: none;"><i
+                            class="fa-solid fa-arrow-left" style="margin-right: 7px;"></i>Previous
+                    </button>
+                    <button class="next-btn btn btn-brand-4-medium">Next <i
+                            class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
-
-            <!-- Tugmalar -->
-            <div class="bottom-of-box">
-                <button class="prev-btn btn btn-black btn-rounded" style="display: none;" onclick="prevForm()">
-                    Previous
-                </button>
-                <button class="next-btn btn btn-brand-4-medium" onclick="nextForm()"> Next <i
-                        class="fa-solid fa-arrow-right"></i></button>
-            </div>
-        </div>
         </section>
-
     </main>
 
 
     <script>
+        function submitForm(event) {
+            event.preventDefault();
+
+            // Bu yerda formani yuborish bilan bog'liq lozim bo'lgan amallarni bajarasiz
+            console.log("Form submitted");
+
+            // Ma'lumotlarni serverga yuborish uchun fetch yoki boshqa AJAX usullarini qo'llashingiz mumkin
+        }
+
+
 
         document.addEventListener('DOMContentLoaded', () => {
             // Har bir form uchun star review funksiyasini chaqiramiz
@@ -306,6 +320,6 @@
         }
 
     </script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
 @endsection

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,25 +35,39 @@
             <div class="header-nav">
               <nav class="nav-main-menu d-none d-xl-block">
                 <ul class="main-menu">
-                  <li><a class="active" href="/">Home</a></li>
-                  <li><a href="{{ route('providers') }}">Providers</a></li>
-                  <li><a href="{{ route('marketers') }}">Marketers</a></li>
-                  <li><a href="{{ route('partners') }}">Partners</a></li>
-                  <li class="has-children"><a href="{{ route('contacts') }}">Contact</a></li>
+                  <li><a class="active" href="/">{{__('lan.home')}}</a></li>
+                  <li><a href="{{ route('providers') }}">{{__('lan.providers')}}</a></li>
+                  <li><a href="{{ route('marketers') }}">{{__('lan.marketers')}}</a></li>
+                  <li><a href="{{ route('partners') }}">{{__('lan.partners')}}</a></li>
+                  <li class="has-children"><a href="{{ route('contacts') }}">{{__('lan.contact')}}</a></li>
                 </ul>
               </nav>
             </div>
           </div>
           <div class="header-right"><a class="btn btn-search hover-up" href="#"></a>
-            <div class="form-search p-20">
+              <select class="form-select nice-select" id="languageSelect" onchange="changeLanguage(this)">
+                  <option value="uz" {{ App::getLocale() === 'uz' ? 'selected' : '' }}>Uz</option>
+                  <option value="ru" {{ App::getLocale() === 'ru' ? 'selected' : '' }}>RU</option>
+                  <option value="en" {{ App::getLocale() === 'en' ? 'selected' : '' }}>En</option>
+              </select>
+              <script>
+                  function changeLanguage(selectElement) {
+                      const selectedValue = selectElement.value;
+
+                      // Laravelning 'url' funksiyasidan foydalanib to'liq URL ni hosil qilish
+                      const baseUrl = "{{ url('/') }}";
+                      window.location.href = `${baseUrl}/locale/${selectedValue}`;
+                  }
+              </script>
+              <div class="form-search p-20">
               <form action="{{ route('search') }}" method="GET">
                 <input class="form-control" type="text" placeholder="Search" name="query" {{ request()->input('query') }}>
                 <input class="btn-search-2" value="" type="submit">
               </form>
               <div class="popular-keywords text-start mt-20">
-                <p class="mb-10 color-white">Popular search:</p><a class="color-gray-600 mr-10 font-xs" href="#">Platform,</a><a class="color-gray-600 mr-10 font-xs" href="#"># Database,</a><a class="color-gray-600 mr-10 font-xs" href="#"># Price</a>
+                <p class="mb-10 color-white">{{__('lan.popular_search')}}:</p><a class="color-gray-600 mr-10 font-xs" href="#">Platform,</a><a class="color-gray-600 mr-10 font-xs" href="#"># Database,</a><a class="color-gray-600 mr-10 font-xs" href="#"># Price</a>
               </div>
-            </div><a class="btn btn-brand-4-medium hover-up" href="{{ route('login') }}">Login
+            </div><a class="btn btn-brand-4-medium hover-up" href="{{ route('login') }}">{{__('lan.login')}}
               <svg width="22" height="22" viewbox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22 11.0003L18.4791 7.47949V10.3074H0V11.6933H18.4791V14.5213L22 11.0003Z" fill=""></path>
               </svg></a>
@@ -155,7 +170,7 @@
         <div class="row">
           <div class="col-md-6 col-sm-12 mb-30"><a href="/"><img alt="Marketing" src="/assets/imgs/template/marketing-white.png" style="height: 50px;"></a>
             <div class="mt-20 mb-20">
-              <p class="text-md neutral-600 mb-10">ул. Чиланзар 2/2, Tashkent, Узбекистан</p>
+              <p class="text-md neutral-600 mb-10">{{__('lan.address')}}</p>
 {{--              <p class="text-md neutral-600">Hours: 8:00 - 17:00, Mon - Sat </p>--}}
             </div>
           </div>
@@ -194,10 +209,10 @@
                 </ul>
               </div>
               <div class="col-lg-3 col-md-6 mb-30">
-                <h5 class="neutral-0 mb-10 text-18-semibold neutral-0">Company</h5>
+                <h5 class="neutral-0 mb-10 text-18-semibold neutral-0">{{__('lan.company')}}</h5>
                 <ul class="menu-footer">
                   <li><a href="javascript: void(0);">About </a></li>
-                  <li><a href="/contacts">Contact</a></li>
+                  <li><a href="/contacts">{{__('lan.contact')}}</a></li>
 {{--                  <li><a href="#">Contact Us</a></li>--}}
                 </ul>
               </div>
@@ -207,12 +222,12 @@
         <div class="footer-bottom mt-0">
           <div class="row align-items-end">
             <div class="col-lg-6 mb-20">
-              <h5 class="text-18-semibold neutral-0">Join our newsletter</h5>
-              <p class="text-sm neutral-600 mb-20">No ads. No trails. No commitments</p>
+              <h5 class="text-18-semibold neutral-0">{{__('lan.join_our_newsletter')}}</h5>
+              <p class="text-sm neutral-600 mb-20">{{__('lan.no_ads_No_trails')}}</p>
               <div class="form-newsletter form-newsletter-2">
                 <form>
-                  <input class="form-control" type="text" placeholder="email address">
-                  <button class="btn btn-brand-4-medium">Subscribe
+                  <input class="form-control" type="text" placeholder="{{__('lan.email_address')}}">
+                  <button class="btn btn-brand-4-medium">{{__('lan.subscribe')}}
                     <svg width="22" height="22" viewbox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M22 11.0003L18.4791 7.47949V10.3074H0V11.6933H18.4791V14.5213L22 11.0003Z" fill=""></path>
                     </svg>
@@ -225,14 +240,14 @@
                 <div class="col-md-6 mb-20">
                   <div class="text-center text-md-start">
                     <div class="text-start d-inline-block">
-                      <p class="text-lg title-follow neutral-0">Follow us
+                      <p class="text-lg title-follow neutral-0">{{__('lan.follow_us')}}
                         <div class="box-socials-footer"><a class="icon-socials icon-facebook" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/fb.svg"></a><a class="icon-socials icon-instagram" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/in.svg"></a><a class="icon-socials icon-twitter" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/tw.svg"></a><a class="icon-socials icon-be" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/be.svg"></a></div>
                       </p>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6 mb-20">
-                  <p class="text-sm neutral-600">Copyright &copy; 2024 DORA® System</p>
+                  <p class="text-sm neutral-600">{{__('lan.copyright_DORA')}}</p>
                 </div>
               </div>
             </div>

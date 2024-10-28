@@ -18,7 +18,7 @@
                     <i class="feather-arrow-left"></i>
                 </div>
                 <span class="vr text-muted mx-4"></span>
-                <h2 class="fs-14 fw-bold text-truncate-1-line">Create Service</h2>
+                <h2 class="fs-14 fw-bold text-truncate-1-line">Создать услугу</h2>
             </div>
         </div>
         <div class="offcanvas-body">
@@ -26,10 +26,10 @@
                 <!-- Service Type Selection -->
                 <div class="col-sm-12 col-lg-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">Service Type:</label>
-                        
+                        <label class="form-label">Тип услуги:</label>
+
                         <select name="service_sub_category_id" id="service-type" class="form-control select2">
-                            <option value="">Select a service...</option>
+                            <option value="">Выберите услугу...</option>
                             @foreach($serviceTypes as $service)
                                 <option value="{{ $service->id }}">{{ $service->name_en }}</option>
                             @endforeach
@@ -38,7 +38,7 @@
                 </div>
                 <div class="col-sm-12 col-lg-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">Skills:</label>
+                        <label class="form-label">Навыки:</label>
 
                         <select name="skills[]" id="skills-list" class="form-select form-control max-select" data-select2-selector="tag" multiple>
                             <!-- Skills will be dynamically loaded here -->
@@ -48,7 +48,7 @@
                 <!-- Starting Price -->
                 <div class="col-sm-12 col-lg-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">Starting Price:</label>
+                        <label class="form-label">Начальная цена:</label>
                         <div class="row mt-2">
                             <div class="col d-flex align-items-center">
                                 <label for="price-1000" class="d-flex align-items-center">
@@ -83,11 +83,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <script>
                     // Disable custom price input by default
                     const customPriceInput = document.getElementById('custom-price-input');
-                    
+
                     // Handle enabling and disabling of custom price input
                     document.querySelectorAll('input[name="price"]').forEach((radio) => {
                         radio.addEventListener('change', function() {
@@ -100,12 +100,12 @@
                         });
                     });
                 </script>
-                
+
 
                 <!-- Description -->
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">Description (optional):</label>
+                        <label class="form-label">Описание (необязательно):</label>
                         <textarea class="form-control" name="description" style="height: 18em;"></textarea>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="form-group">
-                        <button class="btn btn-primary btn-submit" type="submit">Submit</button>
+                        <button class="btn btn-primary btn-submit" type="submit">Представлять на рассмотрение</button>
                     </div>
                 </div>
             </div>
@@ -137,7 +137,7 @@ $(document).ready(function () {
                 data.data.forEach(function (service) {
                     const option = $('<option class="text-black"></option>').val(service.id).text(service.name_en);
                     serviceTypeSelect.append(option);
-                }); 
+                });
             } else {
                 console.error('Unexpected data format:', data);
             }

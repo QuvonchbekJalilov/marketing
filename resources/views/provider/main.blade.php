@@ -10,11 +10,11 @@
         <div class="page-header">
             <div class="page-header-left d-flex align-items-center">
                 <div class="page-header-title">
-                    <h5 class="m-b-10">Dashboard</h5>
+                    <h5 class="m-b-10">Панель инструментов</h5>
                 </div>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item"><a href="index.html">Главная страница</a></li>
+                    <li class="breadcrumb-item">Панель инструментов</li>
                 </ul>
             </div>
             <div class="page-header-right ms-auto">
@@ -22,7 +22,7 @@
                     <div class="d-flex d-md-none">
                         <a href="javascript:void(0)" class="page-header-right-close-toggle">
                             <i class="feather-arrow-left me-2"></i>
-                            <span>Back</span>
+                            <span>Назад</span>
                         </a>
                     </div>
                     <div class="d-flex align-items-center gap-2 page-header-right-items-wrapper">

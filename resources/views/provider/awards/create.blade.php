@@ -29,11 +29,11 @@
                 <!-- Breadcrumb -->
                 <div class="page-header-left d-flex align-items-center">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Awards</h5>
+                        <h5 class="m-b-10">Награды</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/admin/awards">Awards</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Дом</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/awards">Награды</a></li>
                     </ul>
                 </div>
                 <!-- Page Header Right -->
@@ -42,10 +42,10 @@
                         <div class="d-flex d-md-none">
                             <a href="javascript:void(0)" class="page-header-right-close-toggle">
                                 <i class="feather-arrow-left me-2"></i>
-                                <span>{{ __('awards.back') }}</span>
+                                <span>Награды</span>
                             </a>
                         </div>
-                       
+
                     </div>
                     <div class="d-md-none d-flex align-items-center">
                         <a href="javascript:void(0)" class="page-header-right-open-toggle">
@@ -56,19 +56,19 @@
             </div>
             <!-- End Page Header -->
 
-            
+
 
             <!-- Main Content -->
             <div class="main-content">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card border-top-0">
-                            
+
                             <div class="card-header p-0">
                                 <!-- Nav Tabs -->
                                 <ul class="nav nav-tabs flex-wrap w-100 text-center customers-nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item flex-fill border-top" role="presentation">
-                                        <a href="#" class="nav-link text-start">Awards:</a>
+                                        <a href="#" class="nav-link text-start">Награды:</a>
                                     </li>
                                 </ul>
                             </div>
@@ -86,7 +86,7 @@
                                             @csrf
                                             <div class="row mb-4 align-items-center">
                                                 <div class="col-lg-4">
-                                                    <label for="categorySelect" class="fw-semibold">Category :</label>
+                                                    <label for="categorySelect" class="fw-semibold">Категория :</label>
                                                 </div>
                                                 <div class="col-lg-8">
                                                     <select class="form-control max-select" id="categorySelects" name="category_id">
@@ -96,10 +96,10 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="row mb-4 align-items-center">
                                                 <div class="col-lg-4">
-                                                    <label for="nameInput" class="fw-semibold">Award Name :</label>
+                                                    <label for="nameInput" class="fw-semibold">Название награды :</label>
                                                 </div>
                                                 <div class="col-lg-8">
                                                     <div class="input-group">
@@ -110,17 +110,17 @@
 
                                             <div class="row mb-4 align-items-center">
                                                 <div class="col-lg-4">
-                                                    <label for="dateInput" class="fw-semibold text-primary">Date :</label>
+                                                    <label for="dateInput" class="fw-semibold text-primary">Дата :</label>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="dateInput" placeholder="Select a date" name="date">
+                                                    <input type="text" class="form-control" id="dateInput" placeholder="Выберите дату" name="date">
                                                 </div>
                                             </div>
 
 
                                             <div class="row mb-4 align-items-center">
                                                 <div class="col-lg-4">
-                                                    <label for="linkInput" class="fw-semibold">Link (Optional):</label>
+                                                    <label for="linkInput" class="fw-semibold">Ссылка (необязательно):</label>
                                                 </div>
                                                 <div class="col-lg-8">
                                                     <select class="form-control max-select" id="categorySelect" name="link">
@@ -131,7 +131,7 @@
                                                 </div>
                                             </div>
                                             <input type="hidden" name="provider_id" value="{{ Auth()->user()->provider_id}}">
-                                            <button type="submit" class="btn btn-primary"> Saqlash </button>
+                                            <button type="submit" class="btn btn-primary"> Сохранять </button>
                                         </form>
                                     </div>
                                 </div>

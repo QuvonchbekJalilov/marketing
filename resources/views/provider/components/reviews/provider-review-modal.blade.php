@@ -14,131 +14,200 @@
         </div>
         <div class="offcanvas-body">
             <div class="row">
-                <!-- Rating / Scoro -->
+                <!-- Reyting / Ball -->
                 <div class="col-sm-6">
                     <div class="form-group mb-4">
-                        <label class="form-label">Burget scoro:</label>
-                        <input type="number" name="burget_score" class="form-control" placeholder="Enter rating (1-5)" min="1" max="5"  required>
+                        <div class="star-review" id="budget-review">
+                            <label class="form-label">Бюджетный балл:</label>
+                            <div class="star-buttons">
+                                <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                            </div>
+                            <input type="hidden" name="burget_score" id="burget_score" required>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="form-group mb-4">
-                        <label class="form-label">Quality scoro:</label>
-                        <input type="number" name="quality_score" class="form-control" placeholder="Enter rating (1-5)" min="1" max="5"  required>
+                    <div class="star-review" id="quality-review">
+                        <label class="form-label">Качественный балл:</label>
+                        <div class="star-buttons">
+                            <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                        </div>
+                        <input type="hidden" name="quality_score" id="quality_score" required>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="form-group mb-4">
-                        <label class="form-label">Schedule scoro:</label>
-                        <input type="number" name="schedule_score" class="form-control" placeholder="Enter rating (1-5)" min="1" max="5"  required>
+                    <div class="star-review" id="schedule-review">
+                        <label class="form-label">График балл:</label>
+                        <div class="star-buttons">
+                            <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                        </div>
+                        <input type="hidden" name="schedule_score" id="schedule_score" required>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="form-group mb-4">
-                        <label class="form-label">Colloboration scoro:</label>
-                        <input type="number" name="colloboration_score" class="form-control" placeholder="Enter rating (1-5)" min="1" max="5"  required>
+                    <div class="star-review" id="colloboration-review">
+                        <label class="form-label"> Балл за сотрудничество:</label>
+                        <div class="star-buttons">
+                            <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                        </div>
+                        <input type="hidden" name="colloboration_score" id="colloboration_score" required>
                     </div>
                 </div>
 
-                <!-- Description -->
+                <!-- Tavsif -->
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">Behind Description:</label>
-                        <textarea name="behind_collaboration" class="form-control" rows="3" placeholder="Enter your review" required></textarea>
+                        <label class="form-label">За описанием:</label>
+                        <textarea name="behind_collaboration" class="form-control" rows="3" placeholder="Введите ваш отзыв" required></textarea>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">During Description:</label>
-                        <textarea name="during_collaboration" class="form-control" rows="3" placeholder="Enter your review" required></textarea>
+                        <label class="form-label">Во время описания:</label>
+                        <textarea name="during_collaboration" class="form-control" rows="3" placeholder="Введите ваш отзыв" required></textarea>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">Improvements Description:</label>
-                        <textarea name="improvements" class="form-control" rows="3" placeholder="Enter your review" required></textarea>
+                        <label class="form-label">Описание улучшений:</label>
+                        <textarea name="improvements" class="form-control" rows="3" placeholder="Введите ваш отзыв" required></textarea>
                     </div>
                 </div>
 
-                <!-- Review Source -->
+                <!-- Sharh manbasi -->
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">Tavsiya qilasizmi?</label><br>
+                        <label class="form-label">Рекомендуете ли вы?</label><br>
 
                         <input type="radio" id="recommend_yes" name="recommend" value="yes" >
-                        <label for="recommend_yes">Ha</label><br>
+                        <label for="recommend_yes">Да</label><br>
 
                         <input type="radio" id="recommend_no" name="recommend" value="no" >
-                        <label for="recommend_no">Yo'q</label><br>
+                        <label for="recommend_no">Нет</label><br>
                     </div>
                 </div>
 
-                <!-- names -->
+                <!-- Ismlar -->
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">full_name:</label>
-                        <input type="text" name="full_name" class="form-control" placeholder=""   required>
+                        <label class="form-label">Полное имя:</label>
+                        <input type="text" name="full_name" class="form-control" placeholder="" required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">email:</label>
-                        <input type="text" name="email" class="form-control" placeholder=""   required>
+                        <label class="form-label">Электронная почта:</label>
+                        <input type="email" name="email" class="form-control" placeholder="" required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">job_title:</label>
-                        <input type="text" name="job_title" class="form-control" placeholder=""   required>
+                        <label class="form-label">Должность:</label>
+                        <input type="text" name="job_title" class="form-control" placeholder="" required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">company_name:</label>
-                        <input type="text" name="company_name" class="form-control" placeholder=""  required>
+                        <label class="form-label">название компании:</label>
+                        <input type="text" name="company_name" class="form-control" placeholder="" required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">company_industry:</label>
-                        <input type="text" name="company_industry" class="form-control" placeholder=""   required>
+                        <label class="form-label">отрасль компании:</label>
+                        <input type="text" name="company_industry" class="form-control" placeholder="" required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label class="form-label">company size:</label>
-                        <input type="text" name="company_size" class="form-control" placeholder=""   required>
+                        <label class="form-label">размер компании:</label>
+                        <input type="text" name="company_size" class="form-control" placeholder="" required>
                     </div>
                 </div>
 
-                <!-- service category -->
+                <!-- Xizmat kategoriyasi -->
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <label for="service_category_id" class="form-label">Xizmat Kategoriyasi:</label>
+                        <label for="service_category_id" class="form-label">Категория услуги:</label>
                         <select name="service_category_id" id="service_category_id" class="form-control" required>
-                            <option value="">Tanlang</option>
+                            <option value="">Выберите</option>
                             @foreach($service_categories as $category)
                                 <option value="{{ $category->id }}" {{ isset($review) && $review->service_category_id == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }}
+                                    {{ $category->name_ru }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-                <!-- Hidden Provider ID -->
+                <!-- Yashirin Provayder ID -->
                 <input type="hidden" name="provider_id" value="{{ auth()->user()->id }}">
 
-
-                <!-- Submit Button -->
+                <!-- Yuborish tugmasi -->
                 <div class="col-12">
                     <div class="form-group mb-4">
-                        <button type="submit" class="btn btn-primary">Create Review</button>
+                        <button type="submit" class="btn btn-primary">Создать комментарий</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+    // Initialize star reviews for each section
+    handleStarReview('budget-review', 'burget_score');
+    handleStarReview('quality-review', 'quality_score');
+    handleStarReview('schedule-review', 'schedule_score');
+    handleStarReview('colloboration-review', 'colloboration_score');
+});
+
+function handleStarReview(reviewId, inputId) {
+    const reviewElement = document.getElementById(reviewId);
+    const buttons = reviewElement.querySelectorAll('.star-button');
+    const input = document.getElementById(inputId);
+
+    buttons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            // Remove 'active' class from all buttons in this review
+            buttons.forEach((btn) => {
+                btn.classList.remove('active');
+            });
+
+            // Add 'active' class to the clicked button and all before it
+            buttons.forEach((btn, i) => {
+                if (i <= index) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Store the score in the hidden input field
+            input.value = index + 1; // Save the star rating to the hidden input
+        });
+    });
+}
+
+        </script>
+
+
     </div>
+
     <!--! ================================================================ !-->
     <!--! [End] Review Provider Offcanvas !-->
     <!--! ================================================================ !-->
+
 </form>
