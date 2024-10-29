@@ -120,7 +120,7 @@ class PortfoliosController extends Controller
     {
         // Validate input data
         $validatedData = $request->validated();
-
+        dd($request->multi_image_video);
         // Handle multi-image/video upload
         if ($request->hasFile('multi_image_video')) {
             $multiImageVideoPaths = [];

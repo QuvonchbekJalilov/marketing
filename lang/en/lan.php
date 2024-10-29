@@ -7,7 +7,7 @@ return[
     'marketers' => 'Marketers',
     'partners' => 'Partners',
     'contact' => 'Contact',
-    'Login' => 'Login',
+    'login' => 'Login',
 
     'popular_search' => 'Popular search',
     'version' => 'Version',

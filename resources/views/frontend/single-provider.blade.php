@@ -117,7 +117,7 @@
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="flush-headingOne">
                                                 <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                                                        data-bs-toggle="collapse" data-bs-target="#flush-collapseOne{{$service->id}}"
                                                         aria-expanded="false" aria-controls="flush-collapseOne"
                                                         style="display:flex; justify-content: space-between;">
                                                     {{$service->subCategory->name_uz ?? null}}
@@ -143,7 +143,7 @@
                                                     </div>
                                                 </button>
                                             </h2>
-                                            <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                            <div id="flush-collapseOne{{$service->id}}" class="accordion-collapse collapse"
                                                  aria-labelledby="flush-headingOne" data-bs-parent="#accordionFAQS">
                                                 <div class="accordion-body">
                                                     <h6 style="margin-bottom: 15px;">Description</h6>
@@ -159,12 +159,9 @@
                                                     <div class="skills-box" style="margin-top: 25px;">
                                                         <h6 style="margin-bottom: 15px;">Skills</h6>
                                                         <div class="box-tags-sidebar">
-                                                            <p class="btn btn-neutral-100">Social Media Planning</p>
-                                                            <p class="btn btn-neutral-100">Facebook Business Manager</p>
-                                                            <p class="btn btn-neutral-100">Social Marketing</p>
-                                                            <p class="btn btn-neutral-100">Social Media Marketing</p>
-                                                            <p class="btn btn-neutral-100">Social Media Video Production
-                                                            </p>
+                                                            @foreach($service->skills as $skill)
+                                                            <p class="btn btn-neutral-100">{{$skill->name}}</p>
+                                                                @endforeach
                                                         </div>
                                                     </div>
                                                     <div class="work-box" style="margin-top: 25px;">
@@ -516,7 +513,7 @@
                                         </h2>
                                         @foreach($awards as $award)
                                             <div class="col-lg-3 col-sm-6" style="padding:0;">
-                                                <div class="card-features-5">
+                                                <div class="card-features-5 " style="margin-left: 10px;">
                                                     <div class="card-image"><i class="fa-solid fa-award"></i></div>
 
                                                     <div class="card-info">
@@ -536,13 +533,13 @@
                                     <h2 class="title" style="font-size: 30px; margin-bottom: 15px; padding: 0;">
                                         Reviews</h2>
                                     @foreach($reviews as $review)
-                                        <div class="row detail-term">
+                                        <div class="row detail-term mb-2">
                                             <div class="col-lg-12" style="padding:0;">
                                                 <div class="list-change-log">
                                                     <div class="item-log " style='margin-left:15px'>
                                                         <div class="date-log">
                                                 <span style="padding: 15px; margin-bottom: 25px"
-                                                      class="btn btn-brand-4-sm">DA</span>
+                                                      class="btn btn-brand-4-sm">{{ strtoupper(substr($review->full_name, 0, 2)) }}</span>
                                                             <div style="font-weight: bold">Mijoz ismi</div>
                                                             <p>{{$review->full_name}}</p>
                                                             <div style="font-weight: bold">Services</div>
@@ -669,7 +666,7 @@
                                         <div style="display: flex; align-items: center; gap: 15px;">
                                             <i style="font-size: 24px;" class="fa-regular fa-pen-to-square"></i>
                                             <div>
-                                                <h3 style="font-size:22px;">Worked with comtogether?</h3>
+                                                <h3 style="font-size:22px;">Worked with {{$provider->companies->first()->name}}</h3>
                                                 <p style="margin-bottom: 0;">Share your experience with us.</p>
                                             </div>
                                         </div>
@@ -711,7 +708,7 @@
                                                 <h5>Details</h5>
                                                 <button class="btn btn-brand-4-medium col-lg-6"
                                                         style="justify-content: center; margin:30px 0;"
-                                                        onclick="openModal()">Contact DORA
+                                                        onclick="openModal()">Contact {{$provider->companies->first()->name}}
                                                 </button>
                                                 <a target="_blank" href="{{$provider->companies->first()->website}}"
                                                    style="border-top: 1px solid #ECEEF2; border-bottom: 1px solid #ECEEF2; padding: 20px 10px; font-size: 18px; color: black; display:flex;align-items:center; justify-content:space-between;">
@@ -756,7 +753,7 @@
             <div class="box-border-rounded p-3"
                  style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; width: 50%; max-height: 90%; overflow-y: auto; background-color: white; border-radius: 10px;">
                 <div class="my-3 p-3">
-                    <h4 class="mb-3">Send a message to DORA</h4>
+                    <h4 class="mb-3">Send a message to {{$provider->companies->first()->name}}</h4>
                     <h6 class="mb-2" style="font-size:18px;">Who are you?</h6>
 
                     <div class="row">
@@ -805,7 +802,7 @@
 
                         <div class="col-12 my-2">
                             <label style="width: 100%;">
-                                Why do you want to contact DORA?
+                                Why do you want to contact {{$provider->companies->first()->name}}?
                                 <select
                                     style="border: 1px solid #ececec; border-radius: 10px; height: 50px; box-shadow: none; padding-left: 20px; font-size: 16px; width: 100%; background-color: white;">
                                     <option value="#">Request information for my project</option>
