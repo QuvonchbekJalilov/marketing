@@ -1,8 +1,42 @@
+// Tugmalarni tanlash
 const buttons = document.querySelectorAll('.menu-button');
 
 // Har bir forma uchun kiritilgan ma'lumotlarni saqlash uchun obyekt
 let formData = {};
 
+
+// Star tugmalar funksionalligi
+document.addEventListener('DOMContentLoaded', () => {
+    const reviews = document.querySelectorAll('.star-buttons');
+
+    reviews.forEach(review => {
+        const buttons = review.querySelectorAll('.star-button');
+        const scoreInput = review.parentElement.querySelector('input[type="hidden"]'); // Yashirin input
+
+        buttons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                const currentIndex = Array.from(buttons).indexOf(button);
+
+                buttons.forEach((btn, i) => {
+                    if (i <= currentIndex) {
+                        btn.classList.add('active'); // Aktiv yulduzlarni belgilang
+                    } else {
+                        btn.classList.remove('active'); // Aktiv bo'lmagan yulduzlarni olib tashlang
+                    }
+                });
+
+                // Tanlangan bahoni formData ga saqlash
+                scoreInput.value = currentIndex + 1; // Yashirin inputga bahoni saqlang
+                formData[scoreInput.name] = currentIndex + 1; // formData ga ham saqlang
+            });
+        });
+    });
+});
+
+
+
+
+// Tugmalarni bosganda, tegishli formani ko'rsatish
 buttons.forEach((button, index) => {
     button.addEventListener('click', function () {
         buttons.forEach(btn => btn.classList.remove('active-button'));
@@ -13,6 +47,7 @@ buttons.forEach((button, index) => {
 
 let currentFormIndex = 0;
 
+// Forma ko'rsatish funksiyasi
 function showForm(formIndex) {
     const forms = document.querySelectorAll('.box-of-review form');
     const nextButton = document.querySelector('.next-btn');
@@ -25,82 +60,111 @@ function showForm(formIndex) {
     forms[currentFormIndex].style.display = 'block';
     buttons[currentFormIndex].classList.add('active-button');
 
-    // Previous button visibility
+    // Oldingi tugmani ko'rsatish yoki yashirish
     prevButton.style.display = currentFormIndex > 0 ? 'inline-block' : 'none';
 
-    // Update Next button text
-    nextButton.textContent = currentFormIndex === forms.length - 1 ? 'Submit' : 'Next <i class="fa-solid fa-arrow-right"></i>';
+    // Keyingi tugma matnini yangilash
+    nextButton.textContent = currentFormIndex === forms.length - 1 ? 'Submit' : 'Next';
 
-    // Load saved data into the form fields
+    // Saqlangan ma'lumotlarni form maydonlariga yuklash
     loadFormData();
 }
 
+
+// Form ma'lumotlarini yuklash va saqlash
 function loadFormData() {
     const currentForm = document.querySelectorAll('.box-of-review form')[currentFormIndex];
-    const inputs = currentForm.querySelectorAll('input, textarea');
+    const inputs = currentForm.querySelectorAll('input, textarea,select');
 
     inputs.forEach(input => {
         const name = input.name;
         if (formData[name]) {
-            input.value = formData[name]; // Save data from formData to inputs
+            if (input.type === 'hidden') {
+                input.value = formData[name]; // Yashirin inputlarni to'ldiring
+                // Yulduzlar holatini yangilash
+                const buttons = input.closest('.star-review').querySelectorAll('.star-button');
+                buttons.forEach((btn, index) => {
+                    if (index < formData[name]) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+
+            }
+            else if (input.type === 'checkbox' || input.type === 'radio')
+            {
+                if (input.checked) {
+                    formData[name] = input.value; // Checkbox yoki radio tugmachasi
+                }
+            }
+            else {
+                input.value = formData[name]; // Boshqa inputlarni to'ldiring
+            }
         }
 
-        // Save data on input change
+        // Inputdagi o'zgarishlarni formData ga saqlash
         input.addEventListener('input', () => {
-            formData[name] = input.value; // Save input value to formData
+            formData[name] = input.value; // Input qiymatini formData ga saqlash
         });
     });
 }
 
+
+
+// "Next" tugmasini bosganda formni tekshirish va yuborish
 document.querySelector('.next-btn').addEventListener('click', () => {
     const forms = document.querySelectorAll('.box-of-review form');
     const currentForm = forms[currentFormIndex];
 
-    // Validate the form
+    // Validatsiya
     if (currentForm.checkValidity()) {
+        // Saqlangan ma'lumotlarni konsolga chiqarish
+        console.log("Hozirgi forma saqlangan ma'lumotlar:", formData);
+
         if (currentFormIndex < forms.length - 1) {
             currentFormIndex++;
             showForm(currentFormIndex);
         } else {
             alert("Oxirgi formaga o'tildi va yuborilmoqda!");
-            submitFormData(formData); // Formani yuborish
-
+            submitFormData(formData); // formData obyektini serverga yuborish
         }
     } else {
         alert("Iltimos, barcha maydonlarni to'ldiring.");
     }
 });
 
-console.log('Sending CSRF Token:', csrfToken);
+
+// Ma'lumotlarni serverga jo'natadigan funksiya
 function submitFormData(data) {
-    fetch('/save-review', { // Controller manzilini to'g'rilash
+    console.log("Yuborilayotgan ma'lumotlar:", JSON.stringify(data, null, 2));
+    fetch('/api/save-review', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'), // CSRF tokenni qo'shish
-            body: JSON.stringify({
-
-            })
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
     })
         .then(response => {
+            console.log(response); // Bu yerda response ob'ektini tekshirib ko'ring
             if (response.ok) {
-                return response.json(); // Javobni JSON formatida olish
+                return response.json();
             } else {
                 throw new Error('Network response was not ok.');
             }
         })
         .then(data => {
-            alert("Ma'lumotlar muvaffaqiyatli saqlandi!");
-            console.log(data); // Serverdan olingan javobni konsolga chiqarish
-            // Ehtimol, foydalanuvchini boshqa sahifaga yo'naltirish mumkin
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
+                    alert("Ma'lumotlar muvaffaqiyatli saqlandi!"); // Xabarni chiqarish
+                    console.log(data); // Serverdan olingan javobni konsolga chiqarish
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
 }
 
+
+// "Previous" tugmasini bosganda oldingi formani ko'rsatish
 document.querySelector('.prev-btn').addEventListener('click', () => {
     if (currentFormIndex > 0) {
         currentFormIndex--;
@@ -108,10 +172,8 @@ document.querySelector('.prev-btn').addEventListener('click', () => {
     }
 });
 
-// Initially show the first form
-showForm(currentFormIndex);
 
-// Star button functionality
+// Star tugmalar funksionalligi
 document.addEventListener('DOMContentLoaded', () => {
     const reviews = document.querySelectorAll('.star-buttons');
 
@@ -134,11 +196,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Clear textareas on load
+
+// Sahifa yuklanganda textarealarni tozalash
 document.addEventListener('DOMContentLoaded', () => {
     const textareas = document.querySelectorAll('textarea');
 
     textareas.forEach(textarea => {
-        textarea.value = ''; // Clear each textarea
+        textarea.value = ''; // Har bir textarea ni tozalash
     });
 });
+
+
+// Dastlabki formani ko'rsatish va input ma'lumotlarini yuklash
+showForm(currentFormIndex);
+loadFormData();

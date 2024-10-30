@@ -140,32 +140,35 @@ class ReviewController extends Controller
 
     public function saveReview(Request $request)
     {
-        // Ma'lumotlarni tekshirish
-        $validatedData = $request->validate([
+
+        $request->validate([
             'provider_id' => 'required|integer',
-            'burget_score' => 'required|numeric|min:1|max:5',
-            'quality_score' => 'required|numeric|min:1|max:5',
-            'schedule_score' => 'required|numeric|min:1|max:5',
-            'colloboration_score' => 'required|numeric|min:1|max:5',
-            'behind_collaboration' => 'required|string',
-            'during_collaboration' => 'required|string',
-            'improvements' => 'required|string',
+            'burget_score' => 'required|integer|between:1,5',
+            'quality_score' => 'required|integer|between:1,5',
+            'schedule_score' => 'required|integer|between:1,5',
+            'colloboration_score' => 'required|integer|between:1,5',
+            'behind_collaboration' => 'nullable|string|max:1000',
+            'during_collaboration' => 'nullable|string|max:1000',
+            'improvements' => 'nullable|string|max:1000',
             'service_category_id' => 'required|integer',
-            'recommend' => 'required|boolean',
+            'recommend' => 'required|boolean', // 1 yoki 0
             'full_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'job_title' => 'required|string|max:255',
-            'company_name' => 'required|string|max:255',
-            'company_industry' => 'required|string|max:255',
-            'company_size' => 'required|string|max:255',
+            'job_title' => 'nullable|string|max:255',
+            'company_name' => 'nullable|string|max:255',
+            'company_industry' => 'nullable|string|max:255',
+            'company_size' => 'nullable|integer|min:1',
+            'status' => 'nullable|string|max:255',
         ]);
+        try {
+            $review = Review::create($request->all());
 
-        // Yangi review yaratish
-        Review::create($validatedData);
-
-        // Muvaffaqiyatli javob
-        return response()->json(['message' => 'Ma\'lumotlar muvaffaqiyatli saqlandi!']);
+            return response()->json(['message' => 'Ma\'lumotlar muvaffaqiyatli saqlandi!', 'review' => $review], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Ma\'lumotlarni saqlashda xato yuz berdi: ' . $e->getMessage()], 500);
+        }
     }
+
 
 
 }

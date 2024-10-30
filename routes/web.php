@@ -141,7 +141,7 @@ Route::prefix('provider')->group(function () {
 
     Route::get('/login', [ProviderAuthController::class, 'showProviderLoginForm'])->name('login.provider');
     Route::post('/login', [ProviderAuthController::class, 'providerLogin'])->name('provider.login');
-    Route::post('/logout', [ProviderAuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [ProviderAuthController::class, 'logout'])->name('provider.logout');
 
 
     Route::middleware(['checkProvider:provider', 'auth'])->group(function () {
@@ -217,7 +217,6 @@ Route::prefix('partner')->namespace('App\Http\Controllers')->group(function () {
 
 
 Route::get('/reviews/confirm/{id}', [ProviderReviewController::class, 'confirm'])->name('reviews.confirm');
-Route::post('/save-review', [ReviewController::class, 'saveReview'])->name('save.review');
 Route::get('/filter-providers', [PageController::class, 'filter'])->name('filter.providers');
 
 Route::get('locale/{lang}', [LanguageController::class, 'changeLanguage']);

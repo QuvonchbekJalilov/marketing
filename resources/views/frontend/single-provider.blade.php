@@ -487,16 +487,20 @@
                                     <div class="box-list-news-2">
                                         <div class="row">
                                             <div class="col-md" style="padding: 0;">
+                                                @if($teams)
                                                 <div class="card-news-style-2 card-news-style-3">
-                                                    <div class="card-image img-fluid"><a href="#"><img
+                                                    <div class="card-image img-fluid">
+                                                        <a href="#"><img
                                                                 src="{{asset('storage/'.$teams->image)}}"
-                                                                alt="Nivia"></a></div>
+                                                                alt="Nivia"></a>
+                                                    </div>
                                                     <div class="card-info">
                                                         <div class="card-desc">
                                                             <p class="text-md neutral-500">{{$teams->description}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @endif
                                             </div>
 
                                         </div>

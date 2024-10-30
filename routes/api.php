@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\SkillController as AdminSkillController;
 use App\Http\Controllers\admin\SectorController as AdminSectorController;
 
 use App\Http\Controllers\provider\PortfoliosController as PortfoliosController;
+use App\Http\Controllers\provider\ReviewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,3 +40,4 @@ Route::get('/sector/filter', [AdminSectorController::class, 'filter']);
 
 Route::get('/services/{id}/skills', [PortfoliosController::class, 'getSkillsByService'])->name('services.skills');
 
+Route::post('/save-review', [ReviewController::class, 'saveReview'])->name('save.review');

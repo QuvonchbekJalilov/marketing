@@ -52,33 +52,23 @@
                             <label>Budget *</label>
                             <span>How satisfied are you with DORA's understanding, flexibility, and respect of your budget?</span>
                             <div class="star-buttons">
-                                <button class="star-button" type="button" data-index="1"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="2"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="3"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="4"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="5"><i
-                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
                             </div>
-                            <input type="hidden" name="burget_score" id="burget_score" required>
+                            <input type="hidden" name="burget_score" id="budget_score" required>
                         </div>
                         <div class="star-review" id="quality-review">
                             <label>Quality *</label>
                             <span>How satisfied are you with the quality of service?</span>
                             <div class="star-buttons">
-                                <button class="star-button" type="button" data-index="1"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="2"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="3"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="4"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="5"><i
-                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
                             </div>
                             <input type="hidden" name="quality_score" id="quality_score" required>
                         </div>
@@ -87,39 +77,29 @@
                             <label>Schedule *</label>
                             <span>How satisfied are you with the scheduling and timeliness?</span>
                             <div class="star-buttons">
-                                <button class="star-button" type="button" data-index="1"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="2"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="3"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="4"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="5"><i
-                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
                             </div>
                             <input type="hidden" name="schedule_score" id="schedule_score" required>
                         </div>
 
-                        <div class="star-review" id="colloboration-review">
+                        <div class="star-review" id="collaboration-review">
                             <label>Collaboration *</label>
                             <span>How satisfied are you with the collaboration and communication?</span>
                             <div class="star-buttons">
-                                <button class="star-button" type="button" data-index="1"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="2"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="3"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="4"><i
-                                        class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="5"><i
-                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
                             </div>
-                            <input type="hidden" name="colloboration_score" id="colloboration_score" required>
+                            <input type="hidden" name="colloboration_score" id="collaboration_score" required>
                         </div>
-
                     </div>
+
                 </form>
 
                 <!-- 2-Forma: Describe your experience -->
@@ -265,47 +245,10 @@
                 <button class="next-btn btn btn-brand-4-medium" onclick="nextForm()"> Next <i
                         class="fa-solid fa-arrow-right"></i></button>
             </div>
-        </div>
         </section>
 
     </main>
 
 
-    <script>
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Har bir form uchun star review funksiyasini chaqiramiz
-            handleStarReview('budget-review', 'burget_score');
-            handleStarReview('quality-review', 'quality_score');
-            handleStarReview('schedule-review', 'schedule_score');
-            handleStarReview('colloboration-review', 'colloboration_score');
-        });
-
-        function handleStarReview(reviewId, inputId) {
-            const starButtons = document.querySelectorAll(`#${reviewId} .star-button`);
-            const scoreInput = document.getElementById(inputId);
-
-            starButtons.forEach((button, index) => {
-                button.addEventListener('click', () => {
-                    const score = index + 1;
-
-
-                    // Tanlangan yulduzlarni yangilash (faqat tanlanganlar faol bo'ladi)
-                    starButtons.forEach((btn, i) => {
-                        if (i < score) {
-                            btn.classList.add('active'); // Faol yulduzlar
-                        } else {
-                            btn.classList.remove('active'); // Passiv yulduzlar
-                        }
-                    });
-
-                    // Qiymatni yashirin inputga o'rnatish
-                    scoreInput.value = score;
-                });
-            });
-        }
-
-    </script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @endsection

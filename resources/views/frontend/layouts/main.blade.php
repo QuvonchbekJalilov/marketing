@@ -10,6 +10,7 @@
     <meta name="description" content="Index page">
     <meta name="keywords" content="index, page">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}"> <!-- CSRF token -->
     <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/template/favicon.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="/assets/css/style.css?v=1.0.0" rel="stylesheet">
