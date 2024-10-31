@@ -16,6 +16,7 @@
                                     d="M22.0532 15.1551L12.3032 1.65509C12.2684 1.60707 12.2228 1.56797 12.17 1.54102C12.1172 1.51406 12.0587 1.5 11.9994 1.5C11.9402 1.5 11.8817 1.51406 11.8289 1.54102C11.7761 1.56797 11.7305 1.60707 11.6957 1.65509L1.9457 15.1551C1.91663 15.1955 1.89588 15.2412 1.88466 15.2897C1.87344 15.3381 1.87198 15.3883 1.88035 15.4374C1.88873 15.4864 1.90678 15.5333 1.93345 15.5753C1.96012 15.6173 1.99487 15.6535 2.0357 15.682L11.7857 22.432C11.8485 22.4755 11.923 22.4988 11.9994 22.4988C12.0758 22.4988 12.1504 22.4755 12.2132 22.432L21.9632 15.682C22.004 15.6535 22.0388 15.6173 22.0654 15.5753C22.0921 15.5333 22.1102 15.4864 22.1185 15.4374C22.1269 15.3883 22.1254 15.3381 22.1142 15.2897C22.103 15.2412 22.0823 15.1955 22.0532 15.1551ZM11.9994 15.6445L8.6882 12.9951L11.9994 3.05946L15.3107 12.997L11.9994 15.6445ZM7.94945 12.832L3.22257 14.6676L10.8744 4.08134L7.94945 12.832ZM8.18382 13.5463L11.6244 16.312V21.4157L3.11195 15.5151L8.18382 13.5463ZM12.3744 16.312L15.8169 13.5501L20.9469 15.4738L12.3744 21.4082V16.312ZM16.0494 12.8432L13.1244 4.08134L20.7126 14.5813L16.0494 12.8432Z"
                                     fill=""></path>
                             </svg></span>Reviews</span>
+
                     <h2 class="mt-15 mb-15">Share the story of your collaboration with DORA</h2>
                     <p class="text-lg neutral-500 mb-25">Sortlist is an independent partner helping marketers to find
                         the best agencies.</p>
@@ -48,6 +49,7 @@
                     </div>
                     <div class="star-reviews-box">
                         <!-- Yulduzlar -->
+
                         <div class="star-review" id="budget-review">
                             <label>Budget *</label>
                             <span>How satisfied are you with DORA's understanding, flexibility, and respect of your budget?</span>
@@ -133,7 +135,6 @@
                             <label style="margin-bottom: 16px;">Are there any areas for improvements? (optional)</label>
                             <textarea class="js-textareaIf" id="improvements" name="improvements"
                                       placeholder="If any, give the agency some comments on how they can improve specific aspects of their service.">
-
                             </textarea>
                         </div>
                         <div class="row">
@@ -213,6 +214,16 @@
                                 <option value="Food">Food</option>
                             </select>
                         </div>
+                        <div class="form-group col-lg-6 col-sm-12">
+                            <label for="company_industry">
+                                Provider (optional)
+                            </label>
+                            <select class="form-control" id="provider_id" name="provider_id"
+                                    style="width:50%;">
+                                <option value="{{$provider->id}}">Provider</option>
+
+                            </select>
+                        </div>
 
                         <div class="form-group col-lg-6 col-sm-12">
                             <label for="company_size">
@@ -224,10 +235,6 @@
                                 <option value="11-50">11-50</option>
                                 <option value="51-200">51-200</option>
                             </select>
-                        </div>
-                        <div>
-                            <input type="hidden" name="provider_id" id="provider_id" value="{{$provider->id}}"
-                                   required>
                         </div>
                 </form>
                 <div style="display: flex; align-items: center; gap: 5px;"><input type="checkbox"

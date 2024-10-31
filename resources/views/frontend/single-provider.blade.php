@@ -537,7 +537,7 @@
                                     <h2 class="title" style="font-size: 30px; margin-bottom: 15px; padding: 0;">
                                         Reviews</h2>
                                     @foreach($reviews as $review)
-                                        <div class="row detail-term mb-2">
+                                        <div class="row detail-term mb-2 review ">
                                             <div class="col-lg-12" style="padding:0;">
                                                 <div class="list-change-log">
                                                     <div class="item-log " style='margin-left:15px'>
@@ -656,7 +656,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
                                                             </div>
                                                         </div>
                                                     </div>
@@ -665,6 +664,41 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                    <div class="text-center">
+                                        <a href="#" id="toggleReviews">See all other reviews ({{$reviews->count()}})</a>
+                                    </div>
+                                    <style>
+                                        #reviews .review {
+                                            display: none;
+                                        }
+
+                                        #reviews .review:nth-child(-n+2) {
+                                            display: block;
+                                        }
+
+                                    </style>
+                                    <script>
+                                        document.getElementById('toggleReviews').addEventListener('click', function(e) {
+                                            e.preventDefault();
+                                            let reviews = document.querySelectorAll('#reviews .review');
+                                            let isExpanded = this.getAttribute('data-expanded') === 'true';
+
+                                            if (isExpanded) {
+                                                // Qaytarish holati: faqat dastlabki 2 ta sharhni ko'rsatamiz
+                                                reviews.forEach((review, index) => {
+                                                    review.style.display = index < 2 ? 'block' : 'none';
+                                                });
+                                                this.textContent = 'See all other reviews';
+                                                this.setAttribute('data-expanded', 'false');
+                                            } else {
+                                                // Kengaytirish holati: barcha sharhlarni ko'rsatamiz
+                                                reviews.forEach(review => review.style.display = 'block');
+                                                this.textContent = 'Hide reviews';
+                                                this.setAttribute('data-expanded', 'true');
+                                            }
+                                        });
+
+                                    </script>
                                     <div
                                         style="border: 1px solid #ECEEF2; border-radius: 16px; padding: 20px; margin-top: 20px; display:flex; align-items: center;justify-content: space-between;">
                                         <div style="display: flex; align-items: center; gap: 15px;">

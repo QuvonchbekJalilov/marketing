@@ -151,16 +151,14 @@ function submitFormData(data) {
             if (response.ok) {
                 return response.json();
             } else {
-                throw new Error('Network response was not ok.');
+                throw new Error('Yuuuuuuuuuuuq');
             }
         })
         .then(data => {
                     alert("Ma'lumotlar muvaffaqiyatli saqlandi!"); // Xabarni chiqarish
                     console.log(data); // Serverdan olingan javobni konsolga chiqarish
                 })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
+
 }
 
 

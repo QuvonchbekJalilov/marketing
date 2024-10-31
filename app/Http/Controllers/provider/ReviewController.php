@@ -140,34 +140,33 @@ class ReviewController extends Controller
 
     public function saveReview(Request $request)
     {
-
-        $request->validate([
-            'provider_id' => 'required|integer',
-            'burget_score' => 'required|integer|between:1,5',
-            'quality_score' => 'required|integer|between:1,5',
-            'schedule_score' => 'required|integer|between:1,5',
-            'colloboration_score' => 'required|integer|between:1,5',
+        // Ma'lumotlarni validatsiya qilish
+        $validatedData = $request->validate([
+//            'provider_id' => 'required|integer',
+            'burget_score' => 'required|integer|between:1,10',
+            'quality_score' => 'required|integer|between:1,10',
+            'schedule_score' => 'required|integer|between:1,10',
+            'colloboration_score' => 'required|integer|between:1,10',
             'behind_collaboration' => 'nullable|string|max:1000',
             'during_collaboration' => 'nullable|string|max:1000',
             'improvements' => 'nullable|string|max:1000',
             'service_category_id' => 'required|integer',
-            'recommend' => 'required|boolean', // 1 yoki 0
+            'recommend' => 'required|string|in:yes,no', // Faqat 'yes' yoki 'no' qabul qilinadi
             'full_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'job_title' => 'nullable|string|max:255',
             'company_name' => 'nullable|string|max:255',
             'company_industry' => 'nullable|string|max:255',
             'company_size' => 'nullable|integer|min:1',
-            'status' => 'nullable|string|max:255',
         ]);
-        try {
-            $review = Review::create($request->all());
 
-            return response()->json(['message' => 'Ma\'lumotlar muvaffaqiyatli saqlandi!', 'review' => $review], 200);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Ma\'lumotlarni saqlashda xato yuz berdi: ' . $e->getMessage()], 500);
-        }
+        // Ma'lumotlarni bazaga saqlash
+        Review::create($validatedData);
+
+        // Javob qaytarish
+        return response()->json(['message' => 'Ma\'lumotlar muvaffaqiyatli saqlandi!']);
     }
+
 
 
 
