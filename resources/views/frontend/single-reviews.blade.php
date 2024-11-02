@@ -39,8 +39,6 @@
                         <i class="fa-regular fa-user"></i> Personal Information
                     </button>
                 </div>
-
-                <!-- 1-Forma: Rate your experience -->
                 <form class="rate-your-experience active-form">
                     @csrf
                     <div class="texts-top">
@@ -48,63 +46,76 @@
                         <p>Review and help others to choose the right agency.</p>
                     </div>
                     <div class="star-reviews-box">
-                        <!-- Yulduzlar -->
-
                         <div class="star-review" id="budget-review">
                             <label>Budget *</label>
                             <span>How satisfied are you with DORA's understanding, flexibility, and respect of your budget?</span>
                             <div class="star-buttons">
-                                <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="1"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="2"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="3"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="4"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="5"><i
+                                        class="fa-solid fa-star"></i></button>
                             </div>
-                            <input type="hidden" name="burget_score" id="budget_score" required>
+                            <input type="hidden" name="budget_score" id="budget_score" required>
                         </div>
                         <div class="star-review" id="quality-review">
                             <label>Quality *</label>
                             <span>How satisfied are you with the quality of service?</span>
                             <div class="star-buttons">
-                                <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="1"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="2"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="3"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="4"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="5"><i
+                                        class="fa-solid fa-star"></i></button>
                             </div>
                             <input type="hidden" name="quality_score" id="quality_score" required>
                         </div>
-
                         <div class="star-review" id="schedule-review">
                             <label>Schedule *</label>
                             <span>How satisfied are you with the scheduling and timeliness?</span>
                             <div class="star-buttons">
-                                <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="1"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="2"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="3"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="4"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="5"><i
+                                        class="fa-solid fa-star"></i></button>
                             </div>
                             <input type="hidden" name="schedule_score" id="schedule_score" required>
                         </div>
-
                         <div class="star-review" id="collaboration-review">
                             <label>Collaboration *</label>
                             <span>How satisfied are you with the collaboration and communication?</span>
                             <div class="star-buttons">
-                                <button class="star-button" type="button" data-index="1"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="2"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="3"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="4"><i class="fa-solid fa-star"></i></button>
-                                <button class="star-button" type="button" data-index="5"><i class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="1"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="2"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="3"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="4"><i
+                                        class="fa-solid fa-star"></i></button>
+                                <button class="star-button" type="button" data-index="5"><i
+                                        class="fa-solid fa-star"></i></button>
                             </div>
-                            <input type="hidden" name="colloboration_score" id="collaboration_score" required>
+                            <input type="hidden" name="collaboration_score" id="collaboration_score" required>
                         </div>
                     </div>
-
                 </form>
-
-                <!-- 2-Forma: Describe your experience -->
                 <form class="describe-your-experience"
                       style="display: none;">
                     @csrf
@@ -113,14 +124,12 @@
                         <p>Review and help others to choose the right agency.</p>
                     </div>
                     <div class="star-reviews-box">
-                        <!-- Textarea va select elementlari -->
                         <div class="star-review">
                             <label style="margin-bottom: 16px;">What was the objective behind your collaboration?
                                 *</label>
                             <textarea class="js-textareaThe" style="height: 100px;"
                                       placeholder="The agency helped to deliver a top-class website that suits our need for a new digital strategy."
                                       id="behind_collaboration" name="behind_collaboration">
-
                             </textarea>
                         </div>
                         <div class="star-review">
@@ -128,7 +137,6 @@
                                 *</label>
                             <textarea class="js-textareaSelect" id="during_collaboration" name="during_collaboration"
                                       placeholder="Select and describe one or a few things you liked the most about your experience with the agency.">
-
                             </textarea>
                         </div>
                         <div class="star-review">
@@ -141,10 +149,10 @@
                             <div class="star-review col-sm-12 col-lg-6">
                                 <label style="margin-bottom: 16px;">Which service did the agency provide you with?
                                     (optional)</label>
-                                <select class="js-select" name="service_category_id" required>
+                                <select class="js-select" name="service_sub_category_id" required>
                                     <option value="">Select a service</option>
                                     @foreach($services as $service)
-                                        <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                            <option value="{{ $service->subCategory->id }}">{{ $service->subCategory->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -157,12 +165,9 @@
                                     <input type="radio" name="recommend" value="no" class="me-2 js-no"> No
                                 </label>
                             </div>
-
                         </div>
                     </div>
                 </form>
-
-                <!-- 3-Forma: Personal Information -->
                 <form class="personal-information" style="display: none;">
                     @csrf
                     <div class="texts-top">
@@ -188,15 +193,14 @@
                             <label for="fullname">
                                 Job Title *</label>
                             <input class="form-control" id="job_title" name="job_title" type="text"
-                                   placeholder="email@website.com"
+                                   placeholder="eg marketing director"
                                    style="background-color: #F6F6F5;">
                         </div>
-
                         <div class="form-group col-lg-6 col-sm-12">
                             <label for="fullname">
                                 Company Name *</label>
                             <input class="form-control" id="company_name" name="company_name" type="text"
-                                   placeholder="email@website.com"
+                                   placeholder="eg Apple Inc."
                                    style="background-color: #F6F6F5;">
                         </div>
                         <div class="form-group col-lg-6 col-sm-12">
@@ -218,10 +222,9 @@
                             <label for="company_industry">
                                 Provider (optional)
                             </label>
-                            <select class="form-control" id="provider_id" name="provider_id"
-                                    style="width:50%;">
+                            <select class="form-control" id="provider_id" name="provider_id" style="width:50%;">
+                                <option value="">Select Provider</option>
                                 <option value="{{$provider->id}}">Provider</option>
-
                             </select>
                         </div>
 
@@ -244,18 +247,184 @@
                 </div>
             </div>
 
-            <!-- Tugmalar -->
             <div class="bottom-of-box">
                 <button class="prev-btn btn btn-black btn-rounded" style="display: none;" onclick="prevForm()">
                     Previous
                 </button>
-                <button class="next-btn btn btn-brand-4-medium" onclick="nextForm()"> Next <i
+                <button class="next-btn btn btn-brand-4-medium"> Next <i
                         class="fa-solid fa-arrow-right"></i></button>
             </div>
         </section>
-
     </main>
+    <script>
+        const buttons = document.querySelectorAll('.menu-button');
 
+        let formData = {};
 
+        document.addEventListener('DOMContentLoaded', () => {
+            const reviews = document.querySelectorAll('.star-buttons');
 
+            reviews.forEach(review => {
+                const buttons = review.querySelectorAll('.star-button');
+                const scoreInput = review.parentElement.querySelector('input[type="hidden"]');
+
+                buttons.forEach((button, index) => {
+                    button.addEventListener('click', () => {
+                        const currentIndex = Array.from(buttons).indexOf(button);
+
+                        buttons.forEach((btn, i) => {
+                            if (i <= currentIndex) {
+                                btn.classList.add('active');
+                            } else {
+                                btn.classList.remove('active');
+                            }
+                        });
+                        scoreInput.value = currentIndex + 1;
+                        formData[scoreInput.name] = currentIndex + 1;
+                    });
+                });
+            });
+        });
+        buttons.forEach((button, index) => {
+            button.addEventListener('click', function () {
+                buttons.forEach(btn => btn.classList.remove('active-button'));
+                this.classList.add('active-button');
+                showForm(index);
+            });
+        });
+
+        let currentFormIndex = 0;
+        function showForm(formIndex) {
+            const forms = document.querySelectorAll('.box-of-review form');
+            const nextButton = document.querySelector('.next-btn');
+            const prevButton = document.querySelector('.prev-btn');
+
+            forms.forEach(form => form.style.display = 'none');
+            buttons.forEach(btn => btn.classList.remove('active-button'));
+
+            currentFormIndex = formIndex;
+            forms[currentFormIndex].style.display = 'block';
+            buttons[currentFormIndex].classList.add('active-button');
+
+            prevButton.style.display = currentFormIndex > 0 ? 'inline-block' : 'none';
+
+            nextButton.textContent = currentFormIndex === forms.length - 1 ? 'Submit' : 'Next';
+            loadFormData();
+        }
+        function loadFormData() {
+            const currentForm = document.querySelectorAll('.box-of-review form')[currentFormIndex];
+            const inputs = currentForm.querySelectorAll('input, textarea,select');
+
+            inputs.forEach(input => {
+                const name = input.name;
+                if (formData[name]) {
+                    if (input.type === 'hidden') {
+                        input.value = formData[name];
+                        const buttons = input.closest('.star-review').querySelectorAll('.star-button');
+                        buttons.forEach((btn, index) => {
+                            if (index < formData[name]) {
+                                btn.classList.add('active');
+                            } else {
+                                btn.classList.remove('active');
+                            }
+                        });
+                    }
+                    else if (input.type === 'checkbox' || input.type === 'radio')
+                    {
+                        if (input.checked) {
+                            formData[name] = input.value;
+                        }
+                    }
+                    else {
+                        input.value = formData[name];
+                    }
+                }
+                input.addEventListener('input', () => {
+                    formData[name] = input.value;
+                });
+            });
+        }
+        document.querySelector('.next-btn').addEventListener('click', () => {
+            const forms = document.querySelectorAll('.box-of-review form');
+            const currentForm = forms[currentFormIndex];
+
+            if (currentForm.checkValidity()) {
+                console.log("Hozirgi forma saqlangan ma'lumotlar:", formData);
+
+                if (currentFormIndex < forms.length - 1) {
+                    currentFormIndex++;
+                    showForm(currentFormIndex);
+                } else {
+                    alert("Oxirgi formaga o'tildi va yuborilmoqda!");
+                    submitFormData(formData);
+                }
+            } else {
+                alert("Iltimos, barcha maydonlarni to'ldiring.");
+            }
+        });
+        function submitFormData(data) {
+            console.log("Yuborilayotgan ma'lumotlar:", JSON.stringify(data, null, 2));
+            fetch('{{ route('save.review') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        return response.json().then(errData => {
+                            throw new Error(errData.message || 'Ma\'lumotni saqlashda xatolik yuz berdi.');
+                        });
+                    }
+                })
+                .then(data => {
+                    alert("Ma'lumotlar muvaffaqiyatli saqlandi!");
+                    console.log(data);
+                    // Foydalanuvchini single providers sahifasiga yo'naltirish
+                    const providerId = {{ $provider->id }}; // PHP dan id ni oling
+                    window.location.href = '/single-providers/' + providerId; // kerakli sahifa yo'lini kiriting
+                })
+                .catch(error => {
+                    console.error("Xatolik:", error.message);
+                    alert("Xatolik yuz berdi: " + error.message);
+                });
+        }
+
+        document.querySelector('.prev-btn').addEventListener('click', () => {
+            if (currentFormIndex > 0) {
+                currentFormIndex--;
+                showForm(currentFormIndex);
+            }
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const reviews = document.querySelectorAll('.star-buttons');
+            reviews.forEach(review => {
+                const buttons = review.querySelectorAll('.star-button');
+                buttons.forEach((button, index) => {
+                    button.addEventListener('click', () => {
+                        const currentIndex = Array.from(buttons).indexOf(button);
+                        buttons.forEach((btn, i) => {
+                            if (i > currentIndex) {
+                                btn.classList.remove('active');
+                            } else {
+                                btn.classList.add('active');
+                            }
+                        });
+                    });
+                });
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const textareas = document.querySelectorAll('textarea');
+
+            textareas.forEach(textarea => {
+                textarea.value = '';
+            });
+        });
+        showForm(currentFormIndex);
+        loadFormData();
+    </script>
 @endsection

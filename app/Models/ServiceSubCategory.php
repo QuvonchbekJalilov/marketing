@@ -44,11 +44,20 @@ class ServiceSubCategory extends Model
         return $this->hasMany(Skill::class, 'service_id');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'service_sub_category_id');
+    }
+
     public function services()
     {
         return $this->hasMany(Service::class);
     }
 
+    public function portfolios()
+    {
+        return $this->hasMany(Portfolio::class, 'service_sub_category_id');
+    }
 
 }
 

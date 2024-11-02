@@ -96,14 +96,16 @@ class PageController extends Controller
     public function singleProviders($id)
     {
         $provider = User::where('id', $id)->with('companies')->first();
-        $reviews = Review::where('provider_id', $id)->with('serviceCategory')->get();
-        $services = Service::where('provider_id', $id)->with('subCategory')->get();
+        $reviews = Review::where('provider_id', $id)->with('serviceSubCategory')->get();
+        $services = Service::where('provider_id', $id)
+            ->with(['subCategory.portfolios', 'subCategory.reviews'])
+            ->get();
         $average_review = Review::where('provider_id', $id)
-            ->selectRaw('AVG(burget_score) as avg_burget_score, AVG(quality_score) as avg_quality_score, AVG(schedule_score) as avg_schedule_score, AVG(colloboration_score) as avg_colloboration_score')
+            ->selectRaw('AVG(budget_score) as avg_budget_score, AVG(quality_score) as avg_quality_score, AVG(schedule_score) as avg_schedule_score, AVG(collaboration_score) as avg_collaboration_score')
             ->first();
 
         // Umumiy o'rtacha qiymatni hisoblash
-        $average_score = ($average_review->avg_burget_score + $average_review->avg_quality_score + $average_review->avg_schedule_score + $average_review->avg_colloboration_score) / 4;
+        $average_score = ($average_review->avg_budget_score + $average_review->avg_quality_score + $average_review->avg_schedule_score + $average_review->avg_collaboration_score) / 4;
 
         $awards = Award::where('provider_id', $id)->get();
         $teams = Team::where('provider_id', $id)->first();
@@ -119,7 +121,8 @@ class PageController extends Controller
     public function singleReviews($id)
     {
         $provider = User::where('id', $id)->with('companies')->first();
-        $services = Service::all();
+        $services = Service::where('provider_id', 2)
+            ->with('subCategory')->get();
         return view('frontend.single-reviews', compact('services', 'provider'));
     }
 

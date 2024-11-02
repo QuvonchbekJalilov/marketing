@@ -97,21 +97,21 @@ class ReviewController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'provider_id' => 'required|exists:users,id',
-            'burget_score' => 'required|integer|min:1|max:5',
+            'budget_score' => 'required|integer|min:1|max:5',
             'quality_score' => 'required|integer|min:1|max:5',
             'schedule_score' => 'required|integer|min:1|max:5',
-            'colloboration_score' => 'required|integer|min:1|max:5',
+            'collaboration_score' => 'required|integer|min:1|max:5',
             'behind_collaboration' => 'required|nullable',
             'during_collaboration' => 'required|nullable',
             'improvements' => 'required|nullable',
-            'service_category_id' => 'required|exists:service_categories,id',
+            'service_sub_category_id' => 'required|exists:service_sub_categories,id',
             'recommend' => 'required|in:yes,no',
             'full_name' => 'required|nullable',
             'email' => 'required|nullable',
             'job_title' => 'required|nullable',
             'company_name' => 'required|nullable',
             'company_industry' => 'required|nullable',
+            'provider_id' => 'required|exists:users,id',
             'company_size' => 'required|nullable',
 
         ]);
@@ -140,34 +140,35 @@ class ReviewController extends Controller
 
     public function saveReview(Request $request)
     {
-        // Ma'lumotlarni validatsiya qilish
-        $validatedData = $request->validate([
-//            'provider_id' => 'required|integer',
-            'burget_score' => 'required|integer|between:1,10',
-            'quality_score' => 'required|integer|between:1,10',
-            'schedule_score' => 'required|integer|between:1,10',
-            'colloboration_score' => 'required|integer|between:1,10',
-            'behind_collaboration' => 'nullable|string|max:1000',
-            'during_collaboration' => 'nullable|string|max:1000',
-            'improvements' => 'nullable|string|max:1000',
-            'service_category_id' => 'required|integer',
-            'recommend' => 'required|string|in:yes,no', // Faqat 'yes' yoki 'no' qabul qilinadi
-            'full_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'job_title' => 'nullable|string|max:255',
-            'company_name' => 'nullable|string|max:255',
-            'company_industry' => 'nullable|string|max:255',
-            'company_size' => 'nullable|integer|min:1',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'provider_id' => 'required|integer',
+                'collaboration_score' => 'required|integer|min:1|max:5',
+                'schedule_score' => 'required|integer|min:1|max:5',
+                'quality_score' => 'required|integer|min:1|max:5',
+                'budget_score' => 'required|integer|min:1|max:5',
+                'recommend' => 'required|string',
+                'service_sub_category_id' => 'required|integer',
+                'improvements' => 'nullable|string',
+                'during_collaboration' => 'nullable|string',
+                'behind_collaboration' => 'nullable|string',
+                'company_size' => 'required|string',
+                'company_industry' => 'required|string',
+                'company_name' => 'required|string',
+                'job_title' => 'nullable|string',
+                'email' => 'required|email',
+                'full_name' => 'required|string'
+            ]);
 
-        // Ma'lumotlarni bazaga saqlash
-        Review::create($validatedData);
+            Review::create($validatedData);
 
-        // Javob qaytarish
-        return response()->json(['message' => 'Ma\'lumotlar muvaffaqiyatli saqlandi!']);
+            return response()->json(['message' => 'Data saved successfully!']);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['errors' => $e->validator->errors()], 422);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Ma\'lumotni saqlashda xatolik yuz berdi: ' . $e->getMessage()], 500);
+        }
     }
-
-
 
 
 }

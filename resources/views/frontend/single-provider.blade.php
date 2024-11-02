@@ -117,33 +117,59 @@
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="flush-headingOne">
                                                 <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse" data-bs-target="#flush-collapseOne{{$service->id}}"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#flush-collapseOne{{$service->id}}"
                                                         aria-expanded="false" aria-controls="flush-collapseOne"
                                                         style="display:flex; justify-content: space-between;">
-                                                    {{$service->subCategory->name_uz ?? null}}
+                                                    {{$service->subCategory->name_ru ?? null}}
                                                     <div style="display: flex; align-items: center;">
                                                         <p class="d-none d-md-block "
-                                                           style="padding: 0 19px; font-size: 14px;">0 works</p>
+                                                           style="padding: 0 19px; font-size: 14px;">{{$service->subCategory->portfolios->count()}}
+                                                            works</p>
                                                         <div
                                                             class="card-rates d-none d-md-block border-start border-end "
                                                             style="border-left:1px solid #D1D3D4; border-right: 1px solid #D1D3D4; padding: 0 20px;">
-                                                            <img src="/assets/imgs/template/icons/star.svg"
-                                                                 alt="Nivia"/><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia"/><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia"/><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia"/><img
-                                                                src="/assets/imgs/template/icons/star.svg"
-                                                                alt="Nivia"/>
+                                                            @if ($service->subCategory && $service->subCategory->reviews && $service->subCategory->reviews->isNotEmpty())
+
+                                                                @php
+                                                                    $totalScore = 0;
+                                                                    $reviewCount = $service->subCategory->reviews->count();
+
+                                                                    foreach ($service->subCategory->reviews as $review) {
+                                                                        $totalScore += ($review->quality_score + $review->budget_score + $review->schedule_score + $review->collaboration_score) / 4;
+                                                                    }
+
+                                                                    $averageScore = $totalScore / $reviewCount;
+                                                                @endphp
+
+                                                                {{-- Yulduzlar ko'rsatish --}}
+                                                                @for ($i = 0; $i < 5; $i++)
+                                                                    <span>
+                                                                         <img
+                                                                             src="{{ asset('/assets/imgs/template/icons/star.svg') }}"
+                                                                             alt="jobhub"
+                                                                             style="opacity: {{ $i < floor($averageScore) ? '1' : '0.2' }};"/>
+                                                                     </span>
+                                                                @endfor
+                                                            @else
+                                                                {{-- Belgilanmagan yulduzlar (opacity bilan pastroq) --}}
+                                                                @for ($i = 0; $i < 5; $i++)
+                                                                    <span>
+                                                                        <img
+                                                                            src="{{ asset('/assets/imgs/template/icons/star.svg') }}"
+                                                                            alt="jobhub"
+                                                                            style="opacity: 0.2;"/>
+                                                                    </span>
+                                                                @endfor
+                                                            @endif
                                                         </div>
                                                         <p style="padding: 0 19px; font-size: 14px;">{{$service->price}}
                                                             / <span>project</span></p>
                                                     </div>
                                                 </button>
                                             </h2>
-                                            <div id="flush-collapseOne{{$service->id}}" class="accordion-collapse collapse"
+                                            <div id="flush-collapseOne{{$service->id}}"
+                                                 class="accordion-collapse collapse"
                                                  aria-labelledby="flush-headingOne" data-bs-parent="#accordionFAQS">
                                                 <div class="accordion-body">
                                                     <h6 style="margin-bottom: 15px;">Description</h6>
@@ -160,93 +186,249 @@
                                                         <h6 style="margin-bottom: 15px;">Skills</h6>
                                                         <div class="box-tags-sidebar">
                                                             @foreach($service->skills as $skill)
-                                                            <p class="btn btn-neutral-100">{{$skill->name}}</p>
-                                                                @endforeach
+                                                                <p class="btn btn-neutral-100">{{$skill->name_ru}}</p>
+                                                            @endforeach
                                                         </div>
                                                     </div>
                                                     <div class="work-box" style="margin-top: 25px;">
+                                                        @if($service->subCategory->portfolios->isNotEmpty())
                                                         <h6 style="margin-bottom: 15px; padding: 5px;">Works</h6>
                                                         <div class="box-list-jobs">
                                                             <div class="row">
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="card-job">
-                                                                        <div class="card-head"
-                                                                             style="display: flex; flex-direction: column; align-items: flex-start;">
-                                                                            <div
-                                                                                style="width: 100%; height: 200px; border-radius: 8px; margin-bottom: 15px;">
-                                                                                <img
-                                                                                    style=" width: 100%; object-fit: cover; height: 100%;border-radius: 8px;"
-                                                                                    src="../assets/imgs/page/job/msma.png"
-                                                                                    alt="">
-                                                                            </div>
-                                                                            <div
-                                                                                style="display: flex; width: 100%; justify-content: space-between;">
-                                                                                <div class="card-head-left">
-                                                                                    <a href="#">
-                                                                                        <h5 style="font-size: 18px;">
-                                                                                            Insurance Life
-                                                                                        </h5>
-                                                                                    </a>
-                                                                                    <p class="text-md">by DORA</p>
-                                                                                </div>
-                                                                                <div class="card-head-right">
-                                                                                    <a href="#">
-                                                                                        <svg width="38" height="38"
-                                                                                             viewBox="0 0 38 38"
-                                                                                             fill="none"
-                                                                                             xmlns="http://www.w3.org/2000/svg">
-                                                                                            <rect width="38" height="38"
-                                                                                                  rx="19"
-                                                                                                  fill=""></rect>
-                                                                                            <g clip-path="url(#clip0_26_2613)">
-                                                                                                <path
-                                                                                                    d="M23.6537 16.8139L14.718 25.7497L13.25 24.2817L22.1847 15.3459H14.31V13.2695H25.7301V24.6897H23.6537V16.8139Z"
-                                                                                                    fill="#191919">
-                                                                                                </path>
-                                                                                            </g>
-                                                                                            <defs>
-                                                                                                <clippath
-                                                                                                    id="clip0_26_2613">
-                                                                                                    <rect width="13"
-                                                                                                          height="13"
-                                                                                                          fill="white"
-                                                                                                          transform="translate(13 13)">
-                                                                                                    </rect>
-                                                                                                </clippath>
-                                                                                            </defs>
-                                                                                        </svg>
-                                                                                    </a>
+                                                                    @foreach($service->subCategory->portfolios as $portfolio)
+                                                                        <div class="col-lg-4 col-md-6">
+                                                                            <div class="card-job">
+                                                                                <div class="card-head"
+                                                                                     style="display: flex; flex-direction: column; align-items: flex-start;">
+                                                                                    <div
+                                                                                        style="width: 100%; height: 200px; border-radius: 8px; margin-bottom: 15px;">
+                                                                                        <img
+                                                                                            style=" width: 100%; object-fit: cover; height: 100%;border-radius: 8px;"
+                                                                                            src="{{asset('storage/'.$portfolio->multi_image_video)}}"
+                                                                                            alt="">
+                                                                                    </div>
+                                                                                    <div
+                                                                                        style="display: flex; width: 100%; justify-content: space-between;">
+                                                                                        <div class="card-head-left">
+                                                                                            <a href="#">
+                                                                                                <h5 style="font-size: 18px;">
+                                                                                                    {{$portfolio->work_title}}
+                                                                                                </h5>
+                                                                                            </a>
+                                                                                            <p class="text-md">by
+                                                                                                DORA</p>
+                                                                                        </div>
+                                                                                        <div class="card-head-right">
+                                                                                            <a href="#"data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                                                                <svg width="38"
+                                                                                                     height="38"
+                                                                                                     viewBox="0 0 38 38"
+                                                                                                     fill="none"
+                                                                                                     xmlns="http://www.w3.org/2000/svg">
+                                                                                                    <rect width="38"
+                                                                                                          height="38"
+                                                                                                          rx="19"
+                                                                                                          fill=""></rect>
+                                                                                                    <g clip-path="url(#clip0_26_2613)">
+                                                                                                        <path
+                                                                                                            d="M23.6537 16.8139L14.718 25.7497L13.25 24.2817L22.1847 15.3459H14.31V13.2695H25.7301V24.6897H23.6537V16.8139Z"
+                                                                                                            fill="#191919">
+                                                                                                        </path>
+                                                                                                    </g>
+                                                                                                    <defs>
+                                                                                                        <clippath
+                                                                                                            id="clip0_26_2613">
+                                                                                                            <rect
+                                                                                                                width="13"
+                                                                                                                height="13"
+                                                                                                                fill="white"
+                                                                                                                transform="translate(13 13)">
+                                                                                                            </rect>
+                                                                                                        </clippath>
+                                                                                                    </defs>
+                                                                                                </svg>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                    @endforeach
+                                                            </div>
+                                                        </div>
+                                                        @endif
+                                                    </div>
+
+                                                    <style>
+                                                        /* Modal oynasi uchun asosiy uslublar */
+                                                        .modal-overlay {
+                                                            display: none; /* Dastlab modal yashirin */
+                                                            position: fixed;
+                                                            top: 0;
+                                                            left: 0;
+                                                            width: 100%;
+                                                            height: 100%;
+                                                            background-color: rgba(0, 0, 0, 0.7); /* qora tus */
+                                                            justify-content: center;
+                                                            align-items: center;
+                                                            z-index: 1000;
+                                                        }
+
+                                                        .modal-content {
+                                                            background-color: #fff;
+                                                            padding: 20px;
+                                                            width: 60%; /* Modal hajmi */
+                                                            max-width: 700px;
+                                                            border-radius: 8px;
+                                                            position: relative;
+                                                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                                                        }
+
+                                                        /* Yopish tugmasi */
+                                                        .close-modal {
+                                                            position: absolute;
+                                                            top: 10px;
+                                                            right: 10px;
+                                                            font-size: 24px;
+                                                            color: #333;
+                                                            cursor: pointer;
+                                                        }
+                                                    </style>
+                                                    <!-- Modalni ochish tugmasi -->
+                                                    <a href="#" id="openModalLink">Modalni ochish</a>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal-overlay" id="customModal">
+                                                        <div class="modal-content ">
+                                                            <span class="close-modal" id="closeModal">&times;</span>
+                                                                <div class="container" styles="padding:0;">
+                                                                    <div class="row">
+                                                                        <h2 class="title"
+                                                                            style="font-size: 30px; margin-bottom: 15px; padding: 0; margin-left: 12px;">
+                                                                            Contact
+                                                                        </h2>
+                                                                        <div class="col-lg-6 mb-30">
+                                                                            <div class="block-map">
+                                                                                <div class="box-map">
+                                                                                    <div style="width: 100%">
+                                                                                        <iframe width="100%" height="600" frameborder="0"
+                                                                                                scrolling="no" marginheight="0" marginwidth="0"
+                                                                                                src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Chilanzar%20Street%202/2,%20Tashkent,%20Uzbekistan+()&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+                                                                                            <a
+                                                                                                href="https://www.gps.ie/">gps vehicle
+                                                                                                tracker</a></iframe>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!-- <p class="text-md neutral-600 text-center">Hours: 8:00 - 17:00, Mon - Sat </p> -->
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6"
+                                                                             style="display:flex; flex-direction:column; padding: 40px 15px;">
+                                                                            <h5>Details</h5>
+                                                                            <button class="btn btn-brand-4-medium col-lg-6"
+                                                                                    style="justify-content: center; margin:30px 0;"
+                                                                                    onclick="openModal()">
+                                                                                Contact {{$provider->companies->first()->name}}
+                                                                            </button>
+                                                                            <a target="_blank" href="{{$provider->companies->first()->website}}"
+                                                                               style="border-top: 1px solid #ECEEF2; border-bottom: 1px solid #ECEEF2; padding: 20px 10px; font-size: 18px; color: black; display:flex;align-items:center; justify-content:space-between;">
+                                                                                <div>
+                                                                                    <i class="fa-solid fa-earth-asia"
+                                                                                       style="margin-right:10px;"></i>
+                                                                                    <span>{{$provider->companies->first()->website}}</span>
+                                                                                </div>
+                                                                                <i class="fa-solid fa-arrow-right"></i>
+                                                                            </a>
+                                                                            <div
+                                                                                style="border-top: 1px solid #ECEEF2; border-bottom: 1px solid #ECEEF2; padding: 20px 10px; font-size: 18px; color: black;">
+                                                                                <i class="fa-solid fa-location-dot" style="margin-right:10px;"></i>
+                                                                                <span>{{$provider->companies->first()->address}}</span>
+                                                                            </div>
+                                                                            <p class="text-lg title-follow neutral-0"
+                                                                               style="color: black !important;     padding: 10px">Follow us
+                                                                            <div class="box-socials-footer"><a class="icon-socials icon-facebook"
+                                                                                                               href="#"><img alt="Nivia"
+                                                                                                                             src="/assets/imgs/template/icons/fb.svg"></a><a
+                                                                                    class="icon-socials icon-instagram" href="#"><img alt="Nivia"
+                                                                                                                                      src="/assets/imgs/template/icons/in.svg"></a><a
+                                                                                    class="icon-socials icon-twitter" href="#"><img alt="Nivia"
+                                                                                                                                    src="/assets/imgs/template/icons/tw.svg"></a><a
+                                                                                    class="icon-socials icon-be" href="#"><img alt="Nivia"
+                                                                                                                               src="/assets/imgs/template/icons/be.svg"></a>
+                                                                            </div>
+                                                                            </p>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            <button id="closeModalBtn">Yopish</button>
                                                         </div>
                                                     </div>
+
+                                                    <!-- JavaScript -->
+                                                    <script>
+                                                        // Elementlarni tanlash
+                                                        const openModalLink = document.getElementById('openModalLink');
+                                                        const closeModal = document.getElementById('closeModal');
+                                                        const closeModalBtn = document.getElementById('closeModalBtn');
+                                                        const modalOverlay = document.getElementById('customModal');
+
+                                                        // Modalni ochish
+                                                        openModalLink.addEventListener('click', function(event) {
+                                                            event.preventDefault(); // sahifani yangilanishiga yo'l qo'ymaydi
+                                                            modalOverlay.style.display = 'flex'; // Modalni ko'rsatish
+                                                        });
+
+                                                        // Modalni yopish (X yoki Yopish tugmasi bosilganda)
+                                                        closeModal.addEventListener('click', function() {
+                                                            modalOverlay.style.display = 'none';
+                                                        });
+                                                        closeModalBtn.addEventListener('click', function() {
+                                                            modalOverlay.style.display = 'none';
+                                                        });
+
+                                                        // Modalni sahifaning bo'sh joyiga bosilganda yopish
+                                                        window.addEventListener('click', function(event) {
+                                                            if (event.target === modalOverlay) {
+                                                                modalOverlay.style.display = 'none';
+                                                            }
+                                                        });
+                                                    </script>
+
+
                                                     <div class="reviews-box" style="margin-top: 25px;">
                                                         <h6 style="margin-bottom: 15px; padding: 5px;">Reviews</h6>
-                                                        <div class="card-testimonial col-lg-4">
-                                                            <div class="card-rates">
-                                                                <img src="/assets/imgs/template/icons/star.svg"
-                                                                     alt="Star">
-                                                                <img src="/assets/imgs/template/icons/star.svg"
-                                                                     alt="Star">
-                                                                <img src="/assets/imgs/template/icons/star.svg"
-                                                                     alt="Star">
-                                                                <img src="/assets/imgs/template/icons/star.svg"
-                                                                     alt="Star">
-                                                                <img src="/assets/imgs/template/icons/star.svg"
-                                                                     alt="Star">
-                                                            </div>
-                                                            <div class="card-author">
-                                                                <div class="author-info">
-                                                            <span class="text-md author-name mr-10"
-                                                                  style="margin-top: 10px !important;">ROBERT
-                                                                FOX</span>
+                                                        @if ($service->subCategory->reviews->isNotEmpty())
+
+                                                            @foreach ($service->subCategory->reviews as $review)
+
+                                                                @php
+                                                                    $totalScoree = 0;
+
+                                                                        $totalScoree += ($review->quality_score + $review->budget_score + $review->schedule_score + $review->collaboration_score) / 4;
+
+
+                                                                @endphp
+                                                                <div class="card-testimonial col-lg-4">
+                                                                    <div class="card-rates">
+                                                                        @for ($i = 0; $i < 5; $i++)
+                                                                            <span>
+                                                                                                                                <img
+                                                                                                                                    src="{{ asset('/assets/imgs/template/icons/star.svg') }}"
+                                                                                                                                    alt="jobhub"
+                                                                                                                                    style="opacity: {{ $i < floor($totalScoree) ? '1' : '0.2' }};"/>
+                                                                            </span>
+                                                                        @endfor
+                                                                    </div>
+                                                                    <div class="card-author">
+                                                                        <div class="author-info">
+                                                                                                                <span
+                                                                                                                    class="text-md author-name mr-10"
+                                                                                                                    style="margin-top: 10px !important;">{{$review->full_name}}</span>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
+                                                            @endforeach
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -488,18 +670,18 @@
                                         <div class="row">
                                             <div class="col-md" style="padding: 0;">
                                                 @if($teams)
-                                                <div class="card-news-style-2 card-news-style-3">
-                                                    <div class="card-image img-fluid">
-                                                        <a href="#"><img
-                                                                src="{{asset('storage/'.$teams->image)}}"
-                                                                alt="Nivia"></a>
-                                                    </div>
-                                                    <div class="card-info">
-                                                        <div class="card-desc">
-                                                            <p class="text-md neutral-500">{{$teams->description}}</p>
+                                                    <div class="card-news-style-2 card-news-style-3">
+                                                        <div class="card-image img-fluid">
+                                                            <a href="#"><img
+                                                                    src="{{asset('storage/'.$teams->image)}}"
+                                                                    alt="Nivia"></a>
+                                                        </div>
+                                                        <div class="card-info">
+                                                            <div class="card-desc">
+                                                                <p class="text-md neutral-500">{{$teams->description}}</p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
                                                 @endif
                                             </div>
 
@@ -547,7 +729,7 @@
                                                             <div style="font-weight: bold">Mijoz ismi</div>
                                                             <p>{{$review->full_name}}</p>
                                                             <div style="font-weight: bold">Services</div>
-                                                            <p>{{$review->serviceCategory->name_uz}}</p>
+                                                            <p>{{$review->serviceSubCategory->name_ru}}</p>
                                                             <div style="font-weight: bold">Sectoer</div>
                                                             <p>{{$review->company_industry}}</p>
                                                             <div style="font-weight: bold">Team</div>
@@ -609,8 +791,10 @@
                                                                         <div class="card-rates">
                                                                             @for ($i = 0; $i < 5; $i++)
                                                                                 <span>
-                                                                                     <img src="{{ asset('/assets/imgs/template/icons/star.svg') }}" alt="jobhub"
-                                                                                         style="opacity: {{ $i < floor($review->burget_score) ? '1' : '0.2' }};"/>
+                                                                                     <img
+                                                                                         src="{{ asset('/assets/imgs/template/icons/star.svg') }}"
+                                                                                         alt="jobhub"
+                                                                                         style="opacity: {{ $i < floor($review->budget_score) ? '1' : '0.2' }};"/>
                                                                                 </span>
                                                                             @endfor
                                                                         </div>
@@ -622,8 +806,10 @@
                                                                         <div class="card-rates">
                                                                             @for ($i = 0; $i < 5; $i++)
                                                                                 <span>
-                                                                                     <img src="{{ asset('/assets/imgs/template/icons/star.svg') }}" alt="jobhub"
-                                                                                          style="opacity: {{ $i < floor($review->quality_score) ? '1' : '0.2' }};"/>
+                                                                                     <img
+                                                                                         src="{{ asset('/assets/imgs/template/icons/star.svg') }}"
+                                                                                         alt="jobhub"
+                                                                                         style="opacity: {{ $i < floor($review->quality_score) ? '1' : '0.2' }};"/>
                                                                                 </span>
                                                                             @endfor
                                                                         </div>
@@ -635,8 +821,10 @@
                                                                         <div class="card-rates">
                                                                             @for ($i = 0; $i < 5; $i++)
                                                                                 <span>
-                                                                                     <img src="{{ asset('/assets/imgs/template/icons/star.svg') }}" alt="jobhub"
-                                                                                          style="opacity: {{ $i < floor($review->schedule_score) ? '1' : '0.2' }};"/>
+                                                                                     <img
+                                                                                         src="{{ asset('/assets/imgs/template/icons/star.svg') }}"
+                                                                                         alt="jobhub"
+                                                                                         style="opacity: {{ $i < floor($review->schedule_score) ? '1' : '0.2' }};"/>
                                                                                 </span>
                                                                             @endfor
 
@@ -649,8 +837,10 @@
                                                                         <div class="card-rates">
                                                                             @for ($i = 0; $i < 5; $i++)
                                                                                 <span>
-                                                                                     <img src="{{ asset('/assets/imgs/template/icons/star.svg') }}" alt="jobhub"
-                                                                                          style="opacity: {{ $i < floor($review->colloboration_score) ? '1' : '0.2' }};"/>
+                                                                                     <img
+                                                                                         src="{{ asset('/assets/imgs/template/icons/star.svg') }}"
+                                                                                         alt="jobhub"
+                                                                                         style="opacity: {{ $i < floor($review->colloboration_score) ? '1' : '0.2' }};"/>
                                                                                 </span>
                                                                             @endfor
                                                                         </div>
@@ -678,7 +868,7 @@
 
                                     </style>
                                     <script>
-                                        document.getElementById('toggleReviews').addEventListener('click', function(e) {
+                                        document.getElementById('toggleReviews').addEventListener('click', function (e) {
                                             e.preventDefault();
                                             let reviews = document.querySelectorAll('#reviews .review');
                                             let isExpanded = this.getAttribute('data-expanded') === 'true';
@@ -704,7 +894,8 @@
                                         <div style="display: flex; align-items: center; gap: 15px;">
                                             <i style="font-size: 24px;" class="fa-regular fa-pen-to-square"></i>
                                             <div>
-                                                <h3 style="font-size:22px;">Worked with {{$provider->companies->first()->name}}</h3>
+                                                <h3 style="font-size:22px;">Worked
+                                                    with {{$provider->companies->first()->name}}</h3>
                                                 <p style="margin-bottom: 0;">Share your experience with us.</p>
                                             </div>
                                         </div>
@@ -746,7 +937,8 @@
                                                 <h5>Details</h5>
                                                 <button class="btn btn-brand-4-medium col-lg-6"
                                                         style="justify-content: center; margin:30px 0;"
-                                                        onclick="openModal()">Contact {{$provider->companies->first()->name}}
+                                                        onclick="openModal()">
+                                                    Contact {{$provider->companies->first()->name}}
                                                 </button>
                                                 <a target="_blank" href="{{$provider->companies->first()->website}}"
                                                    style="border-top: 1px solid #ECEEF2; border-bottom: 1px solid #ECEEF2; padding: 20px 10px; font-size: 18px; color: black; display:flex;align-items:center; justify-content:space-between;">
@@ -889,6 +1081,9 @@
                 }
             }
         </script>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     </main>
 

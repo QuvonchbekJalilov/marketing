@@ -30,4 +30,5 @@ class Service extends Model
     {
         return $this->belongsToMany(Skill::class, 'service_skills');
     }
+
 }

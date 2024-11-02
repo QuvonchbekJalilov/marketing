@@ -8,14 +8,14 @@ class Review extends Model
 {
     protected $fillable = [
         'provider_id',
-        'burget_score',
+        'budget_score',
         'quality_score',
         'schedule_score',
-        'colloboration_score',
+        'collaboration_score',
         'behind_collaboration',
         'during_collaboration',
         'improvements',
-        'service_category_id',
+        'service_sub_category_id',
         'recommend',
         'full_name',
         'email',
@@ -33,11 +33,13 @@ class Review extends Model
     }
 
 
-    public function serviceCategory()
+    // Review modeliga qo'shing
+    public function serviceSubCategory()
     {
-        return $this->belongsTo(ServiceCategory::class, 'service_category_id');
+        return $this->belongsTo(ServiceSubCategory::class, 'service_sub_category_id');
     }
 
+// ServiceSubCategory modelida service ga bog'lanish
 
 
 
