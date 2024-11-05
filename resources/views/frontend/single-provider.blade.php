@@ -15,6 +15,126 @@
             color: blue;
             text-decoration: underline;
         }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fff;
+            border-radius: 8px;
+            max-width: 700px;
+            width: 90%;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Close Button */
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* Modal Header */
+        .modal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header img {
+            width: 50px;
+            margin-right: 10px;
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .modal-body {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Left Side: Image */
+        .modal-image {
+            flex: 1;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-image img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        /* Right Side: Info */
+        .modal-info {
+            flex: 1;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .modal-info h5 {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .modal-info p {
+            margin: 5px 0;
+        }
+
+        .modal-info .tags {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background-color: #e0e0e0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        /* Footer */
+        .modal-footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .modal-footer button {
+            background-color: #0056d2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .modal-footer button:hover {
+            background-color: #003c9c;
+        }
     </style>
 
     <main class="main">
@@ -99,10 +219,12 @@
                         <section id="1">
 
                             <div class="content-single">
+                                @if($provider->companies->first()->description)
                                 <h4 class="mb-20">About Company</h4>
                                 <p style="margin-bottom: 40px;">
                                     {{$provider->companies->first()->description}}
                                 </p>
+                                @endif
                             </div>
 
                         </section>
@@ -110,12 +232,13 @@
 
                         <section id="services" class="services-section">
                             <div class="box-faqs-inner-4">
+                                @if($services->isNotEmpty())
                                 <h2 class="title" style="font-size: 30px; margin-bottom: 15px;">Services</h2>
                                 <div class="accordion accordion-flush accordion-style-2" id="accordionFAQS"
                                      style="border: 1px solid #D1D3D4; border-radius: 16px">
                                     @foreach($services as $service)
                                         <div class="accordion-item">
-                                            <h2 class="accordion-header" id="flush-headingOne">
+                                            <h2 class="accordion-header" id="flush-headingOne{{$service->id}}">
                                                 <button class="accordion-button collapsed" type="button"
                                                         data-bs-toggle="collapse"
                                                         data-bs-target="#flush-collapseOne{{$service->id}}"
@@ -183,18 +306,20 @@
                                                     </button>
 
                                                     <div class="skills-box" style="margin-top: 25px;">
+                                                        @if($service->skills->isNotEmpty())
                                                         <h6 style="margin-bottom: 15px;">Skills</h6>
                                                         <div class="box-tags-sidebar">
                                                             @foreach($service->skills as $skill)
                                                                 <p class="btn btn-neutral-100">{{$skill->name_ru}}</p>
                                                             @endforeach
                                                         </div>
+                                                        @endif
                                                     </div>
                                                     <div class="work-box" style="margin-top: 25px;">
                                                         @if($service->subCategory->portfolios->isNotEmpty())
-                                                        <h6 style="margin-bottom: 15px; padding: 5px;">Works</h6>
-                                                        <div class="box-list-jobs">
-                                                            <div class="row">
+                                                            <h6 style="margin-bottom: 15px; padding: 5px;">Works</h6>
+                                                            <div class="box-list-jobs">
+                                                                <div class="row">
                                                                     @foreach($service->subCategory->portfolios as $portfolio)
                                                                         <div class="col-lg-4 col-md-6">
                                                                             <div class="card-job">
@@ -202,24 +327,34 @@
                                                                                      style="display: flex; flex-direction: column; align-items: flex-start;">
                                                                                     <div
                                                                                         style="width: 100%; height: 200px; border-radius: 8px; margin-bottom: 15px;">
-                                                                                        <img
-                                                                                            style=" width: 100%; object-fit: cover; height: 100%;border-radius: 8px;"
-                                                                                            src="{{asset('storage/'.$portfolio->multi_image_video)}}"
-                                                                                            alt="">
+                                                                                        @if(!empty($portfolio->multi_image_video))
+                                                                                            @php
+                                                                                                $mediaFiles = json_decode($portfolio->multi_image_video, true);
+                                                                                            @endphp
+
+                                                                                            @if(isset($mediaFiles[0]))
+                                                                                                <!-- Birinchi rasmdan foydalanish -->
+                                                                                                <img
+                                                                                                    src="{{ asset('storage/' . $mediaFiles[0]) }}"
+                                                                                                    alt="Portfolio Image"
+                                                                                                    style="width: 200px; height: 200px;">
+                                                                                            @endif
+                                                                                        @endif
                                                                                     </div>
                                                                                     <div
                                                                                         style="display: flex; width: 100%; justify-content: space-between;">
                                                                                         <div class="card-head-left">
-                                                                                            <a href="#">
+                                                                                            <a href="#"
+                                                                                               id="openModalLink">
                                                                                                 <h5 style="font-size: 18px;">
                                                                                                     {{$portfolio->work_title}}
                                                                                                 </h5>
                                                                                             </a>
                                                                                             <p class="text-md">by
-                                                                                                DORA</p>
+                                                                                                {{$provider->companies->first()->name}} </p>
                                                                                         </div>
                                                                                         <div class="card-head-right">
-                                                                                            <a href="#"data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                                                            <a href="javascript:void(0);" id="openModalBtn{{$portfolio->id}}">
                                                                                                 <svg width="38"
                                                                                                      height="38"
                                                                                                      viewBox="0 0 38 38"
@@ -253,151 +388,116 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                        <!-- Trigger Button -->
+
+
+                                                                        <!-- Modal Structure -->
+                                                                        <div class="modal-overlay"
+                                                                             id="customModalOverlay{{$portfolio->id}}">
+                                                                            <div class="modal-content">
+                                                                                <span class="modal-close"
+                                                                                      id="modalCloseBtn{{$portfolio->id}}">&times;</span>
+                                                                                <div class="modal-header">
+                                                                                    <img
+                                                                                        src="{{asset('storage/'.$provider->companies->first()->logo)}}"
+                                                                                        alt="Dora Logo">
+                                                                                    <h2>{{$provider->companies->first()->name}}</h2>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div class="modal-image">
+
+                                                                                        @if (!empty($portfolio->multi_image_video))
+                                                                                            @php
+                                                                                                $mediaFiles = json_decode($portfolio->multi_image_video, true);
+                                                                                            @endphp
+                                                                                            @if(isset($mediaFiles[0]))
+                                                                                                <img
+                                                                                                    src="{{ asset('storage/' . $mediaFiles[0]) }}"
+                                                                                                    alt="Portfolio Image"
+                                                                                                    style="width: 293px; height: 293px;">
+                                                                                            @endif
+                                                                                        @endif
+                                                                                    </div>
+                                                                                    <div class="modal-info">
+                                                                                        @if($portfolio->clients->first())
+                                                                                            <h5>About</h5>
+                                                                                            <p>
+                                                                                                <strong>Client:</strong> {{$portfolio->clients->first()->company_name}}
+                                                                                            </p>
+                                                                                            <p>
+                                                                                                <strong>Location:</strong> {{$portfolio->clients->first()->location}}
+                                                                                            </p>
+                                                                                            <p>
+                                                                                                <strong>Sector:</strong> {{$portfolio->clients->first()->sector->name}}
+                                                                                            </p>
+                                                                                            <p>
+                                                                                                <strong>Audience:</strong> {{ $portfolio->clients->first()->audience }}
+                                                                                            </p>
+                                                                                            <div class="tags">
+                                                                                                @foreach($services as $service)
+                                                                                                    <div
+                                                                                                        class="tag">{{$service->subCategory->name_ru ?? null}}</div>
+                                                                                                @endforeach
+                                                                                            </div>
+                                                                                            <p><strong>Geographic
+                                                                                                    Scope:</strong> {{ $portfolio->clients->first()->geographic_scope }}
+                                                                                            </p>
+                                                                                            <p>
+                                                                                                <strong>Date:</strong> {{ $portfolio->start_date->format('F Y') }}
+                                                                                                - {{ $portfolio->end_date->format('F Y') }}
+                                                                                            </p>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button>Ask for a quote</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <!-- JavaScript -->
+                                                                        <script>
+                                                                            // Function to setup each modal
+                                                                            function setupModal(portfolioId) {
+                                                                                const openModalBtn = document.getElementById('openModalBtn' + portfolioId);
+                                                                                const modalOverlay = document.getElementById('customModalOverlay' + portfolioId);
+                                                                                const modalCloseBtn = document.getElementById('modalCloseBtn' + portfolioId);
+
+                                                                                // Open modal function
+                                                                                openModalBtn.addEventListener('click', () => {
+                                                                                    modalOverlay.style.display = 'flex';
+                                                                                });
+
+                                                                                // Close modal function
+                                                                                modalCloseBtn.addEventListener('click', () => {
+                                                                                    modalOverlay.style.display = 'none';
+                                                                                });
+
+                                                                                // Close modal when clicking outside the modal content
+                                                                                window.addEventListener('click', (event) => {
+                                                                                    if (event.target === modalOverlay) {
+                                                                                        modalOverlay.style.display = 'none';
+                                                                                    }
+                                                                                });
+                                                                            }
+
+                                                                            // Setup modals for each portfolio
+
+                                                                            setupModal({{ $portfolio->id }});
+                                                                        </script>
+
+
+                                                                        <!-- modal end -->
                                                                     @endforeach
+                                                                </div>
                                                             </div>
-                                                        </div>
                                                         @endif
                                                     </div>
 
-                                                    <style>
-                                                        /* Modal oynasi uchun asosiy uslublar */
-                                                        .modal-overlay {
-                                                            display: none; /* Dastlab modal yashirin */
-                                                            position: fixed;
-                                                            top: 0;
-                                                            left: 0;
-                                                            width: 100%;
-                                                            height: 100%;
-                                                            background-color: rgba(0, 0, 0, 0.7); /* qora tus */
-                                                            justify-content: center;
-                                                            align-items: center;
-                                                            z-index: 1000;
-                                                        }
-
-                                                        .modal-content {
-                                                            background-color: #fff;
-                                                            padding: 20px;
-                                                            width: 60%; /* Modal hajmi */
-                                                            max-width: 700px;
-                                                            border-radius: 8px;
-                                                            position: relative;
-                                                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                                                        }
-
-                                                        /* Yopish tugmasi */
-                                                        .close-modal {
-                                                            position: absolute;
-                                                            top: 10px;
-                                                            right: 10px;
-                                                            font-size: 24px;
-                                                            color: #333;
-                                                            cursor: pointer;
-                                                        }
-                                                    </style>
-                                                    <!-- Modalni ochish tugmasi -->
-                                                    <a href="#" id="openModalLink">Modalni ochish</a>
-
-                                                    <!-- Modal -->
-                                                    <div class="modal-overlay" id="customModal">
-                                                        <div class="modal-content ">
-                                                            <span class="close-modal" id="closeModal">&times;</span>
-                                                                <div class="container" styles="padding:0;">
-                                                                    <div class="row">
-                                                                        <h2 class="title"
-                                                                            style="font-size: 30px; margin-bottom: 15px; padding: 0; margin-left: 12px;">
-                                                                            Contact
-                                                                        </h2>
-                                                                        <div class="col-lg-6 mb-30">
-                                                                            <div class="block-map">
-                                                                                <div class="box-map">
-                                                                                    <div style="width: 100%">
-                                                                                        <iframe width="100%" height="600" frameborder="0"
-                                                                                                scrolling="no" marginheight="0" marginwidth="0"
-                                                                                                src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Chilanzar%20Street%202/2,%20Tashkent,%20Uzbekistan+()&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
-                                                                                            <a
-                                                                                                href="https://www.gps.ie/">gps vehicle
-                                                                                                tracker</a></iframe>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <!-- <p class="text-md neutral-600 text-center">Hours: 8:00 - 17:00, Mon - Sat </p> -->
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6"
-                                                                             style="display:flex; flex-direction:column; padding: 40px 15px;">
-                                                                            <h5>Details</h5>
-                                                                            <button class="btn btn-brand-4-medium col-lg-6"
-                                                                                    style="justify-content: center; margin:30px 0;"
-                                                                                    onclick="openModal()">
-                                                                                Contact {{$provider->companies->first()->name}}
-                                                                            </button>
-                                                                            <a target="_blank" href="{{$provider->companies->first()->website}}"
-                                                                               style="border-top: 1px solid #ECEEF2; border-bottom: 1px solid #ECEEF2; padding: 20px 10px; font-size: 18px; color: black; display:flex;align-items:center; justify-content:space-between;">
-                                                                                <div>
-                                                                                    <i class="fa-solid fa-earth-asia"
-                                                                                       style="margin-right:10px;"></i>
-                                                                                    <span>{{$provider->companies->first()->website}}</span>
-                                                                                </div>
-                                                                                <i class="fa-solid fa-arrow-right"></i>
-                                                                            </a>
-                                                                            <div
-                                                                                style="border-top: 1px solid #ECEEF2; border-bottom: 1px solid #ECEEF2; padding: 20px 10px; font-size: 18px; color: black;">
-                                                                                <i class="fa-solid fa-location-dot" style="margin-right:10px;"></i>
-                                                                                <span>{{$provider->companies->first()->address}}</span>
-                                                                            </div>
-                                                                            <p class="text-lg title-follow neutral-0"
-                                                                               style="color: black !important;     padding: 10px">Follow us
-                                                                            <div class="box-socials-footer"><a class="icon-socials icon-facebook"
-                                                                                                               href="#"><img alt="Nivia"
-                                                                                                                             src="/assets/imgs/template/icons/fb.svg"></a><a
-                                                                                    class="icon-socials icon-instagram" href="#"><img alt="Nivia"
-                                                                                                                                      src="/assets/imgs/template/icons/in.svg"></a><a
-                                                                                    class="icon-socials icon-twitter" href="#"><img alt="Nivia"
-                                                                                                                                    src="/assets/imgs/template/icons/tw.svg"></a><a
-                                                                                    class="icon-socials icon-be" href="#"><img alt="Nivia"
-                                                                                                                               src="/assets/imgs/template/icons/be.svg"></a>
-                                                                            </div>
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            <button id="closeModalBtn">Yopish</button>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- JavaScript -->
-                                                    <script>
-                                                        // Elementlarni tanlash
-                                                        const openModalLink = document.getElementById('openModalLink');
-                                                        const closeModal = document.getElementById('closeModal');
-                                                        const closeModalBtn = document.getElementById('closeModalBtn');
-                                                        const modalOverlay = document.getElementById('customModal');
-
-                                                        // Modalni ochish
-                                                        openModalLink.addEventListener('click', function(event) {
-                                                            event.preventDefault(); // sahifani yangilanishiga yo'l qo'ymaydi
-                                                            modalOverlay.style.display = 'flex'; // Modalni ko'rsatish
-                                                        });
-
-                                                        // Modalni yopish (X yoki Yopish tugmasi bosilganda)
-                                                        closeModal.addEventListener('click', function() {
-                                                            modalOverlay.style.display = 'none';
-                                                        });
-                                                        closeModalBtn.addEventListener('click', function() {
-                                                            modalOverlay.style.display = 'none';
-                                                        });
-
-                                                        // Modalni sahifaning bo'sh joyiga bosilganda yopish
-                                                        window.addEventListener('click', function(event) {
-                                                            if (event.target === modalOverlay) {
-                                                                modalOverlay.style.display = 'none';
-                                                            }
-                                                        });
-                                                    </script>
-
 
                                                     <div class="reviews-box" style="margin-top: 25px;">
-                                                        <h6 style="margin-bottom: 15px; padding: 5px;">Reviews</h6>
                                                         @if ($service->subCategory->reviews->isNotEmpty())
+                                                            <h6 style="margin-bottom: 15px; padding: 5px;">Reviews</h6>
 
                                                             @foreach ($service->subCategory->reviews as $review)
 
@@ -428,14 +528,15 @@
                                                                     </div>
                                                                 </div>
                                                             @endforeach
-                                                        @endif
                                                     </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
                                     @endforeach
 
                                 </div>
+                                @endif
                             </div>
                         </section>
 
@@ -500,6 +601,7 @@
                     <div class="col-lg-12">
                         <section id="portfolio" class="portfolios section" style="margin: 30px 0;">
                             <div class="box-list-news" style=" cursor: pointer;">
+                                @if($portfolios->isNotEmpty())
                                 <h2 class="title" style="font-size: 30px; padding: 5px;">Portfolio</h2>
                                 <div class="row portfolio-padding">
                                     @foreach($portfolios as $portfolio)
@@ -558,6 +660,7 @@
                                         </div>
                                     @endforeach
                                 </div>
+                                @endif
                             </div>
                             <div id="imageModal" class="image-modal-single">
                                 <span class="image-modal-close">&times;</span>
@@ -663,13 +766,13 @@
 
                         <section id="team" class="team-section">
                             <div class="row content-blog-2" style="padding: 15px;">
+                                @if($teams)
                                 <h2 class="title" style="font-size: 30px; margin-bottom: 15px; padding: 0;">Team
                                 </h2>
                                 <div class="col-lg-12">
                                     <div class="box-list-news-2">
                                         <div class="row">
                                             <div class="col-md" style="padding: 0;">
-                                                @if($teams)
                                                     <div class="card-news-style-2 card-news-style-3">
                                                         <div class="card-image img-fluid">
                                                             <a href="#"><img
@@ -682,18 +785,19 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                @endif
                                             </div>
 
                                         </div>
 
                                     </div>
                                 </div>
+                                @endif
                             </div>
                             <section>
 
                                 <section id="awards" class="awards-section" style="margin: 30px 15px 0;">
                                     <div class="row">
+                                        @if($awards->isNotEmpty())
                                         <h2 class="title " style="font-size: 30px; margin-bottom: 15px; padding: 0;">
                                             Awards
                                         </h2>
@@ -712,10 +816,12 @@
                                                 </div>
                                             </div>
                                         @endforeach
+                                        @endif
                                     </div>
                                 </section>
 
                                 <section id="reviews" class="reviews-section" style="margin: 30px 15px 0px !important;">
+                                    @if($reviews->isNotEmpty())
                                     <h2 class="title" style="font-size: 30px; margin-bottom: 15px; padding: 0;">
                                         Reviews</h2>
                                     @foreach($reviews as $review)
@@ -857,6 +963,7 @@
                                     <div class="text-center">
                                         <a href="#" id="toggleReviews">See all other reviews ({{$reviews->count()}})</a>
                                     </div>
+                                    @endif
                                     <style>
                                         #reviews .review {
                                             display: none;
