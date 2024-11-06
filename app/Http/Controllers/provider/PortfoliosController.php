@@ -55,23 +55,45 @@ class PortfoliosController extends Controller
     public function store(PortfolioRequest $request)
     {
         // Validate input data
-        $validatedData = $request->validated();
 
-        // Handle multi-image/video upload
+        $validatedData = $request->validated();
+        $media = [];
+
+//        // Rasmlar yuklangan bo'lsa
+//        if ($request->hasFile('multi_image_video') && $request->has('youtube_url')) {
+//            return back()->withErrors(['multi_image_video' => 'Siz faqat bitta turdagi ma\'lumotlarni yuklashingiz mumkin: faqat rasmlar yoki faqat YouTube linklarni.']);
+//
+
         if ($request->hasFile('multi_image_video')) {
-            $multiImageVideoPaths = [];
+            // Yangi rasmlarni yuklash
             foreach ($request->file('multi_image_video') as $file) {
-                $multiImageVideoPaths[] = $file->store('portfolio_media', 'public');
+                $filePath = $file->store('uploads/portfolio', 'public');
+                $media[] = $filePath; // Yangi yuklangan rasmni media ro'yxatiga qo'shamiz
             }
-            $validatedData['multi_image_video'] = $multiImageVideoPaths;
         }
+
+        // YouTube URL lar yuklangan bo'lsa
+        if ($request->filled('youtube_url')) {
+            foreach ($request->youtube_url as $url) {
+                $media[] = $url; // Yangi URL ni media ro'yxatiga qo'shamiz
+            }
+        }
+
+        // Xatoliklar oldini olish uchun faqat rasmlar yoki URL'larni yuklaganligini tekshirish
+        if (empty($media)) {
+            return back()->withErrors(['multi_image_video' => 'Siz faqat rasmlar yoki YouTube linklarni yuklashingiz mumkin, ikkalasini emas.']);
+        }
+
+        // Yangi media ro'yxatini saqlash
+        $validatedData['multi_image_video'] = json_encode($media); // Massivni json formatda saqlash
+
 
         // Create the portfolio
         $portfolio = Portfolio::create([
             'provider_id' => $validatedData['provider_id'],
             'service_sub_category_id' => $validatedData['service_sub_category_id'],
             'work_title' => $validatedData['work_title'],
-            'multi_image_video' => json_encode($validatedData['multi_image_video'] ?? null),
+            'multi_image_video' => $validatedData['multi_image_video'], // JSON formatida saqlanadi
             'budget' => $validatedData['budget'],
             'start_date' => $validatedData['start_date'],
             'end_date' => $validatedData['end_date'],
@@ -81,6 +103,7 @@ class PortfoliosController extends Controller
             'impact' => $validatedData['impact'],
             'source_link' => $validatedData['source_link'],
         ]);
+
 
         // Attach skills to portfolio if any
         if ($request->has('skills')) {
@@ -116,58 +139,96 @@ class PortfoliosController extends Controller
         return view('provider.portfolios.edit', compact('portfolio', 'providers', 'services', 'skills', 'sectors', 'client'));
     }
 
-    public function update(PortfolioRequest $request, Portfolio $portfolio)
+    public function update(Request $request, Portfolio $portfolio)
     {
+        dd($request->all());
         // Validate input data
         $validatedData = $request->validated();
-        dd($request->multi_image_video);
-        // Handle multi-image/video upload
+        $media = [];
+
+        // Mavjud media ro'yxatini oling va ularni o'chiring
+        $existingMedia = json_decode($portfolio->multi_image_video, true) ?? [];
+
+
+        // Rasmlar yuklangan bo'lsa
         if ($request->hasFile('multi_image_video')) {
-            $multiImageVideoPaths = [];
-            foreach ($request->file('multi_image_video') as $file) {
-                $multiImageVideoPaths[] = $file->store('portfolio_media', 'public');
+            // Mavjud rasmlarni o'chirish
+            if ($existingMedia){
+                foreach ($existingMedia as $file) {
+                    // Fayl yo'li null yoki bo'sh emasligini tekshirish
+                    if ($file && Storage::disk('public')->exists($file)) {
+                        Storage::disk('public')->delete($file);
+                    }
+                }
             }
-            $validatedData['multi_image_video'] = $multiImageVideoPaths;
+
+            // Yangi rasmlarni yuklash
+            foreach ($request->file('multi_image_video') as $file) {
+                $filePath = $file->store('uploads/portfolio', 'public');
+                $media[] = $filePath; // Yangi yuklangan rasmni media ro'yxatiga qo'shamiz
+            }
+
         }
 
-        // Update the portfolio
-        $portfolio->update([
-            'provider_id' => $validatedData['provider_id'],
-            'service_sub_category_id' => $validatedData['service_sub_category_id'],
-            'work_title' => $validatedData['work_title'],
-            'multi_image_video' => isset($validatedData['multi_image_video']) ? json_encode($validatedData['multi_image_video']) : $portfolio->multi_image_video,
-            'budget' => $validatedData['budget'],
-            'start_date' => $validatedData['start_date'],
-            'end_date' => $validatedData['end_date'],
-            'introduction' => $validatedData['introduction'],
-            'challenges' => $validatedData['challenges'],
-            'solution' => $validatedData['solution'],
-            'impact' => $validatedData['impact'],
-            'source_link' => $validatedData['source_link'],
-        ]);
+        // YouTube URL lar yuklangan bo'lsa
+        if ($request->filled('youtube_url')) {
+            // Mavjud URL'larni o'chirish (agar ular bo'lsa)
+            foreach ($existingMedia as $file) {
+                // URL bo'lsa, o'chirmaymiz
+                if (filter_var($file, FILTER_VALIDATE_URL)) {
+                    continue;
+                }
+                // Fayl yo'li null yoki bo'sh emasligini tekshirish
+                if ($file && Storage::disk('public')->exists($file)) {
+                    Storage::disk('public')->delete($file);
+                }
+            }
 
-        // Sync skills if any
-        if ($request->has('skills')) {
-            $portfolio->skills()->sync($validatedData['skills']);
+
+            // Yangi media ro'yxatini JSON formatida saqlash
+            $validatedData['multi_image_video'] = json_encode($media);
+
+
+            // Update the portfolio
+            $portfolio->update([
+                'provider_id' => $validatedData['provider_id'],
+                'service_sub_category_id' => $validatedData['service_sub_category_id'],
+                'work_title' => $validatedData['work_title'],
+                'multi_image_video' => $validatedData['multi_image_video'], // JSON formatida saqlanadi
+                'budget' => $validatedData['budget'],
+                'start_date' => $validatedData['start_date'],
+                'end_date' => $validatedData['end_date'],
+                'introduction' => $validatedData['introduction'],
+                'challenges' => $validatedData['challenges'],
+                'solution' => $validatedData['solution'],
+                'impact' => $validatedData['impact'],
+                'source_link' => $validatedData['source_link'],
+            ]);
+
+            // Sync skills if any
+            if ($request->has('skills')) {
+                $portfolio->skills()->sync($validatedData['skills']);
+            }
+
+            // Update client information
+            $portfolio->clients()->updateOrCreate(
+                ['portfolio_id' => $portfolio->id],
+                [
+                    'company_name' => $validatedData['company_name'],
+                    'location' => $validatedData['company_location'],
+                    'sector_id' => $validatedData['sector_id'], // Modify if needed
+                    'geographic_scope' => $validatedData['geographic_scope'],
+                    'audience' => $validatedData['audience'],
+                ]
+            );
+
+            return redirect()->route('portfolios.index')->with('success', 'Portfolio updated successfully');
         }
-
-        // Update client information
-        $portfolio->clients()->updateOrCreate(
-            ['portfolio_id' => $portfolio->id],
-            [
-                'company_name' => $validatedData['company_name'],
-                'location' => $validatedData['company_location'],
-                'sector_id' => $validatedData['sector_id'], // Modify if needed
-                'geographic_scope' => $validatedData['geographic_scope'],
-                'audience' => $validatedData['audience'],
-            ]
-        );
-
-        return redirect()->route('portfolios.index')->with('success', 'Portfolio updated successfully');
     }
 
 
-    public function destroy(Portfolio $portfolio)
+    public
+    function destroy(Portfolio $portfolio)
     {
         if ($portfolio->multi_image_video) {
             $multiImageVideoPaths = json_decode($portfolio->multi_image_video, true);
@@ -187,13 +248,15 @@ class PortfoliosController extends Controller
     }
 
 
-    public function show(Portfolio $portfolio)
+    public
+    function show(Portfolio $portfolio)
     {
         return view('provider.portfolios.show', compact('portfolio'));
     }
 
-    // In your controller (e.g., PortfolioController)
-    public function getSkillsByService($serviceId)
+// In your controller (e.g., PortfolioController)
+    public
+    function getSkillsByService($serviceId)
     {
         // Assuming you have a Service model and each service has a 'skills' relationship
         $service = ServiceSubCategory::find($serviceId);

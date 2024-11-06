@@ -57,17 +57,17 @@
                                             <div id="inputContainer" class="mt-3">
                                                 <div id="imageInput" class="input-field" style="display: none;">
                                                     <label for="imageFile">Загрузить изображение:</label>
-                                                    <input type="file" id="imageFile" name="multi_image_video[]" accept="image/*" class="form-control @error('multi_image_video.*') is-invalid @enderror">
+                                                    <input type="file" id="imageFile" name="multi_image_video[]" accept="image/*" multiple class="form-control @error('multi_image_video.*') is-invalid @enderror">
                                                     @error('multi_image_video.*')
-                                                        <span class="invalid-feedback">{{ $message }}</span>
+                                                    <span class="invalid-feedback">{{ $message }}</span>
                                                     @enderror
                                                 </div>
 
                                                 <div id="youtubeInput" class="input-field" style="display: none;">
                                                     <label for="youtubeUrl">Добавьте URL вашего видео на YouTube:</label>
-                                                    <input type="text" id="youtubeUrl" name="youtube_url" placeholder="Введите URL-адрес видео YouTube" class="form-control @error('youtube_url') is-invalid @enderror">
-                                                    @error('youtube_url')
-                                                        <span class="invalid-feedback">{{ $message }}</span>
+                                                    <input type="text" id="youtubeUrl" name="youtube_url[]" placeholder="Введите URL-адрес видео YouTube" class="form-control @error('youtube_url.*') is-invalid @enderror">
+                                                    @error('youtube_url.*')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -78,6 +78,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
 
@@ -269,27 +271,31 @@
     <!--! ================================================================ !-->
 
 
-    <script>
-        function showInput(type) {
-            // Barcha input maydonlarini va qo'shimcha ma'lumotlarni dastlab yashirish
-            document.getElementById('imageInput').style.display = 'none';
-            document.getElementById('youtubeInput').style.display = 'none';
-            document.getElementById('imageInputInfo').style.display = 'none';
+<script>
+    function showInput(type) {
+        // Barcha input maydonlarini va qo'shimcha ma'lumotlarni dastlab yashirish
+        document.getElementById('imageInput').style.display = 'none';
+        document.getElementById('youtubeInput').style.display = 'none';
+        document.getElementById('imageInputInfo').style.display = 'none';
 
-            // Tanlangan input maydoni va tugma dizaynini ko'rsatish
-            if (type === 'image') {
-                document.getElementById('imageInput').style.display = 'block';
-                document.getElementById('imageInputInfo').style.display = 'block';
-                document.getElementById('imageFile').click();  // Fayl yuklash dialogini avtomatik ochish
-            } else if (type === 'youtube') {
-                document.getElementById('youtubeInput').style.display = 'block';
+        // Tanlangan input maydoni va tugma dizaynini ko'rsatish
+        if (type === 'image') {
+            document.getElementById('imageInput').style.display = 'block';
+            document.getElementById('imageInputInfo').style.display = 'block';
+
+            // Fayl yuklash dialogini avtomatik ochish
+            const imageInput = document.getElementById('imageFile');
+            if (imageInput) {
+                imageInput.click();
             }
+        } else if (type === 'youtube') {
+            document.getElementById('youtubeInput').style.display = 'block';
         }
+    }
+</script>
 
 
-    </script>
-
-    <style>
+<style>
         .sticky-column {
             position: -webkit-sticky; /* Safari uchun */
             position: sticky;

@@ -14,7 +14,7 @@ class LanguageMiddleware
     {
         // Tilni sessiyadan oling yoki default tilni o'rnating
         $locale = Session::get('locale', config('app.locale'));
-//        dd($locale);
+
         App::setLocale($locale);
 
         return $next($request);

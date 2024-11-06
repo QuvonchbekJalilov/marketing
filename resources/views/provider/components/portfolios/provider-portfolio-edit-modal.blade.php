@@ -24,18 +24,12 @@
             </div>
         @endif
         <div class="offcanvas-body">
-            <form action="{{ route('portfolios.update', $portfolio->id) }}" method="POST"
-                enctype="multipart/form-data">
+            <form action="{{ route('portfolios.update', $portfolio->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
 
                     <div class="col-md-7">
-                        <div >
-                            <label for="imageFile">Загрузить изображение:</label>
-                            <<input type="file"  name="multi_image_video"
-                                    accept="image/*">
-                        </div>
                         <div class="row">
                             <h4> Добавить работу</h4>
                             <div class="col-md-12 mt-3">
@@ -63,47 +57,49 @@
                                                 </div>
                                             @endforeach
                                         @endif
-
                                         <!-- Check if the URL is correct by visiting it directly -->
                                         <h5>Изображение или видео</h5>
                                         <p>Покажите несколько изображений или видео, демонстрирующих вашу работу.</p>
                                         <div id="workIllustrationsContainer">
                                             <main class="container">
                                                 <div class="no-content">Пока не добавлено ни одного изображения или видео.</div>
-                                                <div class="buttons row">
+                                                <div class="buttons row mt-3">
                                                     <div class="col">
-
-{{--                                                        <a href="javascript:void(0);" id="imageFileBtn"--}}
-{{--                                                            onclick="showInput('image')" class="btn btn-primary w-100">--}}
-{{--                                                            <i class="feather-upload me-2"></i>--}}
-{{--                                                            <span>Загрузить изображение</span>--}}
-{{--                                                        </a>--}}
+                                                        <a href="javascript:void(0);" id="imageFileBtn" onclick="showInput('image')" class="btn btn-primary w-100">
+                                                            <i class="feather-upload me-2"></i>
+                                                            <span>Загрузить изображение</span>
+                                                        </a>
                                                     </div>
                                                     <div class="col">
-{{--                                                        <a href="javascript:void(0);" id="youtubeUrlBtn"--}}
-{{--                                                            onclick="showInput('youtube')"--}}
-{{--                                                            class="btn btn-outline-primary w-100">--}}
-{{--                                                            <i class="fa-solid fa-link me-2"></i>--}}
-{{--                                                            <span>Видео на YouTube</span>--}}
-{{--                                                        </a>--}}
+                                                        <a href="javascript:void(0);" id="youtubeUrlBtn" onclick="showInput('youtube')" class="btn btn-outline-primary w-100">
+                                                            <i class="fa-solid fa-link me-2"></i>
+                                                            <span>Видео на YouTube</span>
+                                                        </a>
                                                     </div>
                                                 </div>
-                                                <div id="inputContainer">
-                                                    <div id="imageInput" class="input-field" style="display: none;">
+
+                                                <div id="inputContainer" class="mt-3">
+                                                    <div id="imageInput" class="input-field" >
                                                         <label for="imageFile">Загрузить изображение:</label>
-                                                        <<input type="file" id="imageFile" name="multi_image_video"
-                                                            accept="image/*">
+                                                        <input type="file" id="imageFile" accept="image/*" name="multi_image_video[]"  multiple >
+
+                                                        @error('multi_image_video.*')
+                                                        <span class="invalid-feedback">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
+
                                                     <div id="youtubeInput" class="input-field" style="display: none;">
                                                         <label for="youtubeUrl">Добавьте URL вашего видео на YouTube:</label>
-                                                        <input type="text" id="youtubeUrl" name="youtube_url"
-                                                            placeholder="Введите URL-адрес видео YouTube">
+                                                        <input type="text" id="youtubeUrl" name="youtube_url[]" placeholder="Введите URL-адрес видео YouTube" class="form-control @error('youtube_url.*') is-invalid @enderror">
+                                                        @error('youtube_url.*')
+                                                        <span class="invalid-feedback">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </main>
+
                                             <div class="text-dark mt-3" id="imageInputInfo" style="display: none;">
-                                                Рекомендуемый размер: <b>2MB max</b>. Рекомендуемое разрешение: <b>1200x900
-                                                    px</b>. Пожалуйста, постарайтесь сохранить альбомную ориентацию: <b>1.3:1</b>.
+                                                Рекомендуемый размер: <b>2MB max</b>. Рекомендуемое разрешение: <b>1200x900 px</b>. Пожалуйста, постарайтесь сохранить альбомную ориентацию: <b>1.3:1</b>.
                                             </div>
                                         </div>
 
@@ -318,23 +314,28 @@
 <!--! [End] Tasks Details Offcanvas !-->
 <!--! ================================================================ !-->
 
-{{--<script>--}}
-{{--    function showInput(type) {--}}
-{{--        // Barcha input maydonlarini va qo'shimcha ma'lumotlarni dastlab yashirish--}}
-{{--        document.getElementById('imageInput').style.display = 'none';--}}
-{{--        document.getElementById('youtubeInput').style.display = 'none';--}}
-{{--        document.getElementById('imageInputInfo').style.display = 'none';--}}
+    <script>
+            function showInput(type) {
+                // Barcha input maydonlarini va qo'shimcha ma'lumotlarni dastlab yashirish
+                document.getElementById('imageInput').style.display = 'none';
+                document.getElementById('youtubeInput').style.display = 'none';
+                document.getElementById('imageInputInfo').style.display = 'none';
 
-{{--        // Tanlangan input maydoni va tugma dizaynini ko'rsatish--}}
-{{--        if (type === 'image') {--}}
-{{--            document.getElementById('imageInput').style.display = 'block';--}}
-{{--            document.getElementById('imageInputInfo').style.display = 'block';--}}
-{{--            document.getElementById('imageFile').click(); // Fayl yuklash dialogini avtomatik ochish--}}
-{{--        // } else if (type === 'youtube') {--}}
-{{--        //     document.getElementById('youtubeInput').style.display = 'block';--}}
-{{--        // }--}}
-{{--    }--}}
-{{--</script>--}}
+                // Tanlangan input maydoni va tugma dizaynini ko'rsatish
+                if (type === 'image') {
+                    document.getElementById('imageInput').style.display = 'block';
+                    document.getElementById('imageInputInfo').style.display = 'block';
+
+                    // Fayl yuklash dialogini avtomatik ochish
+                    const imageInput = document.getElementById('imageFile');
+                    if (imageInput) {
+                        imageInput.click();
+                    }
+                } else if (type === 'youtube') {
+                    document.getElementById('youtubeInput').style.display = 'block';
+                }
+            }
+    </script>
 <script>
     document.getElementById('editServiceSelect').addEventListener('change', function() {
         const serviceId = this.value;

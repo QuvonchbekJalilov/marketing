@@ -14,7 +14,7 @@ class PortfolioRequest extends FormRequest
         return true;
     }
 
-  
+
     public function rules(): array
     {
         $actionMethod = $this->route()->getActionMethod();
@@ -40,7 +40,7 @@ class PortfolioRequest extends FormRequest
                 'geographic_scope' => 'required|string|max:255',
                 'audience' => 'required|string|max:255',
             ];
-        } elseif ($actionMethod === 'update') {
+        } elseif ($actionMethod === 'update')        {
             return [
                 'provider_id' => 'required|exists:users,id',
                 'service_sub_category_id' => 'required|exists:service_sub_categories,id',

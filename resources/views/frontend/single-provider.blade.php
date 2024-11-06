@@ -79,6 +79,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            width: 293px;
+            height: 293px;
         }
 
         .modal-image img {
@@ -134,6 +136,16 @@
 
         .modal-footer button:hover {
             background-color: #003c9c;
+        }
+
+        .service-truncate-text {
+            max-height: 60px; /* Initially displays limited text */
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .service-truncate-text.service-text-expanded {
+            max-height: none; /* Shows full content when expanded */
         }
     </style>
 
@@ -193,15 +205,18 @@
                             </div>
                             <div class="link"
                                  style="border-right: 1px solid  #D1D3D4; padding: 10px 28px; color: black;"><a
-                                    href="#services"><i class="fa-solid fa-paintbrush" style="margin-right: 7px;"></i>Services</a>
+                                    href="#services"><i class="fa-solid fa-paintbrush"
+                                                        style="margin-right: 7px;"></i>Services</a>
                             </div>
                             <div class="link"
                                  style="border-right: 1px solid  #D1D3D4; padding: 10px 28px; color: black;"><a
-                                    href="#portfolio"><i class="fa-regular fa-images" style="margin-right: 7px;"></i>Portfolio</a>
+                                    href="#portfolio"><i class="fa-regular fa-images"
+                                                         style="margin-right: 7px;"></i>Portfolio</a>
                             </div>
                             <div class="link"
                                  style="border-right: 1px solid  #D1D3D4; padding: 10px 28px; color: black;"><a
-                                    href="#team"><i class="fa-solid fa-users" style="margin-right: 7px;"></i>Team</a>
+                                    href="#team"><i class="fa-solid fa-users"
+                                                    style="margin-right: 7px;"></i>Team</a>
                             </div>
                             <div class="link"
                                  style="border-right: 1px solid  #D1D3D4; padding: 10px 28px; color: black;"><a
@@ -220,10 +235,10 @@
 
                             <div class="content-single">
                                 @if($provider->companies->first()->description)
-                                <h4 class="mb-20">About Company</h4>
-                                <p style="margin-bottom: 40px;">
-                                    {{$provider->companies->first()->description}}
-                                </p>
+                                    <h4 class="mb-20">About Company</h4>
+                                    <p style="margin-bottom: 40px;">
+                                        {{$provider->companies->first()->description}}
+                                    </p>
                                 @endif
                             </div>
 
@@ -233,309 +248,422 @@
                         <section id="services" class="services-section">
                             <div class="box-faqs-inner-4">
                                 @if($services->isNotEmpty())
-                                <h2 class="title" style="font-size: 30px; margin-bottom: 15px;">Services</h2>
-                                <div class="accordion accordion-flush accordion-style-2" id="accordionFAQS"
-                                     style="border: 1px solid #D1D3D4; border-radius: 16px">
-                                    @foreach($services as $service)
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header" id="flush-headingOne{{$service->id}}">
-                                                <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseOne{{$service->id}}"
-                                                        aria-expanded="false" aria-controls="flush-collapseOne"
-                                                        style="display:flex; justify-content: space-between;">
-                                                    {{$service->subCategory->name_ru ?? null}}
-                                                    <div style="display: flex; align-items: center;">
-                                                        <p class="d-none d-md-block "
-                                                           style="padding: 0 19px; font-size: 14px;">{{$service->subCategory->portfolios->count()}}
-                                                            works</p>
-                                                        <div
-                                                            class="card-rates d-none d-md-block border-start border-end "
-                                                            style="border-left:1px solid #D1D3D4; border-right: 1px solid #D1D3D4; padding: 0 20px;">
-                                                            @if ($service->subCategory && $service->subCategory->reviews && $service->subCategory->reviews->isNotEmpty())
+                                    <h2 class="title" style="font-size: 30px; margin-bottom: 15px;">Services</h2>
+                                    <div class="accordion accordion-flush accordion-style-2" id="accordionFAQS"
+                                         style="border: 1px solid #D1D3D4; border-radius: 16px">
+                                        @foreach($services as $service)
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="service-heading-{{$service->id}}">
+                                                    <button class="accordion-button collapsed service-accordion-btn" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#service-collapse-{{$service->id}}"
+                                                            aria-expanded="false"
+                                                            aria-controls="service-collapse-{{$service->id}}"
+                                                            style="display:flex; justify-content: space-between;">
+                                                        {{$service->subCategory->name_ru ?? null}}
+                                                        <div style="display: flex; align-items: center;">
+                                                            <p class="d-none d-md-block "
+                                                               style="padding: 0 19px; font-size: 14px;">{{$service->subCategory->portfolios->count()}}
+                                                                works</p>
+                                                            <div
+                                                                class="card-rates d-none d-md-block border-start border-end "
+                                                                style="border-left:1px solid #D1D3D4; border-right: 1px solid #D1D3D4; padding: 0 20px;">
+                                                                @if ($service->subCategory && $service->subCategory->reviews && $service->subCategory->reviews->isNotEmpty())
 
-                                                                @php
-                                                                    $totalScore = 0;
-                                                                    $reviewCount = $service->subCategory->reviews->count();
+                                                                    @php
+                                                                        $totalScore = 0;
+                                                                        $reviewCount = $service->subCategory->reviews->count();
 
-                                                                    foreach ($service->subCategory->reviews as $review) {
-                                                                        $totalScore += ($review->quality_score + $review->budget_score + $review->schedule_score + $review->collaboration_score) / 4;
-                                                                    }
+                                                                        foreach ($service->subCategory->reviews as $review) {
+                                                                            $totalScore += ($review->quality_score + $review->budget_score + $review->schedule_score + $review->collaboration_score) / 4;
+                                                                        }
 
-                                                                    $averageScore = $totalScore / $reviewCount;
-                                                                @endphp
+                                                                        $averageScore = $totalScore / $reviewCount;
+                                                                    @endphp
 
-                                                                {{-- Yulduzlar ko'rsatish --}}
-                                                                @for ($i = 0; $i < 5; $i++)
-                                                                    <span>
+                                                                    {{-- Yulduzlar ko'rsatish --}}
+                                                                    @for ($i = 0; $i < 5; $i++)
+                                                                        <span>
                                                                          <img
                                                                              src="{{ asset('/assets/imgs/template/icons/star.svg') }}"
                                                                              alt="jobhub"
                                                                              style="opacity: {{ $i < floor($averageScore) ? '1' : '0.2' }};"/>
                                                                      </span>
-                                                                @endfor
-                                                            @else
-                                                                {{-- Belgilanmagan yulduzlar (opacity bilan pastroq) --}}
-                                                                @for ($i = 0; $i < 5; $i++)
-                                                                    <span>
+                                                                    @endfor
+                                                                @else
+                                                                    {{-- Belgilanmagan yulduzlar (opacity bilan pastroq) --}}
+                                                                    @for ($i = 0; $i < 5; $i++)
+                                                                        <span>
                                                                         <img
                                                                             src="{{ asset('/assets/imgs/template/icons/star.svg') }}"
                                                                             alt="jobhub"
                                                                             style="opacity: 0.2;"/>
                                                                     </span>
-                                                                @endfor
-                                                            @endif
+                                                                    @endfor
+                                                                @endif
+                                                            </div>
+                                                            <p style="padding: 0 19px; font-size: 14px;">{{$service->price}}
+                                                                / <span>project</span></p>
                                                         </div>
-                                                        <p style="padding: 0 19px; font-size: 14px;">{{$service->price}}
-                                                            / <span>project</span></p>
-                                                    </div>
-                                                </button>
-                                            </h2>
-                                            <div id="flush-collapseOne{{$service->id}}"
-                                                 class="accordion-collapse collapse"
-                                                 aria-labelledby="flush-headingOne" data-bs-parent="#accordionFAQS">
-                                                <div class="accordion-body">
-                                                    <h6 style="margin-bottom: 15px;">Description</h6>
-                                                    <div class="truncate-text" id="text-content-full-5">
-                                                        <p>{{$service->description}}</p>
-                                                    </div>
-                                                    <button data-target="text-content-full-5" class="show-more-button"
-                                                            style="border: none; background-color: transparent; padding: 0;">
-                                                        see
-                                                        more
                                                     </button>
-
-                                                    <div class="skills-box" style="margin-top: 25px;">
-                                                        @if($service->skills->isNotEmpty())
-                                                        <h6 style="margin-bottom: 15px;">Skills</h6>
-                                                        <div class="box-tags-sidebar">
-                                                            @foreach($service->skills as $skill)
-                                                                <p class="btn btn-neutral-100">{{$skill->name_ru}}</p>
-                                                            @endforeach
+                                                </h2>
+                                                <div id="service-collapse-{{$service->id}}" class="accordion-collapse collapse service-accordion-collapse"
+                                                     aria-labelledby="service-heading-{{$service->id}}" data-bs-parent="#accordionFAQS">
+                                                    <div class="accordion-body">
+                                                        <h6 style="margin-bottom: 15px;">Description</h6>
+                                                        <div class="service-truncate-text" id="service-text-content-{{$service->id}}">
+                                                            <p>{{$service->description}}</p>
                                                         </div>
-                                                        @endif
-                                                    </div>
-                                                    <div class="work-box" style="margin-top: 25px;">
-                                                        @if($service->subCategory->portfolios->isNotEmpty())
-                                                            <h6 style="margin-bottom: 15px; padding: 5px;">Works</h6>
-                                                            <div class="box-list-jobs">
-                                                                <div class="row">
-                                                                    @foreach($service->subCategory->portfolios as $portfolio)
-                                                                        <div class="col-lg-4 col-md-6">
-                                                                            <div class="card-job">
-                                                                                <div class="card-head"
-                                                                                     style="display: flex; flex-direction: column; align-items: flex-start;">
-                                                                                    <div
-                                                                                        style="width: 100%; height: 200px; border-radius: 8px; margin-bottom: 15px;">
-                                                                                        @if(!empty($portfolio->multi_image_video))
-                                                                                            @php
-                                                                                                $mediaFiles = json_decode($portfolio->multi_image_video, true);
-                                                                                            @endphp
+                                                        <button data-service-target="service-text-content-{{$service->id}}"
+                                                                class="service-show-more-btn"
+                                                                style="border: none; background-color: transparent; padding: 0;">
+                                                            see
+                                                            more
+                                                        </button>
 
-                                                                                            @if(isset($mediaFiles[0]))
-                                                                                                <!-- Birinchi rasmdan foydalanish -->
-                                                                                                <img
-                                                                                                    src="{{ asset('storage/' . $mediaFiles[0]) }}"
-                                                                                                    alt="Portfolio Image"
-                                                                                                    style="width: 200px; height: 200px;">
-                                                                                            @endif
-                                                                                        @endif
-                                                                                    </div>
-                                                                                    <div
-                                                                                        style="display: flex; width: 100%; justify-content: space-between;">
-                                                                                        <div class="card-head-left">
-                                                                                            <a href="#"
-                                                                                               id="openModalLink">
-                                                                                                <h5 style="font-size: 18px;">
-                                                                                                    {{$portfolio->work_title}}
-                                                                                                </h5>
-                                                                                            </a>
-                                                                                            <p class="text-md">by
-                                                                                                {{$provider->companies->first()->name}} </p>
-                                                                                        </div>
-                                                                                        <div class="card-head-right">
-                                                                                            <a href="javascript:void(0);" id="openModalBtn{{$portfolio->id}}">
-                                                                                                <svg width="38"
-                                                                                                     height="38"
-                                                                                                     viewBox="0 0 38 38"
-                                                                                                     fill="none"
-                                                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                                                    <rect width="38"
-                                                                                                          height="38"
-                                                                                                          rx="19"
-                                                                                                          fill=""></rect>
-                                                                                                    <g clip-path="url(#clip0_26_2613)">
-                                                                                                        <path
-                                                                                                            d="M23.6537 16.8139L14.718 25.7497L13.25 24.2817L22.1847 15.3459H14.31V13.2695H25.7301V24.6897H23.6537V16.8139Z"
-                                                                                                            fill="#191919">
-                                                                                                        </path>
-                                                                                                    </g>
-                                                                                                    <defs>
-                                                                                                        <clippath
-                                                                                                            id="clip0_26_2613">
-                                                                                                            <rect
-                                                                                                                width="13"
-                                                                                                                height="13"
-                                                                                                                fill="white"
-                                                                                                                transform="translate(13 13)">
-                                                                                                            </rect>
-                                                                                                        </clippath>
-                                                                                                    </defs>
-                                                                                                </svg>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- Trigger Button -->
-
-
-                                                                        <!-- Modal Structure -->
-                                                                        <div class="modal-overlay"
-                                                                             id="customModalOverlay{{$portfolio->id}}">
-                                                                            <div class="modal-content">
-                                                                                <span class="modal-close"
-                                                                                      id="modalCloseBtn{{$portfolio->id}}">&times;</span>
-                                                                                <div class="modal-header">
-                                                                                    <img
-                                                                                        src="{{asset('storage/'.$provider->companies->first()->logo)}}"
-                                                                                        alt="Dora Logo">
-                                                                                    <h2>{{$provider->companies->first()->name}}</h2>
-                                                                                </div>
-                                                                                <div class="modal-body">
-                                                                                    <div class="modal-image">
-
-                                                                                        @if (!empty($portfolio->multi_image_video))
-                                                                                            @php
-                                                                                                $mediaFiles = json_decode($portfolio->multi_image_video, true);
-                                                                                            @endphp
-                                                                                            @if(isset($mediaFiles[0]))
-                                                                                                <img
-                                                                                                    src="{{ asset('storage/' . $mediaFiles[0]) }}"
-                                                                                                    alt="Portfolio Image"
-                                                                                                    style="width: 293px; height: 293px;">
-                                                                                            @endif
-                                                                                        @endif
-                                                                                    </div>
-                                                                                    <div class="modal-info">
-                                                                                        @if($portfolio->clients->first())
-                                                                                            <h5>About</h5>
-                                                                                            <p>
-                                                                                                <strong>Client:</strong> {{$portfolio->clients->first()->company_name}}
-                                                                                            </p>
-                                                                                            <p>
-                                                                                                <strong>Location:</strong> {{$portfolio->clients->first()->location}}
-                                                                                            </p>
-                                                                                            <p>
-                                                                                                <strong>Sector:</strong> {{$portfolio->clients->first()->sector->name}}
-                                                                                            </p>
-                                                                                            <p>
-                                                                                                <strong>Audience:</strong> {{ $portfolio->clients->first()->audience }}
-                                                                                            </p>
-                                                                                            <div class="tags">
-                                                                                                @foreach($services as $service)
-                                                                                                    <div
-                                                                                                        class="tag">{{$service->subCategory->name_ru ?? null}}</div>
-                                                                                                @endforeach
-                                                                                            </div>
-                                                                                            <p><strong>Geographic
-                                                                                                    Scope:</strong> {{ $portfolio->clients->first()->geographic_scope }}
-                                                                                            </p>
-                                                                                            <p>
-                                                                                                <strong>Date:</strong> {{ $portfolio->start_date->format('F Y') }}
-                                                                                                - {{ $portfolio->end_date->format('F Y') }}
-                                                                                            </p>
-                                                                                        @endif
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button>Ask for a quote</button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <!-- JavaScript -->
-                                                                        <script>
-                                                                            // Function to setup each modal
-                                                                            function setupModal(portfolioId) {
-                                                                                const openModalBtn = document.getElementById('openModalBtn' + portfolioId);
-                                                                                const modalOverlay = document.getElementById('customModalOverlay' + portfolioId);
-                                                                                const modalCloseBtn = document.getElementById('modalCloseBtn' + portfolioId);
-
-                                                                                // Open modal function
-                                                                                openModalBtn.addEventListener('click', () => {
-                                                                                    modalOverlay.style.display = 'flex';
-                                                                                });
-
-                                                                                // Close modal function
-                                                                                modalCloseBtn.addEventListener('click', () => {
-                                                                                    modalOverlay.style.display = 'none';
-                                                                                });
-
-                                                                                // Close modal when clicking outside the modal content
-                                                                                window.addEventListener('click', (event) => {
-                                                                                    if (event.target === modalOverlay) {
-                                                                                        modalOverlay.style.display = 'none';
-                                                                                    }
-                                                                                });
-                                                                            }
-
-                                                                            // Setup modals for each portfolio
-
-                                                                            setupModal({{ $portfolio->id }});
-                                                                        </script>
-
-
-                                                                        <!-- modal end -->
+                                                        <div class="skills-box" style="margin-top: 25px;">
+                                                            @if($service->skills->isNotEmpty())
+                                                                <h6 style="margin-bottom: 15px;">Skills</h6>
+                                                                <div class="box-tags-sidebar">
+                                                                    @foreach($service->skills as $skill)
+                                                                        <p class="btn btn-neutral-100">{{$skill->name_ru}}</p>
                                                                     @endforeach
                                                                 </div>
-                                                            </div>
-                                                        @endif
-                                                    </div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="work-box" style="margin-top: 25px;">
+                                                            @if($service->subCategory->portfolios->isNotEmpty())
+                                                                <h6 style="margin-bottom: 15px; padding: 5px;">
+                                                                    Works</h6>
+                                                                <div class="box-list-jobs">
+                                                                    <div class="row">
+                                                                        @foreach($service->subCategory->portfolios as $portfolio)
+                                                                            <div class="col-lg-4 col-md-6">
+                                                                                <div class="card-job">
+                                                                                    <div class="card-head"
+                                                                                         style="display: flex; flex-direction: column; align-items: flex-start;">
+                                                                                        <div
+                                                                                            style="width: 100%; height: 200px; border-radius: 8px; margin-bottom: 15px;">
+                                                                                            @if(!empty($portfolio->multi_image_video))
+                                                                                                @php
+                                                                                                    $mediaFiles = json_decode($portfolio->multi_image_video, true);
+                                                                                                @endphp
+
+                                                                                                @if(isset($mediaFiles[0]))
+                                                                                                    @php
+                                                                                                        $firstMedia = $mediaFiles[0];
+                                                                                                    @endphp
+
+                                                                                                    @if (filter_var($firstMedia, FILTER_VALIDATE_URL) && (str_contains($firstMedia, 'youtube.com') || str_contains($firstMedia, 'youtu.be')))
+                                                                                                        <!-- YouTube videoning thumbnail'ini chiqarish -->
+                                                                                                        @php
+                                                                                                            $youtubeId = '';
+                                                                                                            if (preg_match('/(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $firstMedia, $matches)) {
+                                                                                                                $youtubeId = $matches[1];
+                                                                                                            }
+                                                                                                        @endphp
+                                                                                                        @if ($youtubeId)
+                                                                                                            <img
+                                                                                                                src="https://img.youtube.com/vi/{{ $youtubeId }}/0.jpg"
+                                                                                                                alt="YouTube Thumbnail"
+                                                                                                                style="width: 200px; height: 200px;">
+                                                                                                        @endif
+                                                                                                    @else
+                                                                                                        <!-- Rasmni ko'rsatish -->
+                                                                                                        <img
+                                                                                                            src="{{ asset('storage/' . $firstMedia) }}"
+                                                                                                            alt="Portfolio Image"
+                                                                                                            style="width: 200px; height: 200px;">
+                                                                                                    @endif
+                                                                                                @endif
+                                                                                            @endif
+                                                                                        </div>
+
+                                                                                        <div
+                                                                                            style="display: flex; width: 100%; justify-content: space-between;">
+                                                                                            <div class="card-head-left">
+                                                                                                <a href="#"
+                                                                                                   id="openModalLink">
+                                                                                                    <h5 style="font-size: 18px;">
+                                                                                                        {{$portfolio->work_title}}
+                                                                                                    </h5>
+                                                                                                </a>
+                                                                                                <p class="text-md">by
+                                                                                                    {{$provider->companies->first()->name}} </p>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="card-head-right">
+                                                                                                <a href="javascript:void(0);"
+                                                                                                   id="openModalBtn{{$portfolio->id}}">
+                                                                                                    <svg width="38"
+                                                                                                         height="38"
+                                                                                                         viewBox="0 0 38 38"
+                                                                                                         fill="none"
+                                                                                                         xmlns="http://www.w3.org/2000/svg">
+                                                                                                        <rect width="38"
+                                                                                                              height="38"
+                                                                                                              rx="19"
+                                                                                                              fill=""></rect>
+                                                                                                        <g clip-path="url(#clip0_26_2613)">
+                                                                                                            <path
+                                                                                                                d="M23.6537 16.8139L14.718 25.7497L13.25 24.2817L22.1847 15.3459H14.31V13.2695H25.7301V24.6897H23.6537V16.8139Z"
+                                                                                                                fill="#191919">
+                                                                                                            </path>
+                                                                                                        </g>
+                                                                                                        <defs>
+                                                                                                            <clippath
+                                                                                                                id="clip0_26_2613">
+                                                                                                                <rect
+                                                                                                                    width="13"
+                                                                                                                    height="13"
+                                                                                                                    fill="white"
+                                                                                                                    transform="translate(13 13)">
+                                                                                                                </rect>
+                                                                                                            </clippath>
+                                                                                                        </defs>
+                                                                                                    </svg>
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- Trigger Button -->
 
 
-                                                    <div class="reviews-box" style="margin-top: 25px;">
-                                                        @if ($service->subCategory->reviews->isNotEmpty())
-                                                            <h6 style="margin-bottom: 15px; padding: 5px;">Reviews</h6>
+                                                                            <!-- Modal Structure -->
+                                                                            <div class="modal-overlay"
+                                                                                 id="customModalOverlay{{$portfolio->id}}">
+                                                                                <div class="modal-content">
+                                                                                <span class="modal-close"
+                                                                                      id="modalCloseBtn{{$portfolio->id}}">&times;</span>
+                                                                                    <div class="modal-header">
+                                                                                        <img
+                                                                                            src="{{asset('storage/'.$provider->companies->first()->logo)}}"
+                                                                                            alt="Dora Logo">
+                                                                                        <h2>{{$provider->companies->first()->name}}</h2>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <div class="modal-image">
+                                                                                            @if (!empty($portfolio->multi_image_video))
+                                                                                                @php
+                                                                                                    $mediaFiles = json_decode($portfolio->multi_image_video, true);
+                                                                                                    $images = [];
+                                                                                                    $videos = [];
+                                                                                                    $youtubeVideos = [];
 
-                                                            @foreach ($service->subCategory->reviews as $review)
+                                                                                                    // Media fayllarni ajratish
+                                                                                                    foreach ($mediaFiles as $media) {
+                                                                                                        if (filter_var($media, FILTER_VALIDATE_URL) && (str_contains($media, 'youtube.com') || str_contains($media, 'youtu.be'))) {
+                                                                                                            // YouTube havolani `embed` formatiga o'zgartirish
+                                                                                                            if (str_contains($media, 'watch?v=')) {
+                                                                                                                $youtubeVideos[] = str_replace('watch?v=', 'embed/', $media);
+                                                                                                            } elseif (str_contains($media, 'youtu.be/')) {
+                                                                                                                $youtubeVideos[] = str_replace('youtu.be/', 'youtube.com/embed/', $media);
+                                                                                                            }
+                                                                                                        } elseif (preg_match('/\.(jpg|jpeg|png|gif)$/i', $media)) {
+                                                                                                            $images[] = $media;
+                                                                                                        } elseif (preg_match('/\.(mp4|webm|ogg)$/i', $media)) {
+                                                                                                            $videos[] = $media;
+                                                                                                        }
+                                                                                                    }
+                                                                                                @endphp
 
-                                                                @php
-                                                                    $totalScoree = 0;
+                                                                                                    <!-- YouTube videolarini iframe yordamida chiqarish -->
+                                                                                                @foreach ($youtubeVideos as $youtubeUrl)
+                                                                                                    <iframe width="293"
+                                                                                                            height="293"
+                                                                                                            src="{{ $youtubeUrl }}"
+                                                                                                            frameborder="0"
+                                                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                                                            allowfullscreen></iframe>
+                                                                                                @endforeach
 
-                                                                        $totalScoree += ($review->quality_score + $review->budget_score + $review->schedule_score + $review->collaboration_score) / 4;
+                                                                                                <!-- Rasm fayllarni karusel ko'rinishida chiqarish -->
+                                                                                                @if (count($images) > 0)
+                                                                                                    <div
+                                                                                                        id="imageCarousel"
+                                                                                                        class="carousel slide"
+                                                                                                        data-bs-ride="carousel">
+                                                                                                        <div
+                                                                                                            class="carousel-inner">
+                                                                                                            @foreach ($images as $index => $image)
+                                                                                                                <div
+                                                                                                                    class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                                                                                                    <img
+                                                                                                                        src="{{ asset('storage/' . $image) }}"
+                                                                                                                        class="d-block w-293"
+                                                                                                                        alt="Portfolio Image"
+                                                                                                                        style="width: 293px; height: 293px;">
+                                                                                                                </div>
+                                                                                                            @endforeach
+                                                                                                        </div>
+                                                                                                        <button
+                                                                                                            class="carousel-control-prev"
+                                                                                                            type="button"
+                                                                                                            data-bs-target="#imageCarousel"
+                                                                                                            data-bs-slide="prev">
+                                                                                                            <span
+                                                                                                                class="carousel-control-prev-icon"
+                                                                                                                aria-hidden="true"></span>
+                                                                                                            <span
+                                                                                                                class="visually-hidden">Previous</span>
+                                                                                                        </button>
+                                                                                                        <button
+                                                                                                            class="carousel-control-next"
+                                                                                                            type="button"
+                                                                                                            data-bs-target="#imageCarousel"
+                                                                                                            data-bs-slide="next">
+                                                                                                            <span
+                                                                                                                class="carousel-control-next-icon"
+                                                                                                                aria-hidden="true"></span>
+                                                                                                            <span
+                                                                                                                class="visually-hidden">Next</span>
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                @endif
+
+                                                                                                <!-- Video fayllarni video tegi bilan chiqarish -->
+                                                                                                @foreach ($videos as $video)
+                                                                                                    <video width="293"
+                                                                                                           height="293"
+                                                                                                           controls>
+                                                                                                        <source
+                                                                                                            src="{{ asset('storage/' . $video) }}"
+                                                                                                            type="video/mp4">
+                                                                                                        Sizning
+                                                                                                        brauzeringiz
+                                                                                                        video formatini
+                                                                                                        qo‘llab-quvvatlamaydi.
+                                                                                                    </video>
+                                                                                                @endforeach
+                                                                                            @endif
+                                                                                        </div>
 
 
-                                                                @endphp
-                                                                <div class="card-testimonial col-lg-4">
-                                                                    <div class="card-rates">
-                                                                        @for ($i = 0; $i < 5; $i++)
-                                                                            <span>
+                                                                                        <div class="modal-info">
+                                                                                            @if($portfolio->clients->first())
+                                                                                                <h5>About</h5>
+                                                                                                <p>
+                                                                                                    <strong>Client:</strong> {{$portfolio->clients->first()->company_name}}
+                                                                                                </p>
+                                                                                                <p>
+                                                                                                    <strong>Location:</strong> {{$portfolio->clients->first()->location}}
+                                                                                                </p>
+                                                                                                <p>
+                                                                                                    <strong>Sector:</strong> {{$portfolio->clients->first()->sector->name}}
+                                                                                                </p>
+                                                                                                <p>
+                                                                                                    <strong>Audience:</strong> {{ $portfolio->clients->first()->audience }}
+                                                                                                </p>
+                                                                                                <div class="tags">
+                                                                                                    @foreach($services as $service)
+                                                                                                        <div
+                                                                                                            class="tag">{{$service->subCategory->name_ru ?? null}}</div>
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                                <p><strong>Geographic
+                                                                                                        Scope:</strong> {{ $portfolio->clients->first()->geographic_scope }}
+                                                                                                </p>
+                                                                                                <p>
+                                                                                                    <strong>Date:</strong> {{ $portfolio->start_date->format('F Y') }}
+                                                                                                    - {{ $portfolio->end_date->format('F Y') }}
+                                                                                                </p>
+                                                                                            @endif
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button
+                                                                                            class="btn btn-brand-4-medium col-lg-6"
+                                                                                            style="justify-content: center; margin:30px 0;"
+                                                                                            onclick="openModal()">
+                                                                                            Contact {{$provider->companies->first()->name}}</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <!-- JavaScript -->
+                                                                            <script>
+                                                                                // Function to setup each modal
+                                                                                function setupModal(portfolioId) {
+                                                                                    const openModalBtn = document.getElementById('openModalBtn' + portfolioId);
+                                                                                    const modalOverlay = document.getElementById('customModalOverlay' + portfolioId);
+                                                                                    const modalCloseBtn = document.getElementById('modalCloseBtn' + portfolioId);
+
+                                                                                    // Open modal function
+                                                                                    openModalBtn.addEventListener('click', () => {
+                                                                                        modalOverlay.style.display = 'flex';
+                                                                                    });
+
+                                                                                    // Close modal function
+                                                                                    modalCloseBtn.addEventListener('click', () => {
+                                                                                        modalOverlay.style.display = 'none';
+                                                                                    });
+
+                                                                                    // Close modal when clicking outside the modal content
+                                                                                    window.addEventListener('click', (event) => {
+                                                                                        if (event.target === modalOverlay) {
+                                                                                            modalOverlay.style.display = 'none';
+                                                                                        }
+                                                                                    });
+                                                                                }
+
+                                                                                // Setup modals for each portfolio
+
+                                                                                setupModal({{ $portfolio->id }});
+                                                                            </script>
+
+
+                                                                            <!-- modal end -->
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+
+
+                                                        <div class="reviews-box" style="margin-top: 25px;">
+                                                            @if ($service->subCategory->reviews->isNotEmpty())
+                                                                <h6 style="margin-bottom: 15px; padding: 5px;">
+                                                                    Reviews</h6>
+
+                                                                @foreach ($service->subCategory->reviews as $review)
+
+                                                                    @php
+                                                                        $totalScoree = 0;
+
+                                                                            $totalScoree += ($review->quality_score + $review->budget_score + $review->schedule_score + $review->collaboration_score) / 4;
+
+
+                                                                    @endphp
+                                                                    <div class="card-testimonial col-lg-4">
+                                                                        <div class="card-rates">
+                                                                            @for ($i = 0; $i < 5; $i++)
+                                                                                <span>
                                                                                                                                 <img
                                                                                                                                     src="{{ asset('/assets/imgs/template/icons/star.svg') }}"
                                                                                                                                     alt="jobhub"
                                                                                                                                     style="opacity: {{ $i < floor($totalScoree) ? '1' : '0.2' }};"/>
                                                                             </span>
-                                                                        @endfor
-                                                                    </div>
-                                                                    <div class="card-author">
-                                                                        <div class="author-info">
+                                                                            @endfor
+                                                                        </div>
+                                                                        <div class="card-author">
+                                                                            <div class="author-info">
                                                                                                                 <span
                                                                                                                     class="text-md author-name mr-10"
                                                                                                                     style="margin-top: 10px !important;">{{$review->full_name}}</span>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            @endforeach
+                                                                @endforeach
+                                                        </div>
+                                                        @endif
                                                     </div>
-                                                    @endif
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
 
-                                </div>
+                                    </div>
                                 @endif
                             </div>
                         </section>
@@ -602,64 +730,271 @@
                         <section id="portfolio" class="portfolios section" style="margin: 30px 0;">
                             <div class="box-list-news" style=" cursor: pointer;">
                                 @if($portfolios->isNotEmpty())
-                                <h2 class="title" style="font-size: 30px; padding: 5px;">Portfolio</h2>
-                                <div class="row portfolio-padding">
-                                    @foreach($portfolios as $portfolio)
-                                        <div id="card" class="col-lg-4 col-md-6">
-                                            <div class="card-news-style-2">
-                                                <div class="card-image ">
-                                                    @if(!empty($portfolio->multi_image_video))
-                                                        @php
-                                                            $mediaFiles = json_decode($portfolio->multi_image_video, true);
-                                                        @endphp
+                                    <h2 class="title" style="font-size: 30px; padding: 5px;">Portfolio</h2>
+                                    <div class="row portfolio-padding">
+                                        @foreach($portfolios as $portfolio)
+                                            <div id="card" class="col-lg-4 col-md-6">
+                                                <div class="card-news-style-2">
+                                                    <div class="card-image ">
+                                                        <div
+                                                            style="width: 100%; height: 200px; border-radius: 8px; margin-bottom: 15px;">
+                                                            @if(!empty($portfolio->multi_image_video))
+                                                                @php
+                                                                    $mediaFiles = json_decode($portfolio->multi_image_video, true);
+                                                                @endphp
 
-                                                        @if(isset($mediaFiles[0]))
-                                                            <!-- Birinchi rasmdan foydalanish -->
-                                                            <img src="{{ asset('storage/' . $mediaFiles[0]) }}"
-                                                                 alt="Portfolio Image"
-                                                                 style="width: 200px; height: 200px;">
-                                                        @endif
-                                                    @endif
-                                                </div>
-                                                <div class="card-info">
-                                                    <div>
-                                                        <h6 style="margin-bottom: 10px;"></h6>
+                                                                @if(isset($mediaFiles[0]))
+                                                                    @php
+                                                                        $firstMedia = $mediaFiles[0];
+                                                                    @endphp
+
+                                                                    @if (filter_var($firstMedia, FILTER_VALIDATE_URL) && (str_contains($firstMedia, 'youtube.com') || str_contains($firstMedia, 'youtu.be')))
+                                                                        <!-- YouTube videoning thumbnail'ini chiqarish -->
+                                                                        @php
+                                                                            $youtubeId = '';
+                                                                            if (preg_match('/(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $firstMedia, $matches)) {
+                                                                                $youtubeId = $matches[1];
+                                                                            }
+                                                                        @endphp
+                                                                        @if ($youtubeId)
+                                                                            <img
+                                                                                src="https://img.youtube.com/vi/{{ $youtubeId }}/0.jpg"
+                                                                                alt="YouTube Thumbnail"
+                                                                                style="width: 200px; height: 200px;">
+                                                                        @endif
+                                                                    @else
+                                                                        <!-- Rasmni ko'rsatish -->
+                                                                        <img
+                                                                            src="{{ asset('storage/' . $firstMedia) }}"
+                                                                            alt="Portfolio Image"
+                                                                            style="width: 200px; height: 200px;">
+                                                                    @endif
+                                                                @endif
+                                                            @endif
+                                                        </div>
                                                     </div>
-                                                    <div class="card-meta">
+                                                    <div class="card-info">
+                                                        <div>
+                                                            <h6 style="margin-bottom: 10px;"></h6>
+                                                        </div>
+                                                        <div class="card-meta">
                                                         <span
-                                                            class="btn btn-tag-sm">{{ $portfolio->subCategory->name_uz }}</span>
-                                                        <span class="date-post">{{ \Carbon\Carbon::parse($portfolio->created_at)->format('F d') }}
+                                                            class="btn btn-tag-sm">{{ $portfolio->subCategory->name }}</span>
+                                                            <span class="date-post">{{ \Carbon\Carbon::parse($portfolio->created_at)->format('F d') }}
 </span>
-                                                    </div>
-                                                    <div class="card-title">
-                                                        <p class="link-new">
-                                                            {{$portfolio->work_title}}
-                                                        </p>
-                                                    </div>
-                                                    <div class="card-more" style="margin-bottom: 50px;">
-                                                        <p class="btn btn-learmore-2">
-                                                            Read More
-                                                            <svg width="13" height="13" viewbox="0 0 13 13" fill="none"
-                                                                 xmlns="http://www.w3.org/2000/svg">
-                                                                <g clip-path="url(#clip0_599_4830)">
-                                                                    <path
-                                                                        d="M10.6537 3.8149L1.71801 12.7506L0.25 11.2826L9.18469 2.3469H1.31V0.270508H12.7301V11.6906H10.6537V3.8149Z"
-                                                                        fill=""></path>
-                                                                </g>
-                                                                <defs>
-                                                                    <clippath id="clip0_599_4830">
-                                                                        <rect width="13" height="13" fill="white">
-                                                                        </rect>
-                                                                    </clippath>
-                                                                </defs>
-                                                            </svg>
-                                                        </p>
+                                                        </div>
+                                                        <div class="card-title">
+                                                            <p class="link-new">
+                                                                {{$portfolio->work_title}}
+                                                            </p>
+                                                        </div>
+                                                        <div class="card-more" style="margin-bottom: 50px;">
+                                                            <a href="javascript:void(0);"
+                                                               id="openModalBtnn{{$portfolio->id}}"
+                                                               class="btn btn-learmore-2"
+                                                               style="text-decoration: none;">
+                                                                Read More
+                                                                <svg width="13" height="13" viewBox="0 0 13 13"
+                                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <g clip-path="url(#clip0_599_4830)">
+                                                                        <path
+                                                                            d="M10.6537 3.8149L1.71801 12.7506L0.25 11.2826L9.18469 2.3469H1.31V0.270508H12.7301V11.6906H10.6537V3.8149Z"
+                                                                            fill=""></path>
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_599_4830">
+                                                                            <rect width="13" height="13"
+                                                                                  fill="white"></rect>
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </a>
+
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
-                                </div>
+
+                                            <!-- Modal Structure -->
+                                            <div class="modal-overlay"
+                                                 id="customModalOverlayy{{$portfolio->id}}">
+                                                <div class="modal-content">
+                                                                                <span class="modal-close"
+                                                                                      id="modalCloseBtnn{{$portfolio->id}}">&times;</span>
+                                                    <div class="modal-header">
+                                                        <img
+                                                            src="{{asset('storage/'.$provider->companies->first()->logo)}}"
+                                                            alt="Dora Logo">
+                                                        <h2>{{$provider->companies->first()->name}}</h2>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="modal-image">
+                                                            @if (!empty($portfolio->multi_image_video))
+                                                                @php
+                                                                    $mediaFiles = json_decode($portfolio->multi_image_video, true);
+                                                                    $images = [];
+                                                                    $videos = [];
+                                                                    $youtubeVideos = [];
+
+                                                                    // Media fayllarni ajratish
+                                                                    foreach ($mediaFiles as $media) {
+                                                                        if (filter_var($media, FILTER_VALIDATE_URL) && (str_contains($media, 'youtube.com') || str_contains($media, 'youtu.be'))) {
+                                                                            // YouTube havolani `embed` formatiga o'zgartirish
+                                                                            if (str_contains($media, 'watch?v=')) {
+                                                                                $youtubeVideos[] = str_replace('watch?v=', 'embed/', $media);
+                                                                            } elseif (str_contains($media, 'youtu.be/')) {
+                                                                                $youtubeVideos[] = str_replace('youtu.be/', 'youtube.com/embed/', $media);
+                                                                            }
+                                                                        } elseif (preg_match('/\.(jpg|jpeg|png|gif)$/i', $media)) {
+                                                                            $images[] = $media;
+                                                                        } elseif (preg_match('/\.(mp4|webm|ogg)$/i', $media)) {
+                                                                            $videos[] = $media;
+                                                                        }
+                                                                    }
+                                                                @endphp
+
+
+                                                                    <!-- YouTube videolarini iframe yordamida chiqarish -->
+                                                                @if($youtubeVideos)
+                                                                    @foreach ($youtubeVideos as $youtubeUrl)
+                                                                        <iframe width="293"
+                                                                                height="293"
+                                                                                src="{{ $youtubeUrl }}"
+                                                                                frameborder="0"
+                                                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                                allowfullscreen></iframe>
+                                                                    @endforeach
+                                                                @endif
+
+                                                                <!-- Rasm fayllarni karusel ko'rinishida chiqarish -->
+                                                                @if (count($images) > 0)
+                                                                    <div
+                                                                        id="imageCarousel"
+                                                                        class="carousel slide"
+                                                                        data-bs-ride="carousel">
+                                                                        <div
+                                                                            class="carousel-inner">
+                                                                            @foreach ($images as $index => $image)
+                                                                                <div
+                                                                                    class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                                                                    <img
+                                                                                        src="{{ asset('storage/' . $image) }}"
+                                                                                        class="d-block w-293px"
+                                                                                        alt="Portfolio Image"
+                                                                                        style="width: 293px; height: 293px;">
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                        <button
+                                                                            class="carousel-control-prev"
+                                                                            type="button"
+                                                                            data-bs-target="#imageCarousel"
+                                                                            data-bs-slide="prev">
+                                                                                                            <span
+                                                                                                                class="carousel-control-prev-icon"
+                                                                                                                aria-hidden="true"></span>
+                                                                            <span
+                                                                                class="visually-hidden">Previous</span>
+                                                                        </button>
+                                                                        <button
+                                                                            class="carousel-control-next"
+                                                                            type="button"
+                                                                            data-bs-target="#imageCarousel"
+                                                                            data-bs-slide="next">
+                                                                                                            <span
+                                                                                                                class="carousel-control-next-icon"
+                                                                                                                aria-hidden="true"></span>
+                                                                            <span
+                                                                                class="visually-hidden">Next</span>
+                                                                        </button>
+                                                                    </div>
+                                                                @endif
+
+                                                                <!-- Video fayllarni video tegi bilan chiqarish -->
+                                                                @foreach ($videos as $video)
+                                                                    <video width="293"
+                                                                           height="293"
+                                                                           controls>
+                                                                        <source
+                                                                            src="{{ asset('storage/' . $video) }}"
+                                                                            type="video/mp4">
+                                                                        Sizning
+                                                                        brauzeringiz
+                                                                        video formatini
+                                                                        qo‘llab-quvvatlamaydi.
+                                                                    </video>
+                                                                @endforeach
+                                                            @endif
+                                                        </div>
+
+
+                                                        <div class="modal-info">
+                                                            @if($portfolio->clients->first())
+                                                                <h5>About</h5>
+                                                                <p>
+                                                                    <strong>Client:</strong> {{$portfolio->clients->first()->company_name}}
+                                                                </p>
+                                                                <p>
+                                                                    <strong>Location:</strong> {{$portfolio->clients->first()->location}}
+                                                                </p>
+                                                                <p>
+                                                                    <strong>Sector:</strong> {{$portfolio->clients->first()->sector->name}}
+                                                                </p>
+                                                                <p>
+                                                                    <strong>Audience:</strong> {{ $portfolio->clients->first()->audience }}
+                                                                </p>
+                                                                <div class="tags">
+                                                                    @foreach($services as $service)
+                                                                        <div
+                                                                            class="tag">{{$service->subCategory->name_ru ?? null}}</div>
+                                                                    @endforeach
+                                                                </div>
+                                                                <p><strong>Geographic
+                                                                        Scope:</strong> {{ $portfolio->clients->first()->geographic_scope }}
+                                                                </p>
+                                                                <p>
+                                                                    <strong>Date:</strong> {{ $portfolio->start_date->format('F Y') }}
+                                                                    - {{ $portfolio->end_date->format('F Y') }}
+                                                                </p>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- JavaScript -->
+                                            <script>
+                                                // Function to setup each modal
+                                                function setupModal(portfolioId) {
+                                                    const openModalBtnn = document.getElementById('openModalBtnn' + portfolioId);
+                                                    const modalOverlay = document.getElementById('customModalOverlayy' + portfolioId);
+                                                    const modalCloseBtnn = document.getElementById('modalCloseBtnn' + portfolioId);
+
+                                                    // Open modal function
+                                                    openModalBtnn.addEventListener('click', () => {
+                                                        modalOverlay.style.display = 'flex';
+                                                    });
+
+                                                    // Close modal function
+                                                    modalCloseBtnn.addEventListener('click', () => {
+                                                        modalOverlay.style.display = 'none';
+                                                    });
+
+                                                    // Close modal when clicking outside the modal content
+                                                    window.addEventListener('click', (event) => {
+                                                        if (event.target === modalOverlay) {
+                                                            modalOverlay.style.display = 'none';
+                                                        }
+                                                    });
+                                                }
+
+                                                // Setup modals for each portfolio
+
+                                                setupModal({{ $portfolio->id }});
+                                            </script>
+
+                                        @endforeach
+                                    </div>
                                 @endif
                             </div>
                             <div id="imageModal" class="image-modal-single">
@@ -697,6 +1032,7 @@
 
                                         .img-cont img {
                                             object-fit: cover;
+                                        }
                                     </style>
                                     <div class="modal-description gap-5 row ">
                                         <div class="modal-description-left col-sm-12 col-lg-8">
@@ -767,12 +1103,12 @@
                         <section id="team" class="team-section">
                             <div class="row content-blog-2" style="padding: 15px;">
                                 @if($teams)
-                                <h2 class="title" style="font-size: 30px; margin-bottom: 15px; padding: 0;">Team
-                                </h2>
-                                <div class="col-lg-12">
-                                    <div class="box-list-news-2">
-                                        <div class="row">
-                                            <div class="col-md" style="padding: 0;">
+                                    <h2 class="title" style="font-size: 30px; margin-bottom: 15px; padding: 0;">Team
+                                    </h2>
+                                    <div class="col-lg-12">
+                                        <div class="box-list-news-2">
+                                            <div class="row">
+                                                <div class="col-md" style="padding: 0;">
                                                     <div class="card-news-style-2 card-news-style-3">
                                                         <div class="card-image img-fluid">
                                                             <a href="#"><img
@@ -785,12 +1121,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+
                                             </div>
 
                                         </div>
-
                                     </div>
-                                </div>
                                 @endif
                             </div>
                             <section>
@@ -798,171 +1134,181 @@
                                 <section id="awards" class="awards-section" style="margin: 30px 15px 0;">
                                     <div class="row">
                                         @if($awards->isNotEmpty())
-                                        <h2 class="title " style="font-size: 30px; margin-bottom: 15px; padding: 0;">
-                                            Awards
-                                        </h2>
-                                        @foreach($awards as $award)
-                                            <div class="col-lg-3 col-sm-6" style="padding:0;">
-                                                <div class="card-features-5 " style="margin-left: 10px;">
-                                                    <div class="card-image"><i class="fa-solid fa-award"></i></div>
+                                            <h2 class="title "
+                                                style="font-size: 30px; margin-bottom: 15px; padding: 0;">
+                                                Awards
+                                            </h2>
+                                            @foreach($awards as $award)
+                                                <div class="col-lg-3 col-sm-6" style="padding:0;">
+                                                    <div class="card-features-5 " style="margin-left: 10px;">
+                                                        <div class="card-image"><i class="fa-solid fa-award"></i></div>
 
-                                                    <div class="card-info">
-                                                        <h6 style="text-transform: uppercase;">{{$award->name}}</h6>
-                                                        <p class="text-sm neutral-500">{{$award->date}}</p>
-                                                        <div style="margin-top: 10px ;" class="card-meta"><a
-                                                                class="btn btn-tag-sm"
-                                                                href="#">{{$award->category}}</a></div>
+                                                        <div class="card-info">
+                                                            <h6 style="text-transform: uppercase;">{{$award->name}}</h6>
+                                                            <p class="text-sm neutral-500">{{$award->date}}</p>
+                                                            <div style="margin-top: 10px ;" class="card-meta"><a
+                                                                    class="btn btn-tag-sm"
+                                                                    href="#">{{$award->category}}</a></div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
+                                            @endforeach
                                         @endif
                                     </div>
                                 </section>
 
                                 <section id="reviews" class="reviews-section" style="margin: 30px 15px 0px !important;">
                                     @if($reviews->isNotEmpty())
-                                    <h2 class="title" style="font-size: 30px; margin-bottom: 15px; padding: 0;">
-                                        Reviews</h2>
-                                    @foreach($reviews as $review)
-                                        <div class="row detail-term mb-2 review ">
-                                            <div class="col-lg-12" style="padding:0;">
-                                                <div class="list-change-log">
-                                                    <div class="item-log " style='margin-left:15px'>
-                                                        <div class="date-log">
+                                        <h2 class="title" style="font-size: 30px; margin-bottom: 15px; padding: 0;">
+                                            Reviews</h2>
+                                        @foreach($reviews as $review)
+                                            <div class="row detail-term mb-2 review ">
+                                                <div class="col-lg-12" style="padding:0;">
+                                                    <div class="list-change-log">
+                                                        <div class="item-log " style='margin-left:15px'>
+                                                            <div class="date-log">
                                                 <span style="padding: 15px; margin-bottom: 25px"
                                                       class="btn btn-brand-4-sm">{{ strtoupper(substr($review->full_name, 0, 2)) }}</span>
-                                                            <div style="font-weight: bold">Mijoz ismi</div>
-                                                            <p>{{$review->full_name}}</p>
-                                                            <div style="font-weight: bold">Services</div>
-                                                            <p>{{$review->serviceSubCategory->name_ru}}</p>
-                                                            <div style="font-weight: bold">Sectoer</div>
-                                                            <p>{{$review->company_industry}}</p>
-                                                            <div style="font-weight: bold">Team</div>
-                                                            <p>{{$review->company_size}}</p>
-                                                        </div>
-                                                        <div class="line-log"></div>
-                                                        <div style="display: flex; justify-content: space-between"
-                                                             class="info-log">
-                                                            <div style="width: 100%" class="">
-                                                                <h5 style="font-size: 18px; ">What was the objective
-                                                                    behind your
-                                                                    collaboration?</h5>
-                                                                <div id="text-container" style="margin-bottom: 20px;">
-                                                                    <div id="text-content" class="text-md neutral-500"
-                                                                         style="line-height: 1.5; margin-top: 15px">
-                                                                        <div class="truncate-text"
-                                                                             id="text-content-full-1">
-                                                                            {{$review->behind_collaboration}}
+                                                                <div style="font-weight: bold">Mijoz ismi</div>
+                                                                <p>{{$review->full_name}}</p>
+                                                                <div style="font-weight: bold">Services</div>
+                                                                <p>{{$review->serviceSubCategory->name_ru}}</p>
+                                                                <div style="font-weight: bold">Sectoer</div>
+                                                                <p>{{$review->company_industry}}</p>
+                                                                <div style="font-weight: bold">Team</div>
+                                                                <p>{{$review->company_size}}</p>
+                                                            </div>
+                                                            <div class="line-log"></div>
+                                                            <div style="display: flex; justify-content: space-between"
+                                                                 class="info-log">
+                                                                <div style="width: 100%" class="">
+                                                                    <h5 style="font-size: 18px; ">What was the objective
+                                                                        behind your
+                                                                        collaboration?</h5>
+                                                                    <div id="text-container"
+                                                                         style="margin-bottom: 20px;">
+                                                                        <div id="text-content"
+                                                                             class="text-md neutral-500"
+                                                                             style="line-height: 1.5; margin-top: 15px">
+                                                                            <div class="truncate-text"
+                                                                                 id="text-content-full-1">
+                                                                                {{$review->behind_collaboration}}
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <span data-target="text-content-full-1"
-                                                                          class="show-more-button">see
+                                                                        <span data-target="text-content-full-1"
+                                                                              class="show-more-button">see
                                                             more</span>
-                                                                </div>
-                                                                <h5 style="font-size: 18px;">What did you enjoy the most
-                                                                    during
-                                                                    your
-                                                                    collaboration?</h5>
-                                                                <div id="text-container" style="margin-bottom: 20px;">
-                                                                    <div id="text-content" class="text-md neutral-500"
-                                                                         style="line-height: 1.5; margin-top: 15px">
-                                                                        <div class="truncate-text"
-                                                                             id="text-content-full-2">
-                                                                            {{$review->during_collaboration}}
-                                                                        </div>
                                                                     </div>
-                                                                    <span data-target="text-content-full-2"
-                                                                          class="show-more-button">see
-                                                            more</span>
-                                                                </div>
-                                                                <h5 style="font-size: 18px;">Are there any areas for
-                                                                    improvements?</h5>
-                                                                <div id="text-container" style="margin-bottom: 20px;">
-                                                                    <div id="text-content" class="text-md neutral-500"
-                                                                         style="line-height: 1.5; margin-top: 15px">
-                                                                        <div class="truncate-text"
-                                                                             id="text-content-full-3">
-                                                                            {{$review->improvements}}
+                                                                    <h5 style="font-size: 18px;">What did you enjoy the
+                                                                        most
+                                                                        during
+                                                                        your
+                                                                        collaboration?</h5>
+                                                                    <div id="text-container"
+                                                                         style="margin-bottom: 20px;">
+                                                                        <div id="text-content"
+                                                                             class="text-md neutral-500"
+                                                                             style="line-height: 1.5; margin-top: 15px">
+                                                                            <div class="truncate-text"
+                                                                                 id="text-content-full-2">
+                                                                                {{$review->during_collaboration}}
+                                                                            </div>
                                                                         </div>
+                                                                        <span data-target="text-content-full-2"
+                                                                              class="show-more-button">see
+                                                            more</span>
                                                                     </div>
-                                                                    <span data-target="text-content-full-3"
-                                                                          class="show-more-button">see
-                                                            more</span>
-                                                                </div>
-                                                                <div class="stars stars-responsive">
-                                                                    <div>
-                                                                        <div class="" style="margin-top: 20px;">Budget
+                                                                    <h5 style="font-size: 18px;">Are there any areas for
+                                                                        improvements?</h5>
+                                                                    <div id="text-container"
+                                                                         style="margin-bottom: 20px;">
+                                                                        <div id="text-content"
+                                                                             class="text-md neutral-500"
+                                                                             style="line-height: 1.5; margin-top: 15px">
+                                                                            <div class="truncate-text"
+                                                                                 id="text-content-full-3">
+                                                                                {{$review->improvements}}
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="card-rates">
-                                                                            @for ($i = 0; $i < 5; $i++)
-                                                                                <span>
+                                                                        <span data-target="text-content-full-3"
+                                                                              class="show-more-button">see
+                                                            more</span>
+                                                                    </div>
+                                                                    <div class="stars stars-responsive">
+                                                                        <div>
+                                                                            <div class="" style="margin-top: 20px;">
+                                                                                Budget
+                                                                            </div>
+                                                                            <div class="card-rates">
+                                                                                @for ($i = 0; $i < 5; $i++)
+                                                                                    <span>
                                                                                      <img
                                                                                          src="{{ asset('/assets/imgs/template/icons/star.svg') }}"
                                                                                          alt="jobhub"
                                                                                          style="opacity: {{ $i < floor($review->budget_score) ? '1' : '0.2' }};"/>
                                                                                 </span>
-                                                                            @endfor
+                                                                                @endfor
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div>
-                                                                        <div class="" style="margin-top: 20px;">
-                                                                            Quality
-                                                                        </div>
-                                                                        <div class="card-rates">
-                                                                            @for ($i = 0; $i < 5; $i++)
-                                                                                <span>
+                                                                        <div>
+                                                                            <div class="" style="margin-top: 20px;">
+                                                                                Quality
+                                                                            </div>
+                                                                            <div class="card-rates">
+                                                                                @for ($i = 0; $i < 5; $i++)
+                                                                                    <span>
                                                                                      <img
                                                                                          src="{{ asset('/assets/imgs/template/icons/star.svg') }}"
                                                                                          alt="jobhub"
                                                                                          style="opacity: {{ $i < floor($review->quality_score) ? '1' : '0.2' }};"/>
                                                                                 </span>
-                                                                            @endfor
+                                                                                @endfor
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div>
-                                                                        <div class="" style="margin-top: 20px;">
-                                                                            Schedule
-                                                                        </div>
-                                                                        <div class="card-rates">
-                                                                            @for ($i = 0; $i < 5; $i++)
-                                                                                <span>
+                                                                        <div>
+                                                                            <div class="" style="margin-top: 20px;">
+                                                                                Schedule
+                                                                            </div>
+                                                                            <div class="card-rates">
+                                                                                @for ($i = 0; $i < 5; $i++)
+                                                                                    <span>
                                                                                      <img
                                                                                          src="{{ asset('/assets/imgs/template/icons/star.svg') }}"
                                                                                          alt="jobhub"
                                                                                          style="opacity: {{ $i < floor($review->schedule_score) ? '1' : '0.2' }};"/>
                                                                                 </span>
-                                                                            @endfor
+                                                                                @endfor
 
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div>
-                                                                        <div class="" style="margin-top: 20px;">
-                                                                            Collaboration
-                                                                        </div>
-                                                                        <div class="card-rates">
-                                                                            @for ($i = 0; $i < 5; $i++)
-                                                                                <span>
+                                                                        <div>
+                                                                            <div class="" style="margin-top: 20px;">
+                                                                                Collaboration
+                                                                            </div>
+                                                                            <div class="card-rates">
+                                                                                @for ($i = 0; $i < 5; $i++)
+                                                                                    <span>
                                                                                      <img
                                                                                          src="{{ asset('/assets/imgs/template/icons/star.svg') }}"
                                                                                          alt="jobhub"
                                                                                          style="opacity: {{ $i < floor($review->colloboration_score) ? '1' : '0.2' }};"/>
                                                                                 </span>
-                                                                            @endfor
+                                                                                @endfor
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
 
+                                                    </div>
                                                 </div>
                                             </div>
+                                        @endforeach
+                                        <div class="text-center">
+                                            <a href="#" id="toggleReviews">See all other reviews ({{$reviews->count()}}
+                                                )</a>
                                         </div>
-                                    @endforeach
-                                    <div class="text-center">
-                                        <a href="#" id="toggleReviews">See all other reviews ({{$reviews->count()}})</a>
-                                    </div>
                                     @endif
                                     <style>
                                         #reviews .review {
@@ -1066,8 +1412,9 @@
                                                 <div class="box-socials-footer"><a class="icon-socials icon-facebook"
                                                                                    href="#"><img alt="Nivia"
                                                                                                  src="/assets/imgs/template/icons/fb.svg"></a><a
-                                                        class="icon-socials icon-instagram" href="#"><img alt="Nivia"
-                                                                                                          src="/assets/imgs/template/icons/in.svg"></a><a
+                                                        class="icon-socials icon-instagram" href="#"><img
+                                                            alt="Nivia"
+                                                            src="/assets/imgs/template/icons/in.svg"></a><a
                                                         class="icon-socials icon-twitter" href="#"><img alt="Nivia"
                                                                                                         src="/assets/imgs/template/icons/tw.svg"></a><a
                                                         class="icon-socials icon-be" href="#"><img alt="Nivia"
@@ -1078,14 +1425,15 @@
                                         </div>
                                     </div>
                                 </section>
-                    </div>
 
+                    </div>
+                </div>
                 </div>
             </div>
         </section>
 
         <div id="doraModal"
-             style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; z-index:999;">
+             style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; z-index:1001;">
 
             <div class="box-border-rounded p-3"
                  style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; width: 50%; max-height: 90%; overflow-y: auto; background-color: white; border-radius: 10px;">
@@ -1187,6 +1535,40 @@
                     closeModal();
                 }
             }
+
+
+
+            // Accordionning barcha tugmalarini olish
+            const accordionButtons = document.querySelectorAll('.accordion-button');
+
+            // Har bir tugmaga bosish hodisasini qo'shish
+            accordionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const serviceId = button.getAttribute('data-id');
+                    const content = document.getElementById('flush-collapseOne' + serviceId);
+
+                    // Agar accordion ochiq bo'lsa, yopamiz
+                    if (content.classList.contains('collapse') && !content.classList.contains('show')) {
+                        // Boshqa accordionlarni yopish
+                        const allAccordions = document.querySelectorAll('.accordion-collapse');
+                        allAccordions.forEach(item => {
+                            if (item !== content && item.classList.contains('show')) {
+                                item.classList.remove('show');
+                                item.classList.add('collapse');
+                            }
+                        });
+
+                        // Tanlangan accordionni ochish
+                        content.classList.remove('collapse');
+                        content.classList.add('show');
+                    } else {
+                        // Agar accordion ochiq bo'lsa, yopamiz
+                        content.classList.remove('show');
+                        content.classList.add('collapse');
+                    }
+                });
+            });
+
         </script>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
