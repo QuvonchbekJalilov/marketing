@@ -53,11 +53,10 @@
                                             @foreach ($multiImageVideoPaths as $filePath)
                                                 <div>
                                                     <img src="{{ Storage::url($filePath) }}" alt="Media file"
-                                                        style="max-width: 100px;" />
+                                                         style="max-width: 100px;" />
                                                 </div>
                                             @endforeach
                                         @endif
-                                        <!-- Check if the URL is correct by visiting it directly -->
                                         <h5>Изображение или видео</h5>
                                         <p>Покажите несколько изображений или видео, демонстрирующих вашу работу.</p>
                                         <div id="workIllustrationsContainer">
@@ -79,10 +78,9 @@
                                                 </div>
 
                                                 <div id="inputContainer" class="mt-3">
-                                                    <div id="imageInput" class="input-field" >
+                                                    <div id="imageInput" class="input-field" style="display: none;">
                                                         <label for="imageFile">Загрузить изображение:</label>
-                                                        <input type="file" id="imageFile" accept="image/*" name="multi_image_video[]"  multiple >
-
+                                                        <input type="file" id="imageFile" name="multi_image_video[]" accept="image/*" multiple class="form-control @error('multi_image_video.*') is-invalid @enderror">
                                                         @error('multi_image_video.*')
                                                         <span class="invalid-feedback">{{ $message }}</span>
                                                         @enderror
@@ -102,12 +100,11 @@
                                                 Рекомендуемый размер: <b>2MB max</b>. Рекомендуемое разрешение: <b>1200x900 px</b>. Пожалуйста, постарайтесь сохранить альбомную ориентацию: <b>1.3:1</b>.
                                             </div>
                                         </div>
-
                                     </div>
+
+
                                 </div>
                             </div>
-
-
 
                             <div class="col-md-12">
                                 <h5>Экспертиза</h5>
@@ -315,26 +312,26 @@
 <!--! ================================================================ !-->
 
     <script>
-            function showInput(type) {
-                // Barcha input maydonlarini va qo'shimcha ma'lumotlarni dastlab yashirish
-                document.getElementById('imageInput').style.display = 'none';
-                document.getElementById('youtubeInput').style.display = 'none';
-                document.getElementById('imageInputInfo').style.display = 'none';
+        function showInput(type) {
+            // Barcha input maydonlarini va qo'shimcha ma'lumotlarni dastlab yashirish
+            document.getElementById('imageInput').style.display = 'none';
+            document.getElementById('youtubeInput').style.display = 'none';
+            document.getElementById('imageInputInfo').style.display = 'none';
 
-                // Tanlangan input maydoni va tugma dizaynini ko'rsatish
-                if (type === 'image') {
-                    document.getElementById('imageInput').style.display = 'block';
-                    document.getElementById('imageInputInfo').style.display = 'block';
+            // Tanlangan input maydoni va tugma dizaynini ko'rsatish
+            if (type === 'image') {
+                document.getElementById('imageInput').style.display = 'block';
+                document.getElementById('imageInputInfo').style.display = 'block';
 
-                    // Fayl yuklash dialogini avtomatik ochish
-                    const imageInput = document.getElementById('imageFile');
-                    if (imageInput) {
-                        imageInput.click();
-                    }
-                } else if (type === 'youtube') {
-                    document.getElementById('youtubeInput').style.display = 'block';
+                // Fayl yuklash dialogini avtomatik ochish
+                const imageInput = document.getElementById('imageFile');
+                if (imageInput) {
+                    imageInput.click();
                 }
+            } else if (type === 'youtube') {
+                document.getElementById('youtubeInput').style.display = 'block';
             }
+        }
     </script>
 <script>
     document.getElementById('editServiceSelect').addEventListener('change', function() {
@@ -381,19 +378,9 @@
 
     // Trigger change event to load skills for the initially selected service
     document.getElementById('editServiceSelect').dispatchEvent(new Event('change'));
+
+
+
 </script>
 @endforeach
-<style>
-    .sticky-column {
-        position: -webkit-sticky;
-        /* Safari uchun */
-        position: sticky;
-        top: 0;
-        /* Ekran yuqorisidan qanchalik uzoqda bo'lishini belgilaydi */
-        /* Agar kerak bo'lsa, boshqa uslublarni qo'shing */
-        height: 100vh;
-        /* Bo'lim balandligini ekran balandligi bilan moslashtiradi */
-        overflow: auto;
-        /* Agar bo'lim juda uzun bo'lsa, scroll bo'lishini ta'minlaydi */
-    }
-</style>
+

@@ -634,8 +634,8 @@
                                         <p style="margin-bottom: 0;">Share your experience with us.</p>
                                     </div>
                                 </div>
-                                <a href="{{route('singleReviews')}}"><button class="btn btn-brand-4-medium"
-                                        type="submit">Write a review</button></a>
+{{--                                <a href="{{route('singleReviews')}}"><button class="btn btn-brand-4-medium"--}}
+{{--                                        type="submit">Write a review</button></a>--}}
 
 
                             </div>

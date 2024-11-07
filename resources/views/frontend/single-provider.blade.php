@@ -254,9 +254,9 @@
                                         @foreach($services as $service)
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="service-heading-{{$service->id}}">
-                                                    <button class="accordion-button collapsed service-accordion-btn" type="button"
-                                                            data-bs-toggle="collapse"
-                                                            data-bs-target="#service-collapse-{{$service->id}}"
+                                                    <button class="accordion-button collapsed service-accordion-btn"
+                                                            type="button"
+                                                            data-target="service-collapse-{{$service->id}}"
                                                             aria-expanded="false"
                                                             aria-controls="service-collapse-{{$service->id}}"
                                                             style="display:flex; justify-content: space-between;">
@@ -307,16 +307,20 @@
                                                         </div>
                                                     </button>
                                                 </h2>
-                                                <div id="service-collapse-{{$service->id}}" class="accordion-collapse collapse service-accordion-collapse"
-                                                     aria-labelledby="service-heading-{{$service->id}}" data-bs-parent="#accordionFAQS">
+                                                <div id="service-collapse-{{$service->id}}"
+                                                     class="accordion-collapse collapse service-accordion-collapse"
+                                                     aria-labelledby="service-heading-{{$service->id}}"
+                                                     data-bs-parent="#accordionFAQS">
                                                     <div class="accordion-body">
                                                         <h6 style="margin-bottom: 15px;">Description</h6>
-                                                        <div class="service-truncate-text" id="service-text-content-{{$service->id}}">
+                                                        <div class="service-truncate-text"
+                                                             id="service-text-content-{{$service->id}}">
                                                             <p>{{$service->description}}</p>
                                                         </div>
-                                                        <button data-service-target="service-text-content-{{$service->id}}"
-                                                                class="service-show-more-btn"
-                                                                style="border: none; background-color: transparent; padding: 0;">
+                                                        <button
+                                                            data-service-target="service-text-content-{{$service->id}}"
+                                                            class="service-show-more-btn"
+                                                            style="border: none; background-color: transparent; padding: 0;">
                                                             see
                                                             more
                                                         </button>
@@ -667,66 +671,6 @@
                                 @endif
                             </div>
                         </section>
-
-
-                    </div>
-                    <div class="col-sm-12 col-lg-4">
-                        <div class="col-12 px-lg-15 mt-lg-30">
-                            <div class="order-lg-first" style="margin-top: 15px;">
-                                <div class="sidebar">
-                                    <div class="box-sidebar-rounded">
-
-                                        <div class="sidebar-content">
-                                            <div class="item-line">
-                                                <div
-                                                    class="text-date-post text-16-bold">{{$provider->companies->first()->number_of_team}}
-                                                    people
-                                                </div>
-                                                <p class="text-date-post-value text-md neutral-500">in their team</p>
-                                            </div>
-                                            <div class="item-line">
-                                                <div class="text-date-expire text-16-bold">4 projects</div>
-                                                <p class="text-date-post-value text-md neutral-500">in their portfolio
-                                                </p>
-                                            </div>
-                                            <div class="item-line">
-                                                <div class="text-salary text-16-bold">{{$awards->count()}} award</div>
-                                                <p class="text-date-post-value text-md neutral-500">conferred</p>
-                                            </div>
-                                            <div class="item-line">
-                                                <div class="text-location text-16-bold">Phone number:</div>
-                                                <p class="text-date-post-value text-md neutral-500">{{$provider->companies->first()->phone_number}}
-                                                </p>
-                                            </div>
-                                            <div class="item-line">
-                                                <div
-                                                    class="text-date-lang text-16-bold">{{$provider->language->name_uz}}</div>
-                                            </div>
-                                            <div class="item-line">
-                                                <div class="text-date-founded text-16-bold">Founded
-                                                    in {{$provider->companies->first()->founded}}</div>
-                                            </div>
-                                            <div class="box-button-sidebar"><a class="btn btn-black btn-rounded"
-                                                                               href="{{$provider->companies->first()->website}}"
-                                                                               target="_blank">Open website
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="8"
-                                                         viewbox="0 0 22 8" fill="none">
-                                                        <path
-                                                            d="M22 4.00032L18.4791 0.479492V3.3074H0V4.69333H18.4791V7.52129L22 4.00032Z"
-                                                            fill="">
-                                                        </path>
-                                                    </svg>
-                                                </a></div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
                         <section id="portfolio" class="portfolios section" style="margin: 30px 0;">
                             <div class="box-list-news" style=" cursor: pointer;">
                                 @if($portfolios->isNotEmpty())
@@ -781,7 +725,7 @@
                                                         <span
                                                             class="btn btn-tag-sm">{{ $portfolio->subCategory->name }}</span>
                                                             <span class="date-post">{{ \Carbon\Carbon::parse($portfolio->created_at)->format('F d') }}
-</span>
+                                                        </span>
                                                         </div>
                                                         <div class="card-title">
                                                             <p class="link-new">
@@ -1032,7 +976,6 @@
 
                                         .img-cont img {
                                             object-fit: cover;
-                                        }
                                     </style>
                                     <div class="modal-description gap-5 row ">
                                         <div class="modal-description-left col-sm-12 col-lg-8">
@@ -1099,6 +1042,67 @@
                                 <span id="image-modal-close-footer" class="image-modal-close-footer">&times;</span>
                             </div>
                         </section>
+
+
+                    </div>
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="col-12 px-lg-15 mt-lg-30">
+                            <div class="order-lg-first" style="margin-top: 15px;">
+                                <div class="sidebar">
+                                    <div class="box-sidebar-rounded">
+
+                                        <div class="sidebar-content">
+                                            <div class="item-line">
+                                                <div
+                                                    class="text-date-post text-16-bold">{{$provider->companies->first()->number_of_team}}
+                                                    people
+                                                </div>
+                                                <p class="text-date-post-value text-md neutral-500">in their team</p>
+                                            </div>
+                                            <div class="item-line">
+                                                <div class="text-date-expire text-16-bold">4 projects</div>
+                                                <p class="text-date-post-value text-md neutral-500">in their portfolio
+                                                </p>
+                                            </div>
+                                            <div class="item-line">
+                                                <div class="text-salary text-16-bold">{{$awards->count()}} award</div>
+                                                <p class="text-date-post-value text-md neutral-500">conferred</p>
+                                            </div>
+                                            <div class="item-line">
+                                                <div class="text-location text-16-bold">Phone number:</div>
+                                                <p class="text-date-post-value text-md neutral-500">{{$provider->companies->first()->phone_number}}
+                                                </p>
+                                            </div>
+                                            <div class="item-line">
+                                                <div
+                                                    class="text-date-lang text-16-bold">{{$provider->language->name_uz}}</div>
+                                            </div>
+                                            <div class="item-line">
+                                                <div class="text-date-founded text-16-bold">Founded
+                                                    in {{$provider->companies->first()->founded}}</div>
+                                            </div>
+                                            <div class="box-button-sidebar"><a class="btn btn-black btn-rounded"
+                                                                               href="{{$provider->companies->first()->website}}"
+                                                                               target="_blank">Open website
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="8"
+                                                         viewbox="0 0 22 8" fill="none">
+                                                        <path
+                                                            d="M22 4.00032L18.4791 0.479492V3.3074H0V4.69333H18.4791V7.52129L22 4.00032Z"
+                                                            fill="">
+                                                        </path>
+                                                    </svg>
+                                                </a></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-12">
+
 
                         <section id="team" class="team-section">
                             <div class="row content-blog-2" style="padding: 15px;">
@@ -1196,8 +1200,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <span data-target="text-content-full-1"
-                                                                              class="show-more-button">see
-                                                            more</span>
+                                                                              class="show-more-button">see more</span>
                                                                     </div>
                                                                     <h5 style="font-size: 18px;">What did you enjoy the
                                                                         most
@@ -1425,9 +1428,8 @@
                                         </div>
                                     </div>
                                 </section>
-
                     </div>
-                </div>
+
                 </div>
             </div>
         </section>
@@ -1536,38 +1538,34 @@
                 }
             }
 
+            //accordion
+            document.addEventListener("DOMContentLoaded", function () {
+                const buttons = document.querySelectorAll(".service-accordion-btn");
 
+                buttons.forEach(button => {
+                    button.addEventListener("click", function () {
+                        const targetId = button.getAttribute("data-target");
+                        const targetElement = document.getElementById(targetId);
 
-            // Accordionning barcha tugmalarini olish
-            const accordionButtons = document.querySelectorAll('.accordion-button');
+                        if (targetElement) {
+                            if (targetElement.classList.contains("show")) {
+                                targetElement.classList.remove("show");
+                                button.setAttribute("aria-expanded", "false");
+                            } else {
+                                // Barcha accordionlarni yopish
+                                document.querySelectorAll(".accordion-collapse").forEach(collapse => {
+                                    collapse.classList.remove("show");
+                                });
 
-            // Har bir tugmaga bosish hodisasini qo'shish
-            accordionButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const serviceId = button.getAttribute('data-id');
-                    const content = document.getElementById('flush-collapseOne' + serviceId);
-
-                    // Agar accordion ochiq bo'lsa, yopamiz
-                    if (content.classList.contains('collapse') && !content.classList.contains('show')) {
-                        // Boshqa accordionlarni yopish
-                        const allAccordions = document.querySelectorAll('.accordion-collapse');
-                        allAccordions.forEach(item => {
-                            if (item !== content && item.classList.contains('show')) {
-                                item.classList.remove('show');
-                                item.classList.add('collapse');
+                                targetElement.classList.add("show");
+                                button.setAttribute("aria-expanded", "true");
                             }
-                        });
-
-                        // Tanlangan accordionni ochish
-                        content.classList.remove('collapse');
-                        content.classList.add('show');
-                    } else {
-                        // Agar accordion ochiq bo'lsa, yopamiz
-                        content.classList.remove('show');
-                        content.classList.add('collapse');
-                    }
+                        }
+                    });
                 });
             });
+
+
 
         </script>
 

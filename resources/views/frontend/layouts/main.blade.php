@@ -46,20 +46,7 @@
             </div>
           </div>
           <div class="header-right"><a class="btn btn-search hover-up" href="#"></a>
-              <select class="form-select nice-select" id="languageSelect" onchange="changeLanguage(this)">
-                  <option value="uz" {{ App::getLocale() === 'uz' ? 'selected' : '' }}>Uz</option>
-                  <option value="ru" {{ App::getLocale() === 'ru' ? 'selected' : '' }}>RU</option>
-                  <option value="en" {{ App::getLocale() === 'en' ? 'selected' : '' }}>En</option>
-              </select>
-              <script>
-                  function changeLanguage(selectElement) {
-                      const selectedValue = selectElement.value;
 
-                      // Laravelning 'url' funksiyasidan foydalanib to'liq URL ni hosil qilish
-                      const baseUrl = "{{ url('/') }}";
-                      window.location.href = `${baseUrl}/locale/${selectedValue}`;
-                  }
-              </script>
               <div class="form-search p-20">
               <form action="{{ route('search') }}" method="GET">
                 <input class="form-control" type="text" placeholder="Search" name="query" {{ request()->input('query') }}>
@@ -242,12 +229,29 @@
                   <div class="text-center text-md-start">
                     <div class="text-start d-inline-block">
                       <p class="text-lg title-follow neutral-0">{{__('lan.follow_us')}}
-                        <div class="box-socials-footer"><a class="icon-socials icon-facebook" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/fb.svg"></a><a class="icon-socials icon-instagram" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/in.svg"></a><a class="icon-socials icon-twitter" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/tw.svg"></a><a class="icon-socials icon-be" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/be.svg"></a></div>
+                        <div class="box-socials-footer"><a class="icon-socials icon-facebook" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/fb.svg"></a><a class="icon-socials icon-instagram" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/in.svg"></a><a class="icon-socials icon-twitter" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/tw.svg"></a><a class="icon-socials icon-be" href="#"><img alt="Nivia" src="/assets/imgs/template/icons/be.svg"></a>
+
+                        </div>
                       </p>
                     </div>
+
                   </div>
                 </div>
                 <div class="col-md-6 mb-20">
+                    <select class="form-select nice-select" id="languageSelect" onchange="changeLanguage(this)">
+                        <option value="uz" {{ App::getLocale() === 'uz' ? 'selected' : '' }}>Uzbek</option>
+                        <option value="ru" {{ App::getLocale() === 'ru' ? 'selected' : '' }}>Russian</option>
+                        <option value="en" {{ App::getLocale() === 'en' ? 'selected' : '' }}>English</option>
+                    </select>
+                    <script>
+                        function changeLanguage(selectElement) {
+                            const selectedValue = selectElement.value;
+
+                            // Laravelning 'url' funksiyasidan foydalanib to'liq URL ni hosil qilish
+                            const baseUrl = "{{ url('/') }}";
+                            window.location.href = `${baseUrl}/locale/${selectedValue}`;
+                        }
+                    </script>
                   <p class="text-sm neutral-600">{{__('lan.copyright_DORA')}}</p>
                 </div>
               </div>
